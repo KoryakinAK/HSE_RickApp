@@ -5,9 +5,10 @@ func collapse(_ str: String) -> String {
     var count = 0
     var resultingString = ""
     
-    func appendPlease(_: Character, with count: Int, to resultingString: inout String) {
-            resultingString += String(currentLetter!)
-            resultingString += count == 1 ? "" : String(count)
+    func appendIfNeeded(_ charToAppend: Character?, with count: Int, to resultingString: inout String) {
+        guard let unwrappedChar = charToAppend else { return }
+        resultingString += String(unwrappedChar)
+        resultingString += count == 1 ? "" : String(count)
     }
     
     for char in str {
@@ -20,13 +21,13 @@ func collapse(_ str: String) -> String {
             if char == currentLetter {
                 count += 1
             } else {
-                appendPlease(currentLetter!, with: count, to: &resultingString)
+                appendIfNeeded(currentLetter, with: count, to: &resultingString)
                 count = 1
                 currentLetter = char
             }
         }
     }
-    appendPlease(currentLetter!, with: count, to: &resultingString)
+    appendIfNeeded(currentLetter, with: count, to: &resultingString)
     return resultingString
 }
 
