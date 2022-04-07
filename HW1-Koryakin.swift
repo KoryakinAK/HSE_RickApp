@@ -40,19 +40,21 @@ if collapse("AABBBCRFFA") == "A2B3CRF2A" {
 // Количество простых чисел меньше N
 func numberOfPrimesLessThan(_ number: Int) -> Int {
     var result = [Int]()
-    var previousNumbers = [Int]()
-    for currentNumber in 2...number {
-        var counter = 0
-        for prevNum in previousNumbers {
-            if currentNumber % prevNum == 0 && prevNum != 1 {
-                counter = counter + 1
-            }
+    
+mainLoop: for currentNumber in 2...number where number % 2 == 0 {
+    var counter = 0
+    var prevNum = 2
+    while prevNum * prevNum <= currentNumber {
+        if currentNumber % prevNum == 0 {
+            counter = counter + 1
+            continue mainLoop
         }
-        if counter == 0 {
-            result.append(currentNumber)
-        }
-        previousNumbers.append(currentNumber)
+        prevNum += 1
     }
+    if counter == 0 {
+        result.append(currentNumber)
+    }
+}
     return result.count
 }
 
