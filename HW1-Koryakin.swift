@@ -68,11 +68,13 @@ let info = [
 ]
 
 func bestPlayers(from playersInfo: [String: [String?]]) -> [String] {
-    let result = playersInfo.values.flatMap { $0.compactMap {player in
-        return player?.count ?? 0 > 5 ? player : nil
-    }}
-    
-    return result.sorted(by: <)
+    return playersInfo
+        .values
+        .flatMap {
+            $0.compactMap {
+                player in
+                return (player?.count ?? 0) > 5 ? player : nil
+            }}.sorted(by: <)
 }
 
 let correctAnswer = ["Grealish", "Lukaku", "Mbappe", "Neymar", "Sterling", "Werner"]
