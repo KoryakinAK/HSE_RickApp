@@ -42,18 +42,14 @@ func numberOfPrimesLessThan(_ number: Int) -> Int {
     var result = [Int]()
     
 mainLoop: for currentNumber in 2...number where number % 2 == 0 {
-    var counter = 0
     var prevNum = 2
     while prevNum * prevNum <= currentNumber {
         if currentNumber % prevNum == 0 {
-            counter = counter + 1
             continue mainLoop
         }
         prevNum += 1
     }
-    if counter == 0 {
-        result.append(currentNumber)
-    }
+    result.append(currentNumber)
 }
     return result.count
 }
