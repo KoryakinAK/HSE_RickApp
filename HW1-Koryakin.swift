@@ -39,27 +39,31 @@ if collapse("AABBBCRFFA") == "A2B3CRF2A" {
 }
 // Количество простых чисел меньше N
 func numberOfPrimesLessThan(_ number: Int) -> Int {
-    var result = [Int]()
+    guard number > 2 else { return 0}
+    guard number > 3 else { return 1}
+
+    var currentIndex = 0
+    var currentPrimeNum = 2
+    var numbers: [Int] = Array(2...number)
     
-mainLoop: for currentNumber in 2...number where number % 2 == 0 {
-    var prevNum = 2
-    while prevNum * prevNum <= currentNumber {
-        if currentNumber % prevNum == 0 {
-            continue mainLoop
+    while currentPrimeNum * currentPrimeNum <= number {
+        numbers = numbers.filter {
+            (($0 % currentPrimeNum) != 0) || ($0 < 2*currentPrimeNum)
         }
-        prevNum += 1
+        currentIndex += 1
+        currentPrimeNum = numbers[currentIndex]
     }
-    result.append(currentNumber)
+    return numbers.count
 }
-    return result.count
-}
-
-// 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 - 10 чисел для N=30
 print("\nЗадание #2\n\(numberOfPrimesLessThan(30))")
-if numberOfPrimesLessThan(30) == 10 {
-    print("№2 👍")
-}
-
+let primesUnder100 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+assert(numberOfPrimesLessThan(100) == primesUnder100.count)
+assert(numberOfPrimesLessThan(30) == 10)
+assert(numberOfPrimesLessThan(4) == 2)
+assert(numberOfPrimesLessThan(3) == 1)
+assert(numberOfPrimesLessThan(2) == 0)
+assert(numberOfPrimesLessThan(1) == 0)
+print("№2 👍")
 
 let info = [
     "Chelsea": ["Kante", "Lukaku", "Werner"],
