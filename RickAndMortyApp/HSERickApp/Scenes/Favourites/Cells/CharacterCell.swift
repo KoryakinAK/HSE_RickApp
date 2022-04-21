@@ -36,8 +36,7 @@ class CharacterCell: UITableViewCell, SelfConfigurableCharacterCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .default
-//        self.contentView.backgroundColor = UIColor(named: "backgroundColor")
-//        self.backgroundColor =  UIColor(named: "backgroundColor")
+        self.backgroundColor =  UIColor(named: "backgroundColor")
         setupLayout()
     }
     
