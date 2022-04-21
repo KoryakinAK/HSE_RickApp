@@ -9,7 +9,7 @@ import UIKit
 
 class HomeVC: UIViewController {
     
-    let rickAndMortyLabel: UILabel = {
+    private let rickAndMortyLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         let textAttributes = [
@@ -23,7 +23,7 @@ class HomeVC: UIViewController {
         return label
     }()
     
-    let characterBookLabel: UILabel = {
+    private let characterBookLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "CHARACTER\nBOOK"
@@ -39,8 +39,7 @@ class HomeVC: UIViewController {
     }
     
     func setupLabels() {
-        let allObjects: [UIView] = [rickAndMortyLabel, characterBookLabel]
-        allObjects.forEach { [weak self] in
+        [rickAndMortyLabel, characterBookLabel].forEach { [weak self] in
             $0.translatesAutoresizingMaskIntoConstraints = false
             self?.view.addSubview($0)
         }
