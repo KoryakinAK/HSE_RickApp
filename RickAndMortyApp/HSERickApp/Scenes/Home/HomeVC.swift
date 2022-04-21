@@ -13,8 +13,10 @@ class HomeVC: UIViewController {
         let label = UILabel()
         label.numberOfLines = 0
         let textAttributes = [
-            NSAttributedString.Key.strokeColor : UIColor.label,
-            NSAttributedString.Key.foregroundColor : UIColor.systemBackground,
+            NSAttributedString.Key.strokeColor :
+                UIColor(named: "mainLabelColor") ?? UIColor.label,
+            NSAttributedString.Key.foregroundColor :
+                UIColor(named: "backgroundColor") ?? UIColor.systemBackground,
             NSAttributedString.Key.strokeWidth : -1.0,
             NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 72)
         ] as [NSAttributedString.Key : Any]
@@ -27,14 +29,14 @@ class HomeVC: UIViewController {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "CHARACTER\nBOOK"
-        label.textColor = .label
+        label.textColor = UIColor(named: "mainLabelColor")
         label.font = UIFont.boldSystemFont(ofSize: 32)
         return label
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
+        self.view.backgroundColor = UIColor(named: "backgroundColor")
         setupLabels()
     }
     

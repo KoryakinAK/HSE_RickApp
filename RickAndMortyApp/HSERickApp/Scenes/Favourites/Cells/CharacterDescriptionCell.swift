@@ -11,7 +11,7 @@ class CharacterDescriptionCell: UITableViewCell, SelfConfigurableDescriptionCell
     let title: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.textColor = .white // TODO: цвета
+        label.textColor = UIColor(named: "secondaryLabelColor")
         label.numberOfLines = 1
         label.font = .boldSystemFont(ofSize: 22)
         label.adjustsFontSizeToFitWidth = true
@@ -22,7 +22,7 @@ class CharacterDescriptionCell: UITableViewCell, SelfConfigurableDescriptionCell
     let value: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.textColor = .white
+        label.textColor = UIColor(named: "mainLabelColor")
         label.font = .boldSystemFont(ofSize: 22)
         return label
     }()
@@ -32,6 +32,7 @@ class CharacterDescriptionCell: UITableViewCell, SelfConfigurableDescriptionCell
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
+        self.backgroundColor = UIColor(named: "backgroundColor")
         setupLayout()
     }
     
@@ -67,7 +68,7 @@ class CharacterDescriptionCell: UITableViewCell, SelfConfigurableDescriptionCell
     func showSeparator() {
         contentView.addSubview(separator)
         separator.translatesAutoresizingMaskIntoConstraints = false
-        separator.backgroundColor = .white
+        separator.backgroundColor = UIColor(named: "mainLabelColor")
         NSLayoutConstraint.activate([
             separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             separator.heightAnchor.constraint(equalToConstant: 1),

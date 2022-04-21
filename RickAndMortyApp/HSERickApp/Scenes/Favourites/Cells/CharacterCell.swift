@@ -12,7 +12,7 @@ class CharacterCell: UITableViewCell, SelfConfigurableCharacterCell {
     let characterName: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.textColor = .white // TODO: цвета
+        label.textColor = UIColor(named: "mainLabelColor")
         label.numberOfLines = 1
         label.font = .boldSystemFont(ofSize: 22)
         label.adjustsFontSizeToFitWidth = true
@@ -29,14 +29,15 @@ class CharacterCell: UITableViewCell, SelfConfigurableCharacterCell {
     
     let separator: UIView = {
         let separatorView = UIView()
-        separatorView.backgroundColor = .white
+        separatorView.backgroundColor = UIColor(named: "mainLabelColor")
         return separatorView
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .default
-        self.backgroundColor = . clear
+//        self.contentView.backgroundColor = UIColor(named: "backgroundColor")
+//        self.backgroundColor =  UIColor(named: "backgroundColor")
         setupLayout()
     }
     

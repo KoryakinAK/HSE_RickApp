@@ -47,7 +47,7 @@ class CharacterVC: UIViewController {
     // MARK: - VC lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
+        self.view.backgroundColor = UIColor(named: "backgroundColor")
         self.navigationItem.largeTitleDisplayMode = .never
         setupUI()
         setupTableView()

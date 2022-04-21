@@ -14,7 +14,7 @@ class FavouritesVC: UIViewController {
     // MARK: - VC Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
+        self.view.backgroundColor = UIColor(named: "backgroundColor")
         setupUI()
         setupTableView()
     }
