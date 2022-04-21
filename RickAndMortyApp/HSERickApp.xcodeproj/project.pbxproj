@@ -106,6 +106,7 @@
 				B5A3B6BD28088D540009D3BE /* Views */,
 				B5A3B68527FF3DDA0009D3BE /* AppDelegate.swift */,
 				B5A3B68727FF3DDA0009D3BE /* SceneDelegate.swift */,
+				B5B2A89428121C53001A735B /* App */,
 				B5A3B68E27FF3DDC0009D3BE /* Assets.xcassets */,
 				B5A3B69027FF3DDC0009D3BE /* LaunchScreen.storyboard */,
 				B5A3B69327FF3DDC0009D3BE /* Info.plist */,
@@ -139,6 +140,15 @@
 				B5A3B6BB27FF6DD60009D3BE /* SearchVC.swift */,
 			);
 			path = Views;
+		B5B2A89428121C53001A735B /* App */ = {
+			isa = PBXGroup;
+			children = (
+				B5A3B68527FF3DDA0009D3BE /* AppDelegate.swift */,
+				B5A3B68727FF3DDA0009D3BE /* SceneDelegate.swift */,
+				B5A3B69027FF3DDC0009D3BE /* LaunchScreen.storyboard */,
+				B5A3B69327FF3DDC0009D3BE /* Info.plist */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -374,6 +384,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = App/info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -428,6 +439,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = App/info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -447,7 +459,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X3C4UMBA4P;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = HSERickApp/Info.plist;
+				INFOPLIST_FILE = HSERickApp/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -475,7 +487,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X3C4UMBA4P;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = HSERickApp/Info.plist;
+				INFOPLIST_FILE = HSERickApp/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -503,6 +515,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X3C4UMBA4P;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.HSERickAppTests;
@@ -523,6 +536,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X3C4UMBA4P;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.HSERickAppTests;
