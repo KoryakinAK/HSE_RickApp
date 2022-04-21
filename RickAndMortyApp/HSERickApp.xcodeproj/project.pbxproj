@@ -19,6 +19,7 @@
 		B5A3B6B627FF416F0009D3BE /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B6B527FF416F0009D3BE /* TabBarVC.swift */; };
 		B5A3B6B827FF45E50009D3BE /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B6B727FF45E50009D3BE /* HomeVC.swift */; };
 		B5A3B6BC27FF6DD70009D3BE /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B6BB27FF6DD60009D3BE /* SearchVC.swift */; };
+		B5B2A89328121B09001A735B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5B2A89228121B09001A735B /* Colors.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		B5A3B6B527FF416F0009D3BE /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		B5A3B6B727FF45E50009D3BE /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		B5A3B6BB27FF6DD60009D3BE /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		B5B2A89228121B09001A735B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				B5A3B68E27FF3DDC0009D3BE /* Assets.xcassets */,
 				B5A3B69027FF3DDC0009D3BE /* LaunchScreen.storyboard */,
 				B5A3B69327FF3DDC0009D3BE /* Info.plist */,
+				B5B2A89228121B09001A735B /* Colors.xcassets */,
 			);
 			path = HSERickApp;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5B2A89328121B09001A735B /* Colors.xcassets in Resources */,
 				B5A3B69227FF3DDC0009D3BE /* LaunchScreen.storyboard in Resources */,
 				B5A3B68F27FF3DDC0009D3BE /* Assets.xcassets in Resources */,
 			);
