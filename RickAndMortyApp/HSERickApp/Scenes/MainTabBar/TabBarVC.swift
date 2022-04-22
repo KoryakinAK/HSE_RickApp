@@ -13,9 +13,13 @@ class TabBar: UITabBarController {
     fileprivate func createNavController(for rootViewController: UIViewController,
                                          title: String,
                                          image: UIImage,
-                                         withVisibleTitle titleVisible: Bool = false) -> UIViewController {
+                                         withVisibleTitle titleVisible: Bool = false,
+                                         withSelectedImage selectedImage: UIImage? = nil
+    ) -> UIViewController {
         let navController = UINavigationController(rootViewController: rootViewController)
         navController.tabBarItem.image = image
+
+        navController.tabBarItem.selectedImage = selectedImage
         if titleVisible {
             navController.navigationBar.prefersLargeTitles = true
             rootViewController.navigationItem.title = title
@@ -25,10 +29,23 @@ class TabBar: UITabBarController {
     
 // MARK: - VC Setup
     func setupVC() {
+        let selectedImageConfig = UIImage.SymbolConfiguration(pointSize: 23, weight: .medium)
+        
         viewControllers = [
-            createNavController(for: HomeVC(), title: "", image: UIImage(systemName: "house")!),
-            createNavController(for: FavouritesVC(), title: "Favourites", image: UIImage(systemName: "heart")!, withVisibleTitle: true),
-            createNavController(for: UIViewController(), title: "", image: UIImage(systemName: "magnifyingglass")!)
+            createNavController(for: HomeVC(),
+                                title: "",
+                                image: UIImage(systemName: "house")!),
+
+            createNavController(for: FavouritesVC(),
+                                title: "Favourites",
+                                image: UIImage(systemName: "heart")!,
+                                withVisibleTitle: true,
+                                withSelectedImage: UIImage(systemName: "heart.circle.fill",
+                                                           withConfiguration: selectedImageConfig)),
+    
+            createNavController(for: UIViewController(),
+                                title: "",
+                                image: UIImage(systemName: "magnifyingglass")!)
         ]
     }
     
