@@ -1,8 +1,13 @@
 import UIKit
 
-class FavouritesVC: UIViewController {
+protocol FavouritesListVCProtocol: AnyObject {
     
+}
+
+final class FavouritesListVC: UIViewController, FavouritesListVCProtocol {
     // MARK: - Properties
+    public var presenter: FavouritesListPresenterProtocol!
+
     let chararactersTableView: UITableView = {
        let tableView = UITableView()
         tableView.contentInsetAdjustmentBehavior = .never
@@ -38,19 +43,19 @@ class FavouritesVC: UIViewController {
     func setupTableView() {
         chararactersTableView.delegate = self
         chararactersTableView.dataSource = self
-        chararactersTableView.register(CharacterCell.self, forCellReuseIdentifier: "CharacterCell")
+        chararactersTableView.register(FavouriteCharacterCell.self, forCellReuseIdentifier: "FavouriteCharacterCell")
     }
 }
 
 // MARK: - UITableView Protocol conformance
-extension FavouritesVC: UITableViewDataSource, UITableViewDelegate {
+extension FavouritesListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = chararactersTableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath)
-                as? CharacterCell else {
+        guard let cell = chararactersTableView.dequeueReusableCell(withIdentifier: "FavouriteCharacterCell", for: indexPath)
+                as? FavouriteCharacterCell else {
             fatalError()
         }
         cell.configure(with: CharacterModel(name: "Pickle Rick", imageURL: "-"))
@@ -58,11 +63,12 @@ extension FavouritesVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CharacterCell.cellHeight
+        return FavouriteCharacterCell.cellHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(CharacterVC(), animated: true)
+//        self.navigationController?.pushViewController(CharacterPageBuilder.build(), animated: true)
+        presenter.didSelect(row: indexPath.row)
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)
         }

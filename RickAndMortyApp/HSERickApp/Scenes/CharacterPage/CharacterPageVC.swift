@@ -1,7 +1,15 @@
 import UIKit
+import Kingfisher
 
-class CharacterVC: UIViewController {
+protocol CharacterPageViewControllerProtocol: AnyObject {
+    func setupCharacterNameAndIcon(for character: CharacterModel)
+    var characterInfoTableView: UITableView { get }
+}
+
+final class CharacterPageViewController: UIViewController, CharacterPageViewControllerProtocol {
     // MARK: - Properties
+    public var presenter: CharacterPagePresenterProtocol!
+
     let mainScrollView: UIScrollView = {
         let scroll = UIScrollView()
         scroll.backgroundColor = .clear
@@ -34,6 +42,7 @@ class CharacterVC: UIViewController {
         tableView.clipsToBounds = true
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.separatorColor = .clear
+        tableView.backgroundColor = UIColor(named: "backgroundColor")
         return tableView
     }()
     
@@ -43,6 +52,7 @@ class CharacterVC: UIViewController {
         self.view.backgroundColor = UIColor(named: "backgroundColor")
         self.navigationItem.largeTitleDisplayMode = .never
         self.navigationItem.title = "Characters"
+        presenter.retrieveCharacterInformation()
         setupUI()
         setupTableView()
     }
@@ -100,11 +110,20 @@ class CharacterVC: UIViewController {
         characterInfoTableView.dataSource = self
         characterInfoTableView.register(CharacterDescriptionCell.self, forCellReuseIdentifier: "CharacterDescriptionCell")
     }
+    
+    // MARK: - Presenter interaction
+    func setupCharacterNameAndIcon(for character: CharacterModel) {
+        characterName.text = character.name
+        if let url = URL(string: character.imageURL) {
+            characterImage.kf.setImage(with: url)
+        }
+    }
+
 }
 
-extension CharacterVC: UITableViewDataSource, UITableViewDelegate {
+extension CharacterPageViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return presenter.characterInfo?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -112,7 +131,8 @@ extension CharacterVC: UITableViewDataSource, UITableViewDelegate {
                 as? CharacterDescriptionCell else {
             fatalError()
         }
-        cell.configure(with: CharacterDescriptionModel(characteristic: "Status:", value: "Alive"))
+        guard let info = presenter.characterInfo?[indexPath.row] else { fatalError() }
+        cell.configure(with: info)
         if indexPath.row < 3 {
             cell.showSeparator()
         }

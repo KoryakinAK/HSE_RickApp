@@ -6,7 +6,7 @@ protocol SelfConfigurableCharacterCell {
     static var cellHeight: CGFloat { get }
 }
 
-class CharacterCell: UITableViewCell, SelfConfigurableCharacterCell {
+class FavouriteCharacterCell: UITableViewCell, SelfConfigurableCharacterCell {
     static let cellHeight: CGFloat = 139
 
     let characterName: UILabel = {

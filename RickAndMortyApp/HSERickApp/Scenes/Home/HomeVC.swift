@@ -1,7 +1,13 @@
 import UIKit
 
-class HomeVC: UIViewController {
+protocol HomeVCProtocol: AnyObject {
     
+}
+
+final class HomeVC: UIViewController, HomeVCProtocol {
+    
+    public var presenter: HomePresenterProtocol!
+
     private let rickAndMortyLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -27,13 +33,15 @@ class HomeVC: UIViewController {
         return label
     }()
 
+    // MARK: - VC Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(named: "backgroundColor")
-        setupLabels()
+        setupUI()
     }
     
-    func setupLabels() {
+    // MARK: - UI setup
+    func setupUI() {
         [rickAndMortyLabel, characterBookLabel].forEach { [weak self] in
             $0.translatesAutoresizingMaskIntoConstraints = false
             self?.view.addSubview($0)
@@ -52,4 +60,3 @@ class HomeVC: UIViewController {
         ])
     }
 }
-

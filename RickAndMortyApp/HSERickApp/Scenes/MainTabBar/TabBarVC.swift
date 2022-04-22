@@ -25,11 +25,11 @@ class TabBar: UITabBarController {
         let selectedImageConfig = UIImage.SymbolConfiguration(pointSize: 23, weight: .medium)
         
         viewControllers = [
-            createNavController(for: HomeVC(),
+            createNavController(for: HomeBuilder.build(),
                                 title: "",
                                 image: UIImage(systemName: "house")!),
 
-            createNavController(for: FavouritesVC(),
+            createNavController(for: FavouritesListBuilder.build(),
                                 title: "Favourites",
                                 image: UIImage(systemName: "heart")!,
                                 withVisibleTitle: true,
@@ -46,6 +46,10 @@ class TabBar: UITabBarController {
     override func viewDidLoad() {
         self.delegate = self
         super.viewDidLoad()
+        let apperearance = UINavigationBarAppearance()
+        apperearance.configureWithTransparentBackground()
+        self.navigationController?.navigationBar.scrollEdgeAppearance = apperearance
+        self.navigationItem.scrollEdgeAppearance = apperearance
         self.view.backgroundColor = UIColor(named: "backgroundColor")
         tabBar.tintColor = UIColor(named: "mainLabelColor")
         tabBar.barTintColor = UIColor(named: "backgroundColor")
@@ -58,7 +62,7 @@ extension TabBar: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if tabBarController.selectedIndex == 2 {
             tabBarController.selectedIndex = self.lastSelectedTab
-            self.present(SearchVC(), animated: true)
+            self.present(SearchBuilder.build(), animated: true)
         } else {
             self.lastSelectedTab = tabBarController.selectedIndex
         }

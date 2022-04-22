@@ -57,7 +57,7 @@ class CharacterDescriptionCell: UITableViewCell, SelfConfigurableDescriptionCell
             ])
     }
     
-    // MARK: -SelfConfigurableCell conformance
+    // MARK: -Cell protocol conformance
     func configure(with data: CharacterDescriptionModel) {
         title.text = data.characteristic
         value.text = data.value
