@@ -14,6 +14,7 @@ class FavouritesVC: UIViewController {
     // MARK: - VC Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.backButtonDisplayMode = .generic
         self.view.backgroundColor = UIColor(named: "backgroundColor")
         setupUI()
         setupTableView()

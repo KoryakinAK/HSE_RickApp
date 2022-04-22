@@ -50,8 +50,6 @@ class CharacterVC: UIViewController {
         self.view.backgroundColor = UIColor(named: "backgroundColor")
         self.navigationItem.largeTitleDisplayMode = .never
         self.navigationItem.title = "Characters"
-        self.navigationItem.backButtonDisplayMode = .minimal // TODO: - Заставить работать
-
         setupUI()
         setupTableView()
     }
