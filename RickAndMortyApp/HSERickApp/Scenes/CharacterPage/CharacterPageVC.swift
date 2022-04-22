@@ -118,12 +118,11 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
             characterImage.kf.setImage(with: url)
         }
     }
-
 }
 
 extension CharacterPageViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.characterInfo?.count ?? 0
+        return presenter.currentCharacterInfo?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -131,7 +130,7 @@ extension CharacterPageViewController: UITableViewDataSource, UITableViewDelegat
                 as? CharacterDescriptionCell else {
             fatalError()
         }
-        guard let info = presenter.characterInfo?[indexPath.row] else { fatalError() }
+        guard let info = presenter.currentCharacterInfo?[indexPath.row] else { fatalError() }
         cell.configure(with: info)
         if indexPath.row < 3 {
             cell.showSeparator()

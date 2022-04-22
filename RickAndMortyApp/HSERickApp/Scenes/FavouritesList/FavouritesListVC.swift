@@ -1,7 +1,7 @@
 import UIKit
 
 protocol FavouritesListVCProtocol: AnyObject {
-    
+    var chararactersTableView: UITableView { get }
 }
 
 final class FavouritesListVC: UIViewController, FavouritesListVCProtocol {
@@ -21,6 +21,7 @@ final class FavouritesListVC: UIViewController, FavouritesListVCProtocol {
         super.viewDidLoad()
         self.navigationItem.backButtonDisplayMode = .generic
         self.view.backgroundColor = UIColor(named: "backgroundColor")
+        presenter.retrieveFavCharacters()
         setupUI()
         setupTableView()
     }
@@ -50,7 +51,7 @@ final class FavouritesListVC: UIViewController, FavouritesListVCProtocol {
 // MARK: - UITableView Protocol conformance
 extension FavouritesListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return presenter.favCharactersList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -58,7 +59,8 @@ extension FavouritesListVC: UITableViewDataSource, UITableViewDelegate {
                 as? FavouriteCharacterCell else {
             fatalError()
         }
-        cell.configure(with: CharacterModel(name: "Pickle Rick", imageURL: "-"))
+        let character = presenter.favCharactersList[indexPath.row]
+        cell.configure(with: character)
         return cell
     }
     
