@@ -7,15 +7,15 @@ protocol SelfConfigurableDescriptionCell {
 }
 
 class CharacterDescriptionCell: UITableViewCell, SelfConfigurableDescriptionCell {
-    static let cellHeight: CGFloat = 90
+    static let cellHeight: CGFloat = 28 * 2 + 8
     let title: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = UIColor(named: "secondaryLabelColor")
         label.numberOfLines = 1
-        label.font = .boldSystemFont(ofSize: 22)
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.85
+        label.font = .boldSystemFont(ofSize: 23)
+//        label.adjustsFontSizeToFitWidth = true
+//        label.minimumScaleFactor = 0.85
         return label
     }()
     
@@ -23,7 +23,7 @@ class CharacterDescriptionCell: UITableViewCell, SelfConfigurableDescriptionCell
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = UIColor(named: "mainLabelColor")
-        label.font = .boldSystemFont(ofSize: 22)
+        label.font = .boldSystemFont(ofSize: 23)
         return label
     }()
     
@@ -47,14 +47,14 @@ class CharacterDescriptionCell: UITableViewCell, SelfConfigurableDescriptionCell
         }
         
         NSLayoutConstraint.activate([
-            title.bottomAnchor.constraint(equalTo: contentView.centerYAnchor),
+            title.topAnchor.constraint(equalTo: contentView.topAnchor),
             title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            title.heightAnchor.constraint(equalToConstant: 28),
 //            title.heightAnchor.constraint(equalToConstant: FavouriteCell.cellHeight / 2),
             
-            value.topAnchor.constraint(equalTo: contentView.centerYAnchor),
+            value.topAnchor.constraint(equalTo: title.bottomAnchor),
             value.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            value.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            value.heightAnchor.constraint(equalToConstant: 28),
 //            value.heightAnchor.constraint(equalToConstant: FavouriteCell.cellHeight / 2),
             ])
     }

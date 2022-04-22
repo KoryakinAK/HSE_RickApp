@@ -49,16 +49,18 @@ class CharacterVC: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(named: "backgroundColor")
         self.navigationItem.largeTitleDisplayMode = .never
+        self.navigationItem.title = "Characters"
+        self.navigationItem.backButtonDisplayMode = .minimal // TODO: - Заставить работать
+
         setupUI()
         setupTableView()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.mainScrollView.contentSize = self.containerView.subviews.reduce(CGRect.zero, {
            return $0.union($1.frame)
         }).size
-//        mainScrollView.contentSize = CGSize(width: view.frame.size.width, height: 1500)
     }
     
     // MARK: - Setup VC
@@ -90,12 +92,12 @@ class CharacterVC: UIViewController {
             characterImage.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -37),
             characterImage.heightAnchor.constraint(equalTo: characterImage.widthAnchor),
 
-            characterName.topAnchor.constraint(equalTo: characterImage.bottomAnchor, constant: 30),
-            characterName.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 30),
+            characterName.topAnchor.constraint(equalTo: characterImage.bottomAnchor, constant: 35),
+            characterName.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
 
-            characterInfoTableView.topAnchor.constraint(equalTo: characterName.bottomAnchor, constant: 30),
-            characterInfoTableView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 30),
-            characterInfoTableView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -30),
+            characterInfoTableView.topAnchor.constraint(equalTo: characterName.bottomAnchor, constant: 20),
+            characterInfoTableView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            characterInfoTableView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
             characterInfoTableView.heightAnchor.constraint(equalToConstant: CharacterDescriptionCell.cellHeight * 4)
             // Если не указывать высоту, то высота будет 0
             // Если привязать к contentView.bottomAnchor, то тоже
@@ -119,7 +121,7 @@ extension CharacterVC: UITableViewDataSource, UITableViewDelegate {
                 as? CharacterDescriptionCell else {
             fatalError()
         }
-        cell.configure(with: CharacterDescriptionModel(characteristic: "Status", value: "Alive"))
+        cell.configure(with: CharacterDescriptionModel(characteristic: "Status:", value: "Alive"))
         if indexPath.row < 3 {
             cell.showSeparator()
         }
