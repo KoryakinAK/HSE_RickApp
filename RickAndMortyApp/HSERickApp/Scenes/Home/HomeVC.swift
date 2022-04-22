@@ -1,10 +1,3 @@
-//
-//  HomeVC.swift
-//  HSERickApp
-//
-//  Created by Alexey Koryakin on 07.04.2022.
-//
-
 import UIKit
 
 class HomeVC: UIViewController {

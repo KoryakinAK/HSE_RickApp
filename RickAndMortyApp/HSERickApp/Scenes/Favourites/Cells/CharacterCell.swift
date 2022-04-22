@@ -62,8 +62,8 @@ class CharacterCell: UITableViewCell, SelfConfigurableCharacterCell {
             
             separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             separator.heightAnchor.constraint(equalToConstant: 1),
-            separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
             ])
     }
     

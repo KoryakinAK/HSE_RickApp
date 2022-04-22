@@ -1,10 +1,3 @@
-//
-//  TabBarVC.swift
-//  HSERickApp
-//
-//  Created by Alexey Koryakin on 07.04.2022.
-//
-
 import UIKit
 
 class TabBar: UITabBarController {
@@ -55,6 +48,7 @@ class TabBar: UITabBarController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(named: "backgroundColor")
         tabBar.tintColor = UIColor(named: "mainLabelColor")
+        tabBar.barTintColor = UIColor(named: "backgroundColor")
         setupVC()
     }
 }

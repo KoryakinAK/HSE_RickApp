@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  HSERickApp
-//
-//  Created by Alexey Koryakin on 07.04.2022.
-//
-
 import UIKit
 
 class CharacterVC: UIViewController {
@@ -77,7 +70,7 @@ class CharacterVC: UIViewController {
             mainScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             mainScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mainScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mainScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            mainScrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             containerView.topAnchor.constraint(equalTo: mainScrollView.contentLayoutGuide.topAnchor),
             containerView.leadingAnchor.constraint(equalTo: mainScrollView.contentLayoutGuide.leadingAnchor),
