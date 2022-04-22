@@ -87,7 +87,7 @@ class CharacterVC: UIViewController {
             containerView.bottomAnchor.constraint(equalTo: mainScrollView.contentLayoutGuide.bottomAnchor),
             containerView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor),
     
-            characterImage.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 0),
+            characterImage.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
             characterImage.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 38),
             characterImage.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -37),
             characterImage.heightAnchor.constraint(equalTo: characterImage.widthAnchor),

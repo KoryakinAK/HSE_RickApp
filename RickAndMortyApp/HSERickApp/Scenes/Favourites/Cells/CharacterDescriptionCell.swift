@@ -7,7 +7,7 @@ protocol SelfConfigurableDescriptionCell {
 }
 
 class CharacterDescriptionCell: UITableViewCell, SelfConfigurableDescriptionCell {
-    static let cellHeight: CGFloat = 28 * 2 + 8
+    static let cellHeight: CGFloat = 28 * 2 + 8 + 16
     let title: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
@@ -50,12 +50,10 @@ class CharacterDescriptionCell: UITableViewCell, SelfConfigurableDescriptionCell
             title.topAnchor.constraint(equalTo: contentView.topAnchor),
             title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             title.heightAnchor.constraint(equalToConstant: 28),
-//            title.heightAnchor.constraint(equalToConstant: FavouriteCell.cellHeight / 2),
             
             value.topAnchor.constraint(equalTo: title.bottomAnchor),
             value.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             value.heightAnchor.constraint(equalToConstant: 28),
-//            value.heightAnchor.constraint(equalToConstant: FavouriteCell.cellHeight / 2),
             ])
     }
     
@@ -70,7 +68,7 @@ class CharacterDescriptionCell: UITableViewCell, SelfConfigurableDescriptionCell
         separator.translatesAutoresizingMaskIntoConstraints = false
         separator.backgroundColor = UIColor(named: "mainLabelColor")
         NSLayoutConstraint.activate([
-            separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             separator.heightAnchor.constraint(equalToConstant: 1),
             separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
