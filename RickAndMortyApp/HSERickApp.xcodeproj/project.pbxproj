@@ -34,6 +34,7 @@
 		B5B2A8BA28130E51001A735B /* FavouritesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2A8B728130E51001A735B /* FavouritesListVC.swift */; };
 		B5B2A8BB28130E51001A735B /* FavouritesListBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2A8B828130E51001A735B /* FavouritesListBuilder.swift */; };
 		B5B2A8C52813189B001A735B /* FavouritesListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2A8C42813189B001A735B /* FavouritesListRouter.swift */; };
+		B5B2A8C72813F569001A735B /* TileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2A8C62813F569001A735B /* TileCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		B5B2A8B728130E51001A735B /* FavouritesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesListVC.swift; sourceTree = "<group>"; };
 		B5B2A8B828130E51001A735B /* FavouritesListBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesListBuilder.swift; sourceTree = "<group>"; };
 		B5B2A8C42813189B001A735B /* FavouritesListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesListRouter.swift; sourceTree = "<group>"; };
+		B5B2A8C62813F569001A735B /* TileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +201,7 @@
 			children = (
 				B5B2A8B028130DA5001A735B /* HomePresenter.swift */,
 				B5B2A8B128130DA5001A735B /* HomeVC.swift */,
+				B5B2A8C62813F569001A735B /* TileCell.swift */,
 				B5B2A8B228130DA5001A735B /* HomeBuilder.swift */,
 			);
 			path = Home;
@@ -389,6 +392,7 @@
 				B5B2A8BB28130E51001A735B /* FavouritesListBuilder.swift in Sources */,
 				B5B2A8B528130DA5001A735B /* HomeBuilder.swift in Sources */,
 				B5B2A8B928130E51001A735B /* FavouritesListPresenter.swift in Sources */,
+				B5B2A8C72813F569001A735B /* TileCell.swift in Sources */,
 				B5B2A8AF28130C1B001A735B /* CharacterPageBuilder.swift in Sources */,
 				B5A3B68627FF3DDA0009D3BE /* AppDelegate.swift in Sources */,
 				B5B2A8C52813189B001A735B /* FavouritesListRouter.swift in Sources */,
