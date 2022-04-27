@@ -58,10 +58,11 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        self.mainScrollView.alwaysBounceVertical = true
         super.viewDidAppear(animated)
-        self.mainScrollView.contentSize = self.containerView.subviews.reduce(CGRect.zero, {
-           return $0.union($1.frame)
-        }).size
+//        self.mainScrollView.contentSize = self.containerView.subviews.reduce(CGRect.zero, {
+//           return $0.union($1.frame)
+//        }).size
     }
     
     // MARK: - Setup VC
