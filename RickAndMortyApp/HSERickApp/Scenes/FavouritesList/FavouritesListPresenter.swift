@@ -21,11 +21,7 @@ final class FavouritesListPresenter: FavouritesListPresenterProtocol {
     private weak var view: FavouritesListVCProtocol?
     private var router: FavouritesListRouter
     
-    var favCharactersList = [CharacterModel]() {
-        didSet {
-            print("lol")
-        }
-    }
+    var favCharactersList = [CharacterModel]()
 
     init(view: FavouritesListVCProtocol, router: FavouritesListRouter) {
         self.view = view
