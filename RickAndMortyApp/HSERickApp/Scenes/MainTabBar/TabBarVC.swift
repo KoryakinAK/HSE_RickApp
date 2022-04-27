@@ -53,6 +53,7 @@ class TabBar: UITabBarController {
         self.view.backgroundColor = UIColor(named: "backgroundColor")
         tabBar.tintColor = UIColor(named: "mainLabelColor")
         tabBar.barTintColor = UIColor(named: "backgroundColor")
+        tabBar.backgroundColor =  UIColor(named: "backgroundColor")
         setupVC()
     }
 }
