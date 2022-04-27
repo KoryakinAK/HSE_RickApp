@@ -37,6 +37,7 @@ final class HomeVC: UIViewController, HomeVCProtocol {
     let mainScrollView: UIScrollView = {
         let scroll = UIScrollView()
         scroll.backgroundColor = .clear
+        scroll.setZoomScale(0.55, animated: false)
         return scroll
     }()
     
@@ -152,7 +153,7 @@ final class HomeVC: UIViewController, HomeVCProtocol {
                     self.topAnchorExpanded.isActive = true
                     self.view.layoutIfNeeded()
                 case .collapsed:
-                    self.mainScrollView.setZoomScale(0.6, animated: false)
+                    self.mainScrollView.setZoomScale(0.55, animated: false)
                     self.topAnchorExpanded.isActive = false
                     self.topAnchorCollapsed.isActive = true
                     self.view.layoutIfNeeded()
