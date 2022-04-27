@@ -23,7 +23,7 @@ class RecenlySearchedCVCell: UICollectionViewCell, RecenlySearchedCVCellProtocol
     func setupUI() {
         contentView.addSubview(mainImage)
         mainImage.translatesAutoresizingMaskIntoConstraints = false
-        
+        mainImage.backgroundColor = .cyan
         NSLayoutConstraint.activate([
         mainImage.topAnchor.constraint(equalTo: contentView.topAnchor),
         mainImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
