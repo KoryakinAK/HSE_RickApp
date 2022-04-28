@@ -69,8 +69,11 @@ class FavouriteCharacterCell: UITableViewCell, SelfConfigurableCharacterCell {
     }
     
     // MARK: -SelfConfigurableCell conformance
-    func configure(with data: CharacterModel) {
-        characterName.text = data.name
+    func configure(with character: CharacterModel) {
+        characterName.text = character.name
+        if let url = URL(string: character.image) {
+            characterIcon.kf.setImage(with: url)
+        }
     }
 
     func showSeparator() {

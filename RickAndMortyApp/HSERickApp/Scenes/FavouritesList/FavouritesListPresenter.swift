@@ -29,14 +29,17 @@ final class FavouritesListPresenter: FavouritesListPresenterProtocol {
     }
     
     func retrieveFavCharacters() {
-        favCharactersList.append(CharacterModel(name: "Rick", imageURL: "-"))
-        favCharactersList.append(CharacterModel(name: "Pick", imageURL: "-"))
-        favCharactersList.append(CharacterModel(name: "Mick", imageURL: "-"))
-        updateTableView()
-    }
-    
-    func updateTableView() {
-        view?.chararactersTableView.reloadData()
+        APIWorker.request(endpoint: RickAPIConfig.getMultipleCharacters(ids: [1, 2, 3, 4, 5, 6, 7])) { (result: Result<[CharacterModel], Error>)  in
+            switch result {
+            case .success(let response):
+                response.forEach {
+                    self.favCharactersList.append($0)
+                }
+                self.view?.chararactersTableView.reloadData()
+            case .failure(let _):
+                print("Character info download failed")
+            }
+        }
     }
     
     // MARK: - UITableView actions

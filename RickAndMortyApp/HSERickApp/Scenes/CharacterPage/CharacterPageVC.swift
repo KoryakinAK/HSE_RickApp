@@ -52,7 +52,6 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         self.view.backgroundColor = UIColor(named: "backgroundColor")
         self.navigationItem.largeTitleDisplayMode = .never
         self.navigationItem.title = "Characters"
-        presenter.retrieveCharacterInformation()
         setupUI()
         setupTableView()
     }
@@ -115,7 +114,7 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
     // MARK: - Presenter interaction
     func setupCharacterNameAndIcon(for character: CharacterModel) {
         characterName.text = character.name
-        if let url = URL(string: character.imageURL) {
+        if let url = URL(string: character.image) {
             characterImage.kf.setImage(with: url)
         }
     }

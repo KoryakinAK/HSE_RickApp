@@ -27,6 +27,8 @@ final class TabBarPresenter: TabBarPresenterProtocol {
     init(view: TabBarViewControllerProtocol, router: TabBarRouter) {
         self.view = view
         self.router = router
+        UserDefaultsManager.sharedInstance().addToFavourites(id: 5)
+        UserDefaultsManager.sharedInstance().addToFavourites(id: 6)
     }
 
     func createNavController(for rootViewController: UIViewController,
