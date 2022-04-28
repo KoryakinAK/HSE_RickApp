@@ -37,7 +37,7 @@ final class FavouritesListVC: UIViewController, FavouritesListVCProtocol {
             chararactersTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             chararactersTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             chararactersTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            chararactersTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            chararactersTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
@@ -69,7 +69,6 @@ extension FavouritesListVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        self.navigationController?.pushViewController(CharacterPageBuilder.build(), animated: true)
         presenter.didSelect(row: indexPath.row)
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)

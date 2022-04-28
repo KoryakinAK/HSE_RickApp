@@ -24,6 +24,7 @@ class FavouriteCharacterCell: UITableViewCell, SelfConfigurableCharacterCell {
         let image = UIImageView()
         image.backgroundColor = .systemRed
         image.layer.cornerRadius = 10
+        image.clipsToBounds = true
         return image
     }()
     
