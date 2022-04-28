@@ -10,8 +10,6 @@ protocol Endpoint {
 enum RickAPIConfig: Endpoint {
     case getCharacter(id: UInt)
     case getMultipleCharacters(ids: [UInt])
-//    case getBasicStats(ticker: String)
-//    case getNews(count: Int)
 
     var baseURL: String {
         switch self {
