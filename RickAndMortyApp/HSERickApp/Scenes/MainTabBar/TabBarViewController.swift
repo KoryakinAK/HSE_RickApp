@@ -27,10 +27,6 @@ final class TabBarViewController: UITabBarController, TabBarViewControllerProtoc
     }
     
     func setupAppearance() {
-        let apperearance = UINavigationBarAppearance()
-        apperearance.configureWithTransparentBackground()
-        self.navigationController?.navigationBar.scrollEdgeAppearance = apperearance
-        self.navigationItem.scrollEdgeAppearance = apperearance
         self.view.backgroundColor = UIColor(named: "backgroundColor")
         tabBar.tintColor = UIColor(named: "mainLabelColor")
         tabBar.barTintColor = UIColor(named: "backgroundColor")
