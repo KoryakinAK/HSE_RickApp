@@ -37,7 +37,7 @@ final class HomeVC: UIViewController, HomeVCProtocol {
     let mainScrollView: UIScrollView = {
         let scroll = UIScrollView()
         scroll.backgroundColor = .clear
-        scroll.setZoomScale(0.55, animated: false)
+        scroll.setZoomScale(0.35, animated: false)
         return scroll
     }()
     
@@ -73,6 +73,15 @@ final class HomeVC: UIViewController, HomeVCProtocol {
         setupEffectsLayer()
         setupUI()
         setupScrollView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // TODO: - Константы куда-то перенести
+        self.mainScrollView.contentOffset = CGPoint(x: 800, y: 550)
+        UIView.animate(withDuration: 0.7, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 3.0, options: .curveEaseIn, animations: {
+            self.mainScrollView.contentOffset = CGPoint(x: 2520/2, y: 1394)
+            self.mainScrollView.setZoomScale(0.55, animated: false)
+        })
     }
     
     // MARK: - UI setup
@@ -113,7 +122,7 @@ final class HomeVC: UIViewController, HomeVCProtocol {
     
     func setupScrollView() {
         mainScrollView.minimumZoomScale = 0.35
-        mainScrollView.maximumZoomScale = 1.3
+        mainScrollView.maximumZoomScale = 0.8
         mainScrollView.delegate = self
         mainScrollView.showsHorizontalScrollIndicator = false
         mainScrollView.showsVerticalScrollIndicator = false
