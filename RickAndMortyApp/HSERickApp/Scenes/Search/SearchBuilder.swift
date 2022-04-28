@@ -1,10 +1,3 @@
-// 
-//  SearchBuilder.swift
-//  HSERickApp
-//
-//  Created by Alexey Koryakin on 22.04.2022.
-//
-
 import UIKit
 
 final class SearchBuilder {

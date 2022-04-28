@@ -1,10 +1,3 @@
-// 
-//  FavouritesListPresenter.swift
-//  HSERickApp
-//
-//  Created by Alexey Koryakin on 22.04.2022.
-//
-
 import Foundation
 
 protocol FavouritesListPresenterProtocol: AnyObject {

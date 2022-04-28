@@ -1,10 +1,3 @@
-// 
-//  TabBarViewController.swift
-//  HSERickApp
-//
-//  Created by Alexey Koryakin on 27.04.2022.
-//
-
 import UIKit
 
 protocol TabBarViewControllerProtocol: AnyObject {
