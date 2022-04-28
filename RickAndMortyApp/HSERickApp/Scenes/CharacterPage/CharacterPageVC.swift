@@ -13,6 +13,7 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
     let mainScrollView: UIScrollView = {
         let scroll = UIScrollView()
         scroll.backgroundColor = .clear
+        scroll.alwaysBounceVertical = true
         return scroll
     }()
     
@@ -25,6 +26,7 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         let image = UIImageView(image: UIImage())
         image.backgroundColor = .cyan
         image.layer.cornerRadius = 10
+        image.clipsToBounds = true
         return image
     }()
     
@@ -57,11 +59,10 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        self.mainScrollView.alwaysBounceVertical = true
         super.viewDidAppear(animated)
-//        self.mainScrollView.contentSize = self.containerView.subviews.reduce(CGRect.zero, {
-//           return $0.union($1.frame)
-//        }).size
+        self.mainScrollView.contentSize = self.containerView.subviews.reduce(CGRect.zero, {
+            return $0.union($1.frame)
+        }).size
     }
     
     // MARK: - Setup VC
@@ -85,29 +86,30 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
             containerView.topAnchor.constraint(equalTo: mainScrollView.contentLayoutGuide.topAnchor),
             containerView.leadingAnchor.constraint(equalTo: mainScrollView.contentLayoutGuide.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: mainScrollView.contentLayoutGuide.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: mainScrollView.contentLayoutGuide.bottomAnchor),
             containerView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor),
-    
-            characterImage.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
-            characterImage.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 38),
-            characterImage.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -37),
+            
+            characterImage.topAnchor.constraint(equalTo: mainScrollView.topAnchor, constant: 20),
+            characterImage.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 38),
+            characterImage.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor, constant: -38),
             characterImage.heightAnchor.constraint(equalTo: characterImage.widthAnchor),
 
             characterName.topAnchor.constraint(equalTo: characterImage.bottomAnchor, constant: 35),
-            characterName.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            characterName.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 16),
 
             characterInfoTableView.topAnchor.constraint(equalTo: characterName.bottomAnchor, constant: 20),
-            characterInfoTableView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-            characterInfoTableView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
-            characterInfoTableView.heightAnchor.constraint(equalToConstant: CharacterDescriptionCell.cellHeight * 4)
-            // Если не указывать высоту, то высота будет 0
-            // Если привязать к contentView.bottomAnchor, то тоже
+            characterInfoTableView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 16),
+            characterInfoTableView.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor, constant: -16),
+            // Пока что единственный рабочий метод, который я нашел
+            // Без contentView не взлетает, с ним или без и привязкой к bottomAnchor - тоже не работает
+            characterInfoTableView.heightAnchor.constraint(equalToConstant: CharacterDescriptionCell.cellHeight * CGFloat(presenter.currentCharacterInfo.count))
+
         ])
     }
     
     func setupTableView() {
         characterInfoTableView.delegate = self
         characterInfoTableView.dataSource = self
+        characterInfoTableView.isScrollEnabled = false
         characterInfoTableView.register(CharacterDescriptionCell.self, forCellReuseIdentifier: "CharacterDescriptionCell")
     }
     
@@ -122,7 +124,7 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
 
 extension CharacterPageViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.currentCharacterInfo?.count ?? 0
+        return presenter.currentCharacterInfo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -130,9 +132,9 @@ extension CharacterPageViewController: UITableViewDataSource, UITableViewDelegat
                 as? CharacterDescriptionCell else {
             fatalError()
         }
-        guard let info = presenter.currentCharacterInfo?[indexPath.row] else { fatalError() }
+        let info = presenter.currentCharacterInfo[indexPath.row]
         cell.configure(with: info)
-        if indexPath.row < 3 {
+        if indexPath.row < (presenter.currentCharacterInfo.count - 1) {
             cell.showSeparator()
         }
         return cell
