@@ -2,38 +2,43 @@ import Foundation
 
 class UserDefaultsManager {
     private static let instance = UserDefaultsManager()
-    private let favsKey = "Favourites"
-
+    
     class func sharedInstance() -> UserDefaultsManager {
         return instance
     }
 
-    private func getFavouritesArray() -> [Int] {
+    enum DataCategory: String {
+        case favourites
+        case recent
+    }
+    
+    func getCharacterIDsIn(category: DataCategory) -> [UInt] {
         guard
-            let favouritesAsAny = UserDefaults.standard.value(forKey: favsKey),
-            let favourites = favouritesAsAny as? [Int]
+            let characterIDsAsAny = UserDefaults.standard.value(forKey: category.rawValue),
+            let characterIDs = characterIDsAsAny as? [UInt]
         else {
-            return [Int]()
+            return [UInt]()
         }
-        return favourites
+        return characterIDs
     }
 
-    func addToFavourites(id: Int) {
-        var favourites = getFavouritesArray()
-        if !favourites.contains(id) {
-            favourites.append(id)
+    func add(id: UInt, to category: DataCategory) {
+        var currentIDs = getCharacterIDsIn(category: category)
+        if !currentIDs.contains(id) {
+            currentIDs.append(id)
         }
-        UserDefaults.standard.setValue(favourites, forKey: favsKey)
+        UserDefaults.standard.setValue(currentIDs, forKey: category.rawValue)
     }
 
-    func removeFromFavourites(id: Int) {
-        var favourites = getFavouritesArray()
-        favourites = favourites.filter {$0 != id}
-        UserDefaults.standard.setValue(favourites, forKey: favsKey)
+    func remove(id: UInt, from category: DataCategory) {
+        var currentIDs = getCharacterIDsIn(category: category)
+        currentIDs = currentIDs.filter {$0 != id}
+        UserDefaults.standard.setValue(currentIDs, forKey: category.rawValue)
     }
 
-    func checkIfFavouritesContain(id: Int) -> Bool {
-        let favourites = getFavouritesArray()
-        return favourites.contains(id)
+    // Необходимость функции под вопросом
+    func checkIf(id: UInt, in category: DataCategory) -> Bool {
+        let currentIDs = getCharacterIDsIn(category: category)
+        return currentIDs.contains(id)
     }
 }

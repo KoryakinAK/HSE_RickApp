@@ -22,7 +22,8 @@ final class FavouritesListPresenter: FavouritesListPresenterProtocol {
     }
     
     func retrieveFavCharacters() {
-        APIWorker.request(endpoint: RickAPIConfig.getMultipleCharacters(ids: [1, 2, 3, 4, 5, 6, 7])) { (result: Result<[CharacterModel], Error>)  in
+        let currentFavs = UserDefaultsManager.sharedInstance().getCharacterIDsIn(category: .favourites)
+        APIWorker.request(endpoint: RickAPIConfig.getMultipleCharacters(ids: currentFavs)) { (result: Result<[CharacterModel], Error>)  in
             switch result {
             case .success(let response):
                 response.forEach {
