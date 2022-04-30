@@ -8,7 +8,7 @@ struct CharacterModel: Codable {
     let image: String
     
     // TODO: - Вынести это из модели
-    func AsDictOfDescriptions() -> [String: String] {
+    func asDictOfDescriptions() -> [String: String] {
         return ["Status": status,
                 "Species": species,
                 "Gender": gender,

@@ -16,7 +16,7 @@ final class CharacterPagePresenter: CharacterPagePresenterProtocol {
     }
     
     func setCharacterInformation(with character: CharacterModel) {
-        for (characteristic, value) in character.AsDictOfDescriptions() {
+        for (characteristic, value) in character.asDictOfDescriptions() {
             self.currentCharacterInfo.append(CharacterDescriptionModel(characteristic: characteristic, value: value))
         }
         view?.characterInfoTableView.reloadData()
