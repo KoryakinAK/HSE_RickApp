@@ -1,6 +1,5 @@
 import Foundation
 
-
 protocol NetworkService: AnyObject {
     static func request<T: Codable>(endpoint: Endpoint, completion: @escaping (Result<T, Error>) -> Void)
 }
@@ -36,7 +35,9 @@ class APIWorker: NetworkService {
                 if let responceObject = try? JSONDecoder().decode(T.self, from: data) {
                     completion(.success(responceObject))
                 } else {
-                    let error = NSError(domain: "", code: 200, userInfo: [NSLocalizedDescriptionKey: "Failed to decode response"])
+                    let error = NSError(domain: "",
+                                        code: 200,
+                                        userInfo: [NSLocalizedDescriptionKey: "Failed to decode response"])
                     completion(.failure(error))
                 }
             }

@@ -15,7 +15,7 @@ final class FavouritesListVC: UIViewController, FavouritesListVCProtocol {
         tableView.separatorColor = .clear
         return tableView
     }()
-    
+
     // MARK: - VC Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,14 +25,14 @@ final class FavouritesListVC: UIViewController, FavouritesListVCProtocol {
         setupUI()
         setupTableView()
     }
-    
+
     // MARK: - VC setup
     func setupUI() {
         [chararactersTableView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview($0)
         }
-        
+
         NSLayoutConstraint.activate([
             chararactersTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             chararactersTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -40,7 +40,7 @@ final class FavouritesListVC: UIViewController, FavouritesListVCProtocol {
             chararactersTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    
+
     func setupTableView() {
         chararactersTableView.delegate = self
         chararactersTableView.dataSource = self
@@ -53,7 +53,7 @@ extension FavouritesListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.favCharactersList.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = chararactersTableView.dequeueReusableCell(withIdentifier: "FavouriteCharacterCell", for: indexPath)
                 as? FavouriteCharacterCell else {
@@ -63,11 +63,11 @@ extension FavouritesListVC: UITableViewDataSource, UITableViewDelegate {
         cell.configure(with: character)
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return FavouriteCharacterCell.cellHeight
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.didSelect(row: indexPath.row)
         if let indexPath = tableView.indexPathForSelectedRow {

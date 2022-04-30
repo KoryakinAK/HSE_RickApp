@@ -8,7 +8,7 @@ identifier_name:
     - vc
 
 line_length:
-  warning: 220
+  warning: 140
   ignores_function_declarations: true
   ignores_comments: true
   ignores_interpolated_strings: true

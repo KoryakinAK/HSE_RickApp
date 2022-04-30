@@ -5,10 +5,9 @@ protocol TabBarViewControllerProtocol: AnyObject {
 }
 
 final class TabBarViewController: UITabBarController, TabBarViewControllerProtocol {
-    
     public var presenter: TabBarPresenterProtocol!
 
-    override public func viewDidLoad() -> () {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
         setupAppearance()
@@ -18,14 +17,14 @@ final class TabBarViewController: UITabBarController, TabBarViewControllerProtoc
         super.viewWillAppear(animated)
         setupVC()
     }
-    
+
     func setupAppearance() {
         self.view.backgroundColor = UIColor(named: "backgroundColor")
         tabBar.tintColor = UIColor(named: "mainLabelColor")
         tabBar.barTintColor = UIColor(named: "backgroundColor")
         tabBar.backgroundColor =  UIColor(named: "backgroundColor")
     }
-    
+
     func setupVC() {
         let selectedImageConfig = UIImage.SymbolConfiguration(pointSize: 23, weight: .medium)
         viewControllers = [
@@ -41,7 +40,7 @@ final class TabBarViewController: UITabBarController, TabBarViewControllerProtoc
                                           withVisibleTitle: true,
                                           withSelectedImage: UIImage(systemName: "heart.circle.fill",
                                                                      withConfiguration: selectedImageConfig)),
-            
+
             self.presenter.createNavController(for: UIViewController(),
                                           title: "",
                                           image: UIImage(systemName: "magnifyingglass")!,

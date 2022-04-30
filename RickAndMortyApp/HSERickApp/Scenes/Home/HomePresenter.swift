@@ -5,9 +5,9 @@ protocol HomePresenterProtocol: AnyObject {
 }
 
 final class HomePresenter: HomePresenterProtocol {
-    
+
     private weak var view: HomeVCProtocol?
-    
+
     init(view: HomeVCProtocol) {
         self.view = view
     }

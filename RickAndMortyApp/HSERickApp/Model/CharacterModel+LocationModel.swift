@@ -6,8 +6,7 @@ struct CharacterModel: Codable {
     let gender: String
     let origin, location: LocationModel
     let image: String
-    
-    // TODO: - Вынести это из модели
+
     func asDictOfDescriptions() -> [String: String] {
         return ["Status": status,
                 "Species": species,

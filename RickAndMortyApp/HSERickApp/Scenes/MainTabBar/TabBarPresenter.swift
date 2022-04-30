@@ -5,10 +5,10 @@ protocol TabBarPresenterProtocol: AnyObject {
     var lastSelectedTab: Int { get set }
     func didSelect(at selectedIndex: Int)
     func createNavController(for rootViewController: UIViewController,
-                                         title: String,
-                                         image: UIImage,
-                                         withVisibleTitle titleVisible: Bool,
-                                         withSelectedImage selectedImage: UIImage?) -> UIViewController
+                             title: String,
+                             image: UIImage,
+                             withVisibleTitle titleVisible: Bool,
+                             withSelectedImage selectedImage: UIImage?) -> UIViewController
 }
 
 final class TabBarPresenter: TabBarPresenterProtocol {
@@ -25,14 +25,13 @@ final class TabBarPresenter: TabBarPresenterProtocol {
     }
 
     func createNavController(for rootViewController: UIViewController,
-                                         title: String,
-                                         image: UIImage,
-                                         withVisibleTitle titleVisible: Bool = false,
-                                         withSelectedImage selectedImage: UIImage? = nil
-    ) -> UIViewController {
+                             title: String,
+                             image: UIImage,
+                             withVisibleTitle titleVisible: Bool = false,
+                             withSelectedImage selectedImage: UIImage? = nil) -> UIViewController {
         let navController = UINavigationController(rootViewController: rootViewController)
         navController.tabBarItem.image = image
-        
+
         navController.tabBarItem.selectedImage = selectedImage
         if titleVisible {
             navController.navigationBar.prefersLargeTitles = true
@@ -40,7 +39,8 @@ final class TabBarPresenter: TabBarPresenterProtocol {
         }
         return navController
     }
-    
+
     func didSelect(at selectedIndex: Int) {
+    // TODO: - удалить?
     }
 }

@@ -2,7 +2,6 @@ import Foundation
 
 class UserDefaultsManager {
     private static let instance = UserDefaultsManager()
-    
     class func sharedInstance() -> UserDefaultsManager {
         return instance
     }
@@ -11,7 +10,7 @@ class UserDefaultsManager {
         case favourites
         case recent
     }
-    
+
     func getCharacterIDsIn(category: DataCategory) -> [UInt] {
         guard
             let characterIDsAsAny = UserDefaults.standard.value(forKey: category.rawValue),
