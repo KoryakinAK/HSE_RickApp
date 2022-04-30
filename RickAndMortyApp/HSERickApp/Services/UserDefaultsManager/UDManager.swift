@@ -7,7 +7,7 @@ class UserDefaultsManager {
         return instance
     }
 
-    enum DataCategory: String {
+    enum DataCategory: String, CaseIterable {
         case favourites
         case recent
     }

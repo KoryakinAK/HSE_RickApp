@@ -3,11 +3,14 @@ import UIKit
 protocol MainTableViewCellProtocol {
     static var reuseIdentifier: String { get }
     static var height: CGFloat { get }
+    func configure(with characters: [CharacterModel])
 }
 
 class MainTableViewCell: UITableViewCell, MainTableViewCellProtocol {
-    var recentlySearchedCV: UICollectionView!
     let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+
+    var recentlySearchedCV: UICollectionView!
+    var characters = [CharacterModel]()
 
     static let height: CGFloat = 160
     static let reuseIdentifier = "MainTableViewCell"
@@ -18,14 +21,14 @@ class MainTableViewCell: UITableViewCell, MainTableViewCellProtocol {
         setupCollectionView()
         setupUI()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Setup view
     func setupUI() {
-        self.backgroundColor = .red
+        self.backgroundColor = .clear
         recentlySearchedCV.translatesAutoresizingMaskIntoConstraints = false 
         self.contentView.addSubview(recentlySearchedCV)
         NSLayoutConstraint.activate([
@@ -38,27 +41,30 @@ class MainTableViewCell: UITableViewCell, MainTableViewCellProtocol {
     
     func setupCollectionView() {
         layout.scrollDirection = .horizontal
-
         recentlySearchedCV = UICollectionView(frame: .zero, collectionViewLayout: layout)
         recentlySearchedCV.collectionViewLayout = layout
         recentlySearchedCV.backgroundColor = .clear
         recentlySearchedCV.showsVerticalScrollIndicator = false
         recentlySearchedCV.showsHorizontalScrollIndicator = false
-        recentlySearchedCV.register(RecenlySearchedCVCell.self, forCellWithReuseIdentifier: RecenlySearchedCVCell.reuseIdentifier)
+        recentlySearchedCV.register(SuggestedSectionCell.self, forCellWithReuseIdentifier: SuggestedSectionCell.reuseIdentifier)
         recentlySearchedCV.delegate = self
         recentlySearchedCV.dataSource = self
+    }
+    
+    func configure(with characters: [CharacterModel]) {
+        self.characters = characters
     }
 }
 
 extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        return self.characters.count
     }
     
-    
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecenlySearchedCVCell.reuseIdentifier, for: indexPath) as? RecenlySearchedCVCell else { fatalError() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SuggestedSectionCell.reuseIdentifier, for: indexPath) as? SuggestedSectionCell else { fatalError() }
+        
+        cell.configure(with: self.characters[indexPath.row])
         return cell
     }
 }

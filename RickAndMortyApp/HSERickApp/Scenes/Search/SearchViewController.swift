@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 
 protocol SearchViewControllerProtocol: AnyObject {
     
@@ -51,7 +52,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        3
+        return presenter.getNumberOfSections()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,7 +60,9 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
                 as? MainTableViewCell else {
             fatalError()
         }
-//        cell.configure(with: character)
+        let category = UserDefaultsManager.DataCategory.allCases[indexPath.section]
+        let charactersIDs = UserDefaultsManager.sharedInstance().getCharacterIDsIn(category: category)
+        cell.configure(with: presenter.getCharactersArray(with: charactersIDs))
         return cell
     }
     
