@@ -311,6 +311,7 @@
 			buildConfigurationList = B5A3B6AC27FF3DDC0009D3BE /* Build configuration list for PBXNativeTarget "HSERickApp" */;
 			buildPhases = (
 				B5A3B67E27FF3DDA0009D3BE /* Sources */,
+				B5C7562F281D301500A2DC24 /* ShellScript */,
 				B5A3B67F27FF3DDA0009D3BE /* Frameworks */,
 				B5A3B68027FF3DDA0009D3BE /* Resources */,
 			);
@@ -434,6 +435,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B5C7562F281D301500A2DC24 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B5A3B67E27FF3DDA0009D3BE /* Sources */ = {

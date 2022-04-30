@@ -1,0 +1,15 @@
+excluded:
+  - HSERickAppTests
+  - HSERickAppUITests
+
+identifier_name:
+  excluded:
+    - id
+    - vc
+
+line_length:
+  warning: 220
+  ignores_function_declarations: true
+  ignores_comments: true
+  ignores_interpolated_strings: true
+  ignores_urls: true
