@@ -14,6 +14,7 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         let scroll = UIScrollView()
         scroll.backgroundColor = .clear
         scroll.alwaysBounceVertical = true
+        scroll.alwaysBounceHorizontal = false
         return scroll
     }()
 
@@ -32,7 +33,6 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
 
     let characterName: UILabel = {
         let label = UILabel()
-        label.text = "Pickle Rick"
         label.font = .boldSystemFont(ofSize: 36)
         label.textAlignment = .left
         return label
@@ -60,9 +60,10 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.mainScrollView.contentSize = self.containerView.subviews.reduce(CGRect.zero, {
-            return $0.union($1.frame)
-        }).size
+        let calculatedSize = self.containerView.subviews.reduce(CGRect.zero, {
+                        return $0.union($1.frame)
+                    }).size
+        self.mainScrollView.contentSize = CGSize(width: view.frame.width, height: calculatedSize.height)
     }
 
     // MARK: - Setup VC
@@ -94,6 +95,7 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
 
             characterName.topAnchor.constraint(equalTo: characterImage.bottomAnchor, constant: 35),
             characterName.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 16),
+            characterName.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor, multiplier: 0.75),
 
             characterInfoTableView.topAnchor.constraint(equalTo: characterName.bottomAnchor, constant: 20),
             characterInfoTableView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 16),
