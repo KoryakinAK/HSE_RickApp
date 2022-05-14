@@ -3,7 +3,8 @@ import UIKit
 final class SearchBuilder {
     public static func build() -> SearchViewController {
         let view = SearchViewController()
-        let presenter = SearchPresenter(view: view)
+        let storageManager = UserDefaultsManager.sharedInstance()
+        let presenter = SearchPresenter(view: view, storageManager: storageManager)
         view.presenter = presenter
         return view
     }

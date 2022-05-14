@@ -7,8 +7,9 @@ protocol SuggestedSectionCellProtocol {
 }
 
 class SuggestedSectionCell: UICollectionViewCell, SuggestedSectionCellProtocol {
-    let mainImage = UIImageView()
     static let reuseIdentifier = "RecenlySearchedCVCell"
+
+    let mainImage = UIImageView()
 
     // MARK: - Initializers
     override init(frame: CGRect) {

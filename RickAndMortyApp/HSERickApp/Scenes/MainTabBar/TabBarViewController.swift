@@ -1,7 +1,7 @@
 import UIKit
 
 protocol TabBarViewControllerProtocol: AnyObject {
-    
+
 }
 
 final class TabBarViewController: UITabBarController, TabBarViewControllerProtocol {

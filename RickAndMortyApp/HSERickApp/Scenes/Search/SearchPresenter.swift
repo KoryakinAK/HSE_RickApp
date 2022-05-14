@@ -1,20 +1,22 @@
 import Foundation
 
 protocol SearchPresenterProtocol: AnyObject {
-    init(view: SearchViewControllerProtocol)
+    init(view: SearchViewControllerProtocol, storageManager: StorageProtocol)
     func getCharactersArray(with IDs: [UInt]) -> [CharacterModel]
-    func getNumberOfRows(in section: Int) -> Int
+    func getNumberOfRows(in category: CharacterCategory) -> Int
     func getNumberOfSections() -> Int
+    func getCharacterFor(row: Int, in category: CharacterCategory) -> CharacterModel?
 }
 
 final class SearchPresenter: SearchPresenterProtocol {
-
     private weak var view: SearchViewControllerProtocol?
+    private var storageManager: StorageProtocol
 
     var dataSource = [[CharacterModel]]()
 
-    init(view: SearchViewControllerProtocol) {
+    init(view: SearchViewControllerProtocol, storageManager: StorageProtocol) {
         self.view = view
+        self.storageManager = storageManager
     }
 
     // MARK: - Networking
@@ -33,14 +35,18 @@ final class SearchPresenter: SearchPresenterProtocol {
         return resultingArray
     }
 
+    func getCharacterFor(row: Int, in category: CharacterCategory) -> CharacterModel? {
+        let characters = storageManager.getCharactersIn(category: category)
+        return characters[row]
+    }
+
     // MARK: - UITableView helpers
-    func getNumberOfRows(in section: Int) -> Int {
-        let caterogy = UserDefaultsManager.DataCategory.allCases[section]
-        return UserDefaultsManager.sharedInstance().getCharacterIDsIn(category: caterogy).count
+    func getNumberOfRows(in category: CharacterCategory) -> Int {
+        return storageManager.getCharactersIn(category: category).count
     }
 
     func getNumberOfSections() -> Int {
-        return UserDefaultsManager.DataCategory.allCases.count
+        return CharacterCategory.allCases.count
     }
 
 }

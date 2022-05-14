@@ -1,7 +1,7 @@
 import Foundation
 
 protocol FavouritesListPresenterProtocol: AnyObject {
-    init(view: FavouritesListVCProtocol, router: FavouritesListRouter)
+    init(view: FavouritesListVCProtocol, router: FavouritesListRouter, storageManager: StorageProtocol)
 
     func didSelect(row: Int)
     func retrieveFavCharacters()
@@ -12,27 +12,20 @@ protocol FavouritesListPresenterProtocol: AnyObject {
 final class FavouritesListPresenter: FavouritesListPresenterProtocol {
     private weak var view: FavouritesListVCProtocol?
     private var router: FavouritesListRouter
+    private var storageManager: StorageProtocol
     var favCharactersList = [CharacterModel]()
 
-    init(view: FavouritesListVCProtocol, router: FavouritesListRouter) {
+    init(view: FavouritesListVCProtocol, router: FavouritesListRouter, storageManager: StorageProtocol) {
         self.view = view
         self.router = router
+        self.storageManager = storageManager
     }
 
     func retrieveFavCharacters() {
-        let currentFavs = UserDefaultsManager.sharedInstance().getCharacterIDsIn(category: .favourites)
-        APIWorker.request(
-            endpoint: RickAPIConfig.getMultipleCharacters(ids: currentFavs)
-        ) { (result: Result<[CharacterModel], Error>)  in
-            switch result {
-            case .success(let response):
-                response.forEach {
-                    self.favCharactersList.append($0)
-                }
-                self.view?.chararactersTableView.reloadData()
-            case .failure(let error):
-                print("Character info download failed: \(error.localizedDescription)")
-            }
+        let currentFavs = storageManager.getCharactersIn(category: .favourites)
+        currentFavs.forEach {
+            self.favCharactersList.append($0)
+            self.view?.chararactersTableView.reloadData()
         }
     }
 

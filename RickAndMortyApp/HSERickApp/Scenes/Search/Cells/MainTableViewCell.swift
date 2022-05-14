@@ -3,14 +3,18 @@ import UIKit
 protocol MainTableViewCellProtocol {
     static var reuseIdentifier: String { get }
     static var height: CGFloat { get }
-    func configure(with characters: [CharacterModel])
+//    func configure(with characters: [CharacterModel])
+    func configure(with: SearchPresenterProtocol, for: CharacterCategory)
 }
 
 class MainTableViewCell: UITableViewCell, MainTableViewCellProtocol {
     let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
 
     var recentlySearchedCV: UICollectionView!
-    var characters = [CharacterModel]()
+    var cellCategory: CharacterCategory!
+    var presenter: SearchPresenterProtocol!
+
+
 
     static let height: CGFloat = 160
     static let reuseIdentifier = "MainTableViewCell"
@@ -52,14 +56,19 @@ class MainTableViewCell: UITableViewCell, MainTableViewCellProtocol {
         recentlySearchedCV.dataSource = self
     }
 
-    func configure(with characters: [CharacterModel]) {
-        self.characters = characters
+    func configure(with presenter: SearchPresenterProtocol, for category: CharacterCategory) {
+        self.presenter = presenter
+        self.cellCategory = category
     }
+
+//    func configure(with characters: [CharacterModel]) {
+//        self.characters = characters
+//    }
 }
 
 extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.characters.count
+        return presenter.getNumberOfRows(in: self.cellCategory)
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -68,7 +77,10 @@ extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
             withReuseIdentifier: SuggestedSectionCell.reuseIdentifier,
             for: indexPath)
                 as? SuggestedSectionCell else { fatalError() }
-        cell.configure(with: self.characters[indexPath.row])
+//        cell.inject(with: )
+        cell.configure(with: presenter.getCharacterFor(row: indexPath.row, in: self.cellCategory) ??
+        CharacterModel(id: 9, name: "sdf", status: "Asd", species: "asd", gender: "dfg", origin:
+                        LocationModel(name: "sdf", url: "bfdbdf"), location: LocationModel(name: "asdbge", url: "bdgb"), image: "vfsvdf"))
         return cell
     }
 }

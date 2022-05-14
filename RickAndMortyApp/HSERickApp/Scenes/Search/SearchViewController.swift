@@ -58,9 +58,10 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
                 as? MainTableViewCell else {
             fatalError()
         }
-        let category = UserDefaultsManager.DataCategory.allCases[indexPath.section]
+        let category = CharacterCategory.allCases[indexPath.section]
         let charactersIDs = UserDefaultsManager.sharedInstance().getCharacterIDsIn(category: category)
-        cell.configure(with: presenter.getCharactersArray(with: charactersIDs))
+        cell.configure(with: presenter, for: category)
+//        cell.configure(with: presenter.getCharactersArray(with: charactersIDs))
         return cell
     }
 
