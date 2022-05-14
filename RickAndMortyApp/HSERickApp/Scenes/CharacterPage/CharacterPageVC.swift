@@ -38,6 +38,14 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         return label
     }()
 
+    let favButton: UIButton = {
+        let button = UIButton()
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .large)
+        let largeBoldDoc = UIImage(systemName: "heart.circle.fill", withConfiguration: largeConfig)
+        button.setImage(largeBoldDoc, for: .normal)
+        return button
+    }()
+
     let characterInfoTableView: UITableView = {
         let tableView = UITableView()
         tableView.isScrollEnabled = false
@@ -72,7 +80,7 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         containerView.translatesAutoresizingMaskIntoConstraints = false
         mainScrollView.addSubview(containerView)
 
-        [characterImage, characterName, characterInfoTableView].forEach {
+        [characterImage, characterName, favButton, characterInfoTableView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.containerView.addSubview($0)
         }
@@ -96,6 +104,10 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
             characterName.topAnchor.constraint(equalTo: characterImage.bottomAnchor, constant: 35),
             characterName.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 16),
             characterName.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor, multiplier: 0.75),
+
+            favButton.centerYAnchor.constraint(equalTo: characterName.centerYAnchor),
+            favButton.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor, constant: -50),
+//            favButton.widthAnchor.constraint(equalToConstant: 18),
 
             characterInfoTableView.topAnchor.constraint(equalTo: characterName.bottomAnchor, constant: 20),
             characterInfoTableView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 16),
