@@ -11,6 +11,8 @@ final class HomeVC: UIViewController, HomeVCProtocol {
     // MARK: - UI Properties
     private let rickAndMortyLabel: UILabel = {
         let label = UILabel()
+        let customFont = UIFont(name: "SFUIDisplay-Black", size: 72) ?? UIFont.boldSystemFont(ofSize: 72)
+        label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
         let textAttributes = [
             NSAttributedString.Key.strokeColor:
@@ -18,7 +20,7 @@ final class HomeVC: UIViewController, HomeVCProtocol {
             NSAttributedString.Key.foregroundColor:
                 UIColor(named: "backgroundColor") ?? UIColor.systemBackground,
             NSAttributedString.Key.strokeWidth: -1.0,
-            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 72)
+            NSAttributedString.Key.font: customFont
         ] as [NSAttributedString.Key: Any]
         label.textAlignment = .left
         label.attributedText = NSMutableAttributedString(string: "RICK\nAND\nMORTY", attributes: textAttributes)
@@ -27,10 +29,12 @@ final class HomeVC: UIViewController, HomeVCProtocol {
 
     private let characterBookLabel: UILabel = {
         let label = UILabel()
+        let customFont = UIFont(name: "SFUIDisplay-Black", size: 32) ?? UIFont.boldSystemFont(ofSize: 32)
+        // TODO: - Вынести в презентер
+        label.attributedText = NSMutableAttributedString(string: "CHARACTER\nBOOK", attributes: [NSAttributedString.Key.kern: 3])
         label.numberOfLines = 0
-        label.text = "CHARACTER\nBOOK" // TODO: - Вынести в презентер
         label.textColor = UIColor(named: "mainLabelColor")
-        label.font = UIFont.boldSystemFont(ofSize: 32)
+        label.font = customFont
         return label
     }()
 
@@ -52,7 +56,7 @@ final class HomeVC: UIViewController, HomeVCProtocol {
     var visualEffectView: UIVisualEffectView!
 
     // Tiles anchors to be animated
-    lazy var topAnchorCollapsed = mainScrollView.topAnchor.constraint(equalTo: characterBookLabel.bottomAnchor)
+    lazy var topAnchorCollapsed = mainScrollView.topAnchor.constraint(equalTo: characterBookLabel.bottomAnchor, constant: 45)
     lazy var topAnchorExpanded = mainScrollView.topAnchor.constraint(equalTo: view.topAnchor)
 
     enum TilesImageState {

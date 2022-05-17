@@ -11,6 +11,7 @@
 		B50E63C428185DD20069719B /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50E63C328185DD20069719B /* MainTableViewCell.swift */; };
 		B5490626280F29D5009AF283 /* FavouriteCharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5490625280F29D5009AF283 /* FavouriteCharacterCell.swift */; };
 		B5490629280F2B26009AF283 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B5490628280F2B26009AF283 /* Kingfisher */; };
+		B5655C51283406C300B43BEB /* sf-ui-display-black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5655C50283406C300B43BEB /* sf-ui-display-black.ttf */; };
 		B5A3B68627FF3DDA0009D3BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B68527FF3DDA0009D3BE /* AppDelegate.swift */; };
 		B5A3B68827FF3DDA0009D3BE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B68727FF3DDA0009D3BE /* SceneDelegate.swift */; };
 		B5A3B68F27FF3DDC0009D3BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5A3B68E27FF3DDC0009D3BE /* Assets.xcassets */; };
@@ -67,6 +68,7 @@
 		B50E63C128185BFC0069719B /* SuggestedSectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedSectionCell.swift; sourceTree = "<group>"; };
 		B50E63C328185DD20069719B /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		B5490625280F29D5009AF283 /* FavouriteCharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteCharacterCell.swift; sourceTree = "<group>"; };
+		B5655C50283406C300B43BEB /* sf-ui-display-black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sf-ui-display-black.ttf"; sourceTree = "<group>"; };
 		B5A3B68227FF3DDA0009D3BE /* HSERickApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HSERickApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5A3B68527FF3DDA0009D3BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5A3B68727FF3DDA0009D3BE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +134,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B5655C5228340BCA00B43BEB /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B5655C50283406C300B43BEB /* sf-ui-display-black.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		B5A3B67927FF3DD90009D3BE = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +165,7 @@
 		B5A3B68427FF3DDA0009D3BE /* HSERickApp */ = {
 			isa = PBXGroup;
 			children = (
+				B5655C5228340BCA00B43BEB /* Fonts */,
 				B5B2A8842811F7F6001A735B /* Model */,
 				B5A3B6BD28088D540009D3BE /* Scenes */,
 				B5F2A10128190F0C005B05D6 /* Services */,
@@ -417,6 +428,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5655C51283406C300B43BEB /* sf-ui-display-black.ttf in Resources */,
 				B5B2A89328121B09001A735B /* Colors.xcassets in Resources */,
 				B5A3B69227FF3DDC0009D3BE /* LaunchScreen.storyboard in Resources */,
 				B5A3B68F27FF3DDC0009D3BE /* Assets.xcassets in Resources */,
