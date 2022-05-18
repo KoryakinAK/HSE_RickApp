@@ -13,7 +13,7 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
     let searchTextField: UITextField = {
         // TODO: Сделать кастомный класс с тонким курсором
         let textField = UITextField()
-        let customFont = UIFont(name: "SFUIDisplay-Black", size: 17) ?? UIFont.boldSystemFont(ofSize: 17)
+        let customFont = UIFont(name: CustomFonts.SFtextSemiBold.rawValue, size: 17) ?? UIFont.boldSystemFont(ofSize: 17)
         textField.font = customFont
         textField.textColor = UIColor(named: "mainLabelColor")
         textField.tintColor = UIColor(named: "mainLabelColor")

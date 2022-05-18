@@ -11,7 +11,7 @@ final class HomeVC: UIViewController, HomeVCProtocol {
     // MARK: - UI Properties
     private let rickAndMortyLabel: UILabel = {
         let label = UILabel()
-        let customFont = UIFont(name: "SFUIDisplay-Black", size: 72) ?? UIFont.boldSystemFont(ofSize: 72)
+        let customFont = UIFont(name: CustomFonts.SFdisplayBlack.rawValue, size: 72) ?? UIFont.boldSystemFont(ofSize: 72)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
         let textAttributes = [
@@ -29,7 +29,7 @@ final class HomeVC: UIViewController, HomeVCProtocol {
 
     private let characterBookLabel: UILabel = {
         let label = UILabel()
-        let customFont = UIFont(name: "SFUIDisplay-Black", size: 32) ?? UIFont.boldSystemFont(ofSize: 32)
+        let customFont = UIFont(name: CustomFonts.SFdisplayBlack.rawValue, size: 32) ?? UIFont.boldSystemFont(ofSize: 32)
         // TODO: - Вынести в презентер
         label.attributedText = NSMutableAttributedString(string: "CHARACTER\nBOOK", attributes: [NSAttributedString.Key.kern: 3])
         label.numberOfLines = 0
