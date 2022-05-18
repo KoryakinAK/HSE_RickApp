@@ -18,14 +18,14 @@ final class TabBarViewController: UITabBarController, TabBarViewControllerProtoc
         setupVC()
     }
 
-    func setupAppearance() {
+    private func setupAppearance() {
         self.view.backgroundColor = UIColor(named: "backgroundColor")
         tabBar.tintColor = UIColor(named: "mainLabelColor")
         tabBar.barTintColor = UIColor(named: "backgroundColor")
         tabBar.backgroundColor =  UIColor(named: "backgroundColor")
     }
 
-    func setupVC() {
+    private func setupVC() {
         let selectedImageConfig = UIImage.SymbolConfiguration(pointSize: 23, weight: .medium)
         viewControllers = [
             self.presenter.createNavController(for: HomeBuilder.build(),

@@ -42,18 +42,4 @@ class UserDefaultsManager: StorageProtocol {
             .filter { $0.id != character.id }
         UserDefaults.standard.set(try? PropertyListEncoder().encode(filteredCharacters), forKey: category.rawValue)
     }
-
-//    func getCharacterIDsIn(category: CharacterCategory) -> [UInt] {
-//        guard
-//            let characterIDsAsAny = UserDefaults.standard.value(forKey: category.rawValue),
-//            let characterIDs = characterIDsAsAny as? [UInt]
-//        else {
-//            return [UInt]()
-//        }
-//        return characterIDs
-//    }
-
-    func storeRecent(character: CharacterModel) {
-
-    }
 }

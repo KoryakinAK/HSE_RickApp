@@ -5,7 +5,6 @@ protocol HomeVCProtocol: AnyObject {
 }
 
 final class HomeVC: UIViewController, HomeVCProtocol {
-
     public var presenter: HomePresenterProtocol!
 
     // MARK: - UI Properties
@@ -13,6 +12,7 @@ final class HomeVC: UIViewController, HomeVCProtocol {
         let label = UILabel()
         let customFont = UIFont(name: CustomFonts.SFdisplayBlack.rawValue, size: 72) ?? UIFont.boldSystemFont(ofSize: 72)
         label.adjustsFontForContentSizeCategory = true
+        label.textAlignment = .left
         label.numberOfLines = 0
         let textAttributes = [
             NSAttributedString.Key.strokeColor:
@@ -22,7 +22,6 @@ final class HomeVC: UIViewController, HomeVCProtocol {
             NSAttributedString.Key.strokeWidth: -1.0,
             NSAttributedString.Key.font: customFont
         ] as [NSAttributedString.Key: Any]
-        label.textAlignment = .left
         label.attributedText = NSMutableAttributedString(string: "RICK\nAND\nMORTY", attributes: textAttributes)
         return label
     }()
@@ -38,14 +37,14 @@ final class HomeVC: UIViewController, HomeVCProtocol {
         return label
     }()
 
-    let mainScrollView: UIScrollView = {
+    private let mainScrollView: UIScrollView = {
         let scroll = UIScrollView()
         scroll.backgroundColor = .clear
         scroll.setZoomScale(0.35, animated: false)
         return scroll
     }()
 
-    let characterTiles: UIImageView = {
+    private let characterTiles: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "MainPage1"))
         return imageView
     }()

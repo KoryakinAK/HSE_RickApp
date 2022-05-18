@@ -7,10 +7,9 @@ protocol CharacterPageViewControllerProtocol: AnyObject {
 }
 
 final class CharacterPageViewController: UIViewController, CharacterPageViewControllerProtocol {
-    // MARK: - Properties
     public var presenter: CharacterPagePresenterProtocol!
 
-    let mainScrollView: UIScrollView = {
+    private let mainScrollView: UIScrollView = {
         let scroll = UIScrollView()
         scroll.backgroundColor = .clear
         scroll.alwaysBounceVertical = true
@@ -19,13 +18,13 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         return scroll
     }()
 
-    let containerView: UIView = {
+    private let containerView: UIView = {
         let newView = UIView()
         newView.backgroundColor = .clear
         return newView
     }()
 
-    let characterImage: UIImageView = {
+    private let characterImage: UIImageView = {
         let image = UIImageView(image: UIImage())
         image.backgroundColor = .cyan
         image.layer.cornerRadius = 10
@@ -33,21 +32,21 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         return image
     }()
 
-    let characterName: UILabel = {
+    private let characterName: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 36)
         label.textAlignment = .left
         return label
     }()
 
-    lazy var favButton: UIButton = {
+    private lazy var favButton: UIButton = {
         let button = UIButton(type: .custom)
         button.backgroundColor = self.favButtonColor
         button.layer.cornerRadius = 24
         return button
     }()
 
-    var favButtonColor: UIColor {
+    private var favButtonColor: UIColor {
         if presenter.isCurrentCharFavourited {
             return UIColor(named: "mainLabelColor") ?? .label
         } else {
@@ -55,7 +54,7 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         }
     }
 
-    let favButtonIcon: UIImageView = {
+    private let favButtonIcon: UIImageView = {
         let imageView = UIImageView()
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold, scale: .large)
         let largeBoldHeart = UIImage(systemName: "heart.fill", withConfiguration: largeConfig)
@@ -77,17 +76,18 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
     // MARK: - VC lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(named: "backgroundColor")
-        self.navigationItem.largeTitleDisplayMode = .never
-        self.navigationItem.title = "Characters"
         presenter.presentCurrentCharacter()
         setupUI()
         setupTableView()
-        favButton.addTarget(self, action: #selector(favButtonPressed), for: .touchUpInside)
+        setupButtonActions()
     }
 
     // MARK: - Setup VC
     func setupUI() {
+        self.navigationItem.largeTitleDisplayMode = .never
+        self.navigationItem.title = "Characters"
+        self.view.backgroundColor = UIColor(named: "backgroundColor")
+
         mainScrollView.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
         mainScrollView.addSubview(containerView)
@@ -145,9 +145,17 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         characterInfoTableView.delegate = self
         characterInfoTableView.dataSource = self
         characterInfoTableView.isScrollEnabled = false
-        characterInfoTableView.register(CharacterDescriptionCell.self, forCellReuseIdentifier: CharacterDescriptionCell.defaultReuseIdentifier)
+        characterInfoTableView.register(
+            CharacterDescriptionCell.self,
+            forCellReuseIdentifier: CharacterDescriptionCell.defaultReuseIdentifier
+        )
     }
 
+    func setupButtonActions() {
+        favButton.addTarget(self, action: #selector(favButtonPressed), for: .touchUpInside)
+    }
+
+    // MARK: - Button actions
     @objc func favButtonPressed(sender: UIButton!) {
         print(presenter.isCurrentCharFavourited)
         presenter.flipFavouriteStatus()

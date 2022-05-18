@@ -5,7 +5,6 @@ protocol SearchViewControllerProtocol: AnyObject {
 }
 
 final class SearchViewController: UIViewController, SearchViewControllerProtocol {
-
     public var presenter: SearchPresenterProtocol!
 
     var isSearchInProgress = false {
@@ -15,18 +14,17 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
     }
 
     // MARK: - Search UI elements
-    let searchTextField: UITextField = {
+    private let searchTextField: UITextField = {
         // TODO: Сделать кастомный класс с тонким курсором
         let textField = UITextField()
         let customFont = UIFont(name: CustomFonts.SFtextSemiBold.rawValue, size: 17) ?? UIFont.boldSystemFont(ofSize: 17)
         textField.font = customFont
         textField.textColor = UIColor(named: "mainLabelColor")
-        textField.tintColor = UIColor(named: "mainLabelColor")
         textField.clearButtonMode = .whileEditing
         return textField
     }()
 
-    let searchFieldOutline: UILabel = {
+    private let searchFieldOutline: UILabel = {
         let label = UILabel()
         label.layer.borderWidth = 2.0
         label.layer.borderColor = UIColor(named: "mainLabelColor")?.cgColor
@@ -34,7 +32,7 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
         return label
     }()
 
-    let searchIcon: UIImageView = {
+    private let searchIcon: UIImageView = {
         let imageView = UIImageView()
         let searchIcomConfig = UIImage.SymbolConfiguration(pointSize: 23, weight: .medium)
         imageView.image = UIImage(systemName: "magnifyingglass",
@@ -44,7 +42,7 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
 
     // MARK: - Other UI elements
     let suggestionsTableView = UITableView()
-    let separatorLabel: UILabel = {
+    private let separatorLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = UIColor(named: "secondaryLabelColor")
         label.layer.cornerRadius = 1
@@ -68,7 +66,6 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
             $0.translatesAutoresizingMaskIntoConstraints = false
             self?.view.addSubview($0)
         }
-        suggestionsTableView.layer.masksToBounds = false
 
         NSLayoutConstraint.activate([
             separatorLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 7),
@@ -103,14 +100,10 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
         suggestionsTableView.separatorStyle = .none
         suggestionsTableView.register(SuggestionContainerCell.self, forCellReuseIdentifier: SuggestionContainerCell.defaultReuseIdentifier)
         suggestionsTableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.defaultReuseIdentifier)
-
     }
 
     func setupTextField() {
         searchTextField.delegate = self
-    }
-
-    func updateSearchResults() {
     }
 }
 
@@ -154,9 +147,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
                 fatalError()
             }
             let category = CharacterCategory.allCases[indexPath.section]
-//            let charactersIDs = UserDefaultsManager.sharedInstance().getCharacterIDsIn(category: category)
             cell.configure(with: presenter, for: category)
-    //        cell.configure(with: presenter.getCharactersArray(with: charactersIDs))
             return cell
         }
     }
@@ -175,6 +166,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         case true:
             return nil
         case false:
+            // TODO: - Вынести отсюда создание хедера
             let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
             let label = UILabel()
             let customFont = UIFont(name: CustomFonts.SFtextSemiBold.rawValue, size: 17)
@@ -216,10 +208,6 @@ extension SearchViewController: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         self.isSearchInProgress = true
-    }
-
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        // Здесь что-то должно быть
     }
 
     func textFieldShouldClear(_ textField: UITextField) -> Bool {

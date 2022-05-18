@@ -192,6 +192,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		B5655C782835AC8D00B43BEB /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B5B2A8C62813F569001A735B /* TileCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		B5A3B67927FF3DD90009D3BE = {
 			isa = PBXGroup;
 			children = (
@@ -283,9 +291,9 @@
 		B5B2A88F281202A3001A735B /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				B5655C782835AC8D00B43BEB /* Cells */,
 				B5B2A8B028130DA5001A735B /* HomePresenter.swift */,
 				B5B2A8B128130DA5001A735B /* HomeVC.swift */,
-				B5B2A8C62813F569001A735B /* TileCell.swift */,
 				B5B2A8B228130DA5001A735B /* HomeBuilder.swift */,
 			);
 			path = Home;

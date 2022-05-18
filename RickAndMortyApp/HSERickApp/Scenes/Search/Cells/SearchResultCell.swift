@@ -90,7 +90,7 @@ class SearchResultCell: UITableViewCell, SearchResultCellProtocol {
             separator.heightAnchor.constraint(equalToConstant: 1),
             separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
-            ])
+        ])
     }
 
     // MARK: - SelfConfigurableCell conformance

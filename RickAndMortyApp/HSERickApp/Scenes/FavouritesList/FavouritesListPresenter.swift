@@ -4,7 +4,7 @@ protocol FavouritesListPresenterProtocol: AnyObject {
     init(view: FavouritesListVCProtocol, router: FavouritesListRouter, storageManager: StorageProtocol)
 
     func didSelect(row: Int)
-    func retrieveFavCharacters()
+    func updateFavCharacters()
 
     var favCharactersList: [CharacterModel] { get set }
 }
@@ -21,7 +21,7 @@ final class FavouritesListPresenter: FavouritesListPresenterProtocol {
         self.storageManager = storageManager
     }
 
-    func retrieveFavCharacters() {
+    func updateFavCharacters() {
         let currentFavs = storageManager.getCharactersIn(category: .favourites)
         self.favCharactersList = currentFavs
         self.view?.chararactersTableView.reloadData()

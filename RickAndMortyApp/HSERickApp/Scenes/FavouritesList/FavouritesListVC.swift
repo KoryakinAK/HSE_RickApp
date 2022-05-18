@@ -21,13 +21,13 @@ final class FavouritesListVC: UIViewController, FavouritesListVCProtocol {
         super.viewDidLoad()
         self.navigationItem.backButtonDisplayMode = .generic
         self.view.backgroundColor = UIColor(named: "backgroundColor")
-        presenter.retrieveFavCharacters()
+        presenter.updateFavCharacters()
         setupUI()
         setupTableView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        self.presenter.retrieveFavCharacters()
+        self.presenter.updateFavCharacters()
     }
 
     // MARK: - VC setup

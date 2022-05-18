@@ -14,6 +14,5 @@ final class SearchRouter: SearchRouterProtocol {
 
     func presentCharacterPage(for character: CharacterModel) {
         self.view?.present(CharacterPageBuilder.build(for: character), animated: true)
-//        self.view?.navigationController?.pushViewController(CharacterPageBuilder.build(for: character), animated: true)
     }
 }

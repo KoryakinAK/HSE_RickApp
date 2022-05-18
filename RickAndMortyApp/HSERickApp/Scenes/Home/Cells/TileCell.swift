@@ -21,12 +21,11 @@ class TileCell: UICollectionViewCell, TileCellProtocol {
     func setupUI() {
         contentView.addSubview(mainImage)
         mainImage.translatesAutoresizingMaskIntoConstraints = false
-
         NSLayoutConstraint.activate([
-        mainImage.topAnchor.constraint(equalTo: contentView.topAnchor),
-        mainImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-        mainImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-        mainImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            mainImage.topAnchor.constraint(equalTo: contentView.topAnchor),
+            mainImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            mainImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            mainImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
     }
 }

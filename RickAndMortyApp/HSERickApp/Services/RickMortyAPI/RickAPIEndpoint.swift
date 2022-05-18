@@ -25,7 +25,7 @@ enum RickAPIEndpoint: Endpoint {
         case .getMultipleCharacters(ids: let ids):
             let idsAsString = "\(ids)".filter { $0 != " "}
             return "/api/character/\(idsAsString)"
-        case .searchBy(_):
+        case .searchBy:
             return "/api/character/"
         }
     }

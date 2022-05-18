@@ -2,8 +2,9 @@ import UIKit
 
 protocol TabBarPresenterProtocol: AnyObject {
     init(view: TabBarViewControllerProtocol, router: TabBarRouter)
+
     var lastSelectedTab: Int { get set }
-    func didSelect(at selectedIndex: Int)
+
     func createNavController(for rootViewController: UIViewController,
                              title: String,
                              image: UIImage,
@@ -36,9 +37,5 @@ final class TabBarPresenter: TabBarPresenterProtocol {
             rootViewController.navigationItem.title = title
         }
         return navController
-    }
-
-    func didSelect(at selectedIndex: Int) {
-    // TODO: - удалить?
     }
 }

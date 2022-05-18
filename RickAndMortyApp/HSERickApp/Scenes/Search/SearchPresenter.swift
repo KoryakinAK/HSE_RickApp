@@ -3,16 +3,14 @@ import Foundation
 protocol SearchPresenterProtocol: AnyObject {
     init(view: SearchViewControllerProtocol, router: SearchRouter, storageManager: StorageProtocol)
 
-    func didSelectSearchResult(at row: Int)
+    var searchResultCharacters: [CharacterModel] { get }
 
+    func didSelectSearchResult(at row: Int)
     func performSearchWith(name: String)
-    func getCharactersArray(with IDs: [UInt]) -> [CharacterModel]
     func getNumberOfRows(in category: CharacterCategory) -> Int
     func getNumberOfSuggestedSections() -> Int
     func getCharacterFor(row: Int, in category: CharacterCategory) -> CharacterModel?
     func getSectionName(for section: Int) -> String
-
-    var searchResultCharacters: [CharacterModel] { get }
 }
 
 final class SearchPresenter: SearchPresenterProtocol {
@@ -51,33 +49,19 @@ final class SearchPresenter: SearchPresenterProtocol {
         }
     }
 
-    func clearSearchResults() {
+    private func clearSearchResults() {
+        // TODO: - Лейбл "Нет результатов"
         self.searchResultCharacters = [CharacterModel]()
         self.searchResultMetaInfo = nil
         view?.suggestionsTableView.reloadData()
     }
 
-    func getCharactersArray(with IDs: [UInt]) -> [CharacterModel] {
-        var resultingArray = [CharacterModel]()
-        APIWorker.request(
-            endpoint: RickAPIEndpoint.getMultipleCharacters(ids: IDs)
-        ) { (result: Result<[CharacterModel], Error>)  in
-            switch result {
-            case .success(let response):
-                resultingArray = response
-            case .failure(let error):
-                print("Download failed: \(error.localizedDescription)")
-            }
-        }
-        return resultingArray
-    }
-
+    // MARK: - UITableView helpers
     func getCharacterFor(row: Int, in category: CharacterCategory) -> CharacterModel? {
         let characters = storageManager.getCharactersIn(category: category)
         return characters[row]
     }
 
-    // MARK: - UITableView helpers
     func getNumberOfRows(in category: CharacterCategory) -> Int {
         return storageManager.getCharactersIn(category: category).count
     }
