@@ -13,6 +13,8 @@
 		B5490629280F2B26009AF283 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B5490628280F2B26009AF283 /* Kingfisher */; };
 		B5655C51283406C300B43BEB /* sf-ui-display-black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5655C50283406C300B43BEB /* sf-ui-display-black.ttf */; };
 		B5655C5628354C8700B43BEB /* sf-ui-text-semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5655C5528354C8600B43BEB /* sf-ui-text-semibold.ttf */; };
+		B5655C652835686400B43BEB /* UITableViewCell+defaultReuseIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5655C642835686400B43BEB /* UITableViewCell+defaultReuseIdentifier.swift */; };
+		B5655C672835694B00B43BEB /* UICollectionViewCell+defaultReuseIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5655C662835694B00B43BEB /* UICollectionViewCell+defaultReuseIdentifier.swift */; };
 		B5A3B68627FF3DDA0009D3BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B68527FF3DDA0009D3BE /* AppDelegate.swift */; };
 		B5A3B68827FF3DDA0009D3BE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B68727FF3DDA0009D3BE /* SceneDelegate.swift */; };
 		B5A3B68F27FF3DDC0009D3BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5A3B68E27FF3DDC0009D3BE /* Assets.xcassets */; };
@@ -71,6 +73,8 @@
 		B5490625280F29D5009AF283 /* FavouriteCharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteCharacterCell.swift; sourceTree = "<group>"; };
 		B5655C50283406C300B43BEB /* sf-ui-display-black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sf-ui-display-black.ttf"; sourceTree = "<group>"; };
 		B5655C5528354C8600B43BEB /* sf-ui-text-semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sf-ui-text-semibold.ttf"; sourceTree = "<group>"; };
+		B5655C642835686400B43BEB /* UITableViewCell+defaultReuseIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+defaultReuseIdentifier.swift"; sourceTree = "<group>"; };
+		B5655C662835694B00B43BEB /* UICollectionViewCell+defaultReuseIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+defaultReuseIdentifier.swift"; sourceTree = "<group>"; };
 		B5A3B68227FF3DDA0009D3BE /* HSERickApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HSERickApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5A3B68527FF3DDA0009D3BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5A3B68727FF3DDA0009D3BE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -143,6 +147,15 @@
 				B5655C50283406C300B43BEB /* sf-ui-display-black.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		B5655C632835682800B43BEB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B5655C642835686400B43BEB /* UITableViewCell+defaultReuseIdentifier.swift */,
+				B5655C662835694B00B43BEB /* UICollectionViewCell+defaultReuseIdentifier.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		B5A3B67927FF3DD90009D3BE = {
@@ -496,11 +509,13 @@
 				B5B2A8B928130E51001A735B /* FavouritesListPresenter.swift in Sources */,
 				B5B2A8C72813F569001A735B /* TileCell.swift in Sources */,
 				B5B2A8AF28130C1B001A735B /* CharacterPageBuilder.swift in Sources */,
+				B5655C652835686400B43BEB /* UITableViewCell+defaultReuseIdentifier.swift in Sources */,
 				B5A3B68627FF3DDA0009D3BE /* AppDelegate.swift in Sources */,
 				B5B2A8C52813189B001A735B /* FavouritesListRouter.swift in Sources */,
 				B5F2A0FD2819014A005B05D6 /* TabBarViewController.swift in Sources */,
 				B5B2A8AE28130C1B001A735B /* CharacterPageVC.swift in Sources */,
 				B5F2A10C28191837005B05D6 /* UDManager.swift in Sources */,
+				B5655C672835694B00B43BEB /* UICollectionViewCell+defaultReuseIdentifier.swift in Sources */,
 				B5B2A8A728130B58001A735B /* SearchViewController.swift in Sources */,
 				B50E63C228185BFC0069719B /* SuggestedSectionCell.swift in Sources */,
 				B5B2A8BA28130E51001A735B /* FavouritesListVC.swift in Sources */,
