@@ -1,5 +1,4 @@
 import UIKit
-import SwiftUI
 
 protocol SearchViewControllerProtocol: AnyObject {
     var suggestionsTableView: UITableView { get }
@@ -9,13 +8,13 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
 
     public var presenter: SearchPresenterProtocol!
 
-    // MARK: - Search UI elements
     var isSearchInProgress = false {
         didSet {
             self.suggestionsTableView.reloadData()
         }
     }
 
+    // MARK: - Search UI elements
     let searchTextField: UITextField = {
         // TODO: Сделать кастомный класс с тонким курсором
         let textField = UITextField()
@@ -69,6 +68,7 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
             $0.translatesAutoresizingMaskIntoConstraints = false
             self?.view.addSubview($0)
         }
+        suggestionsTableView.layer.masksToBounds = false
 
         NSLayoutConstraint.activate([
             separatorLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 7),
@@ -89,7 +89,7 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
             searchTextField.trailingAnchor.constraint(equalTo: searchFieldOutline.trailingAnchor, constant: -13),
             searchTextField.bottomAnchor.constraint(equalTo: searchFieldOutline.bottomAnchor, constant: -13),
 
-            suggestionsTableView.topAnchor.constraint(equalTo: searchFieldOutline.bottomAnchor, constant: 16),
+            suggestionsTableView.topAnchor.constraint(equalTo: searchFieldOutline.bottomAnchor),
             suggestionsTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             suggestionsTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             suggestionsTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
@@ -100,6 +100,7 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
         suggestionsTableView.backgroundColor = .clear
         suggestionsTableView.delegate = self
         suggestionsTableView.dataSource = self
+        suggestionsTableView.separatorStyle = .none
         suggestionsTableView.register(SuggestionContainerCell.self, forCellReuseIdentifier: SuggestionContainerCell.defaultReuseIdentifier)
         suggestionsTableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.defaultReuseIdentifier)
 
@@ -129,7 +130,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         case true:
             return 1
         case false:
-            return presenter.getNumberOfSections()
+            return presenter.getNumberOfSuggestedSections()
         }
     }
 
@@ -144,6 +145,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
             }
             cell.configure(with: presenter.searchResultCharacters[indexPath.row])
             return cell
+
         case false:
             guard let cell = suggestionsTableView.dequeueReusableCell(
                 withIdentifier: SuggestionContainerCell.defaultReuseIdentifier,
@@ -175,9 +177,10 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         case false:
             let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
             let label = UILabel()
-            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
-            label.text = "Гамарджоба"
-            label.font = .boldSystemFont(ofSize: 22)
+            let customFont = UIFont(name: CustomFonts.SFtextSemiBold.rawValue, size: 17)
+            label.font = customFont
+            label.frame = CGRect.init(x: 16, y: 0, width: headerView.frame.width - 16, height: headerView.frame.height)
+            label.text = presenter.getSectionName(for: section)
             label.textColor = UIColor(named: "mainLabelColor")
             headerView.addSubview(label)
             return headerView
@@ -190,6 +193,15 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
             return 0
         case false:
             return 50
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch isSearchInProgress {
+        case true:
+            presenter.didSelectSearchResult(at: indexPath.row)
+        case false:
+            return
         }
     }
 }

@@ -23,10 +23,8 @@ final class FavouritesListPresenter: FavouritesListPresenterProtocol {
 
     func retrieveFavCharacters() {
         let currentFavs = storageManager.getCharactersIn(category: .favourites)
-        currentFavs.forEach {
-            self.favCharactersList.append($0)
-            self.view?.chararactersTableView.reloadData()
-        }
+        self.favCharactersList = currentFavs
+        self.view?.chararactersTableView.reloadData()
     }
 
     // MARK: - UITableView actions

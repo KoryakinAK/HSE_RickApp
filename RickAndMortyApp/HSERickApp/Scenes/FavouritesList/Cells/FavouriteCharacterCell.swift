@@ -2,12 +2,11 @@ import UIKit
 
 protocol SelfConfigurableCharacterCell {
     func configure(with: CharacterModel)
-    func showSeparator()
-    static var cellHeight: CGFloat { get }
+    static var height: CGFloat { get }
 }
 
 class FavouriteCharacterCell: UITableViewCell, SelfConfigurableCharacterCell {
-    static let cellHeight: CGFloat = 139
+    static let height: CGFloat = 139
 
     let characterName: UILabel = {
         let label = UILabel()
@@ -74,12 +73,5 @@ class FavouriteCharacterCell: UITableViewCell, SelfConfigurableCharacterCell {
         if let url = URL(string: character.image) {
             characterIcon.kf.setImage(with: url)
         }
-    }
-
-    func showSeparator() {
-        contentView.addSubview(separator)
-        separator.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-        ])
     }
 }

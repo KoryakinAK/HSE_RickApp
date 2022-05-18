@@ -15,11 +15,13 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         scroll.backgroundColor = .clear
         scroll.alwaysBounceVertical = true
         scroll.alwaysBounceHorizontal = false
+        scroll.backgroundColor = .clear
         return scroll
     }()
 
     let containerView: UIView = {
         let newView = UIView()
+        newView.backgroundColor = .clear
         return newView
     }()
 
@@ -38,14 +40,20 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         return label
     }()
 
-    var isCharacterInFavs = false
-
-    let favButton: UIButton = {
+    lazy var favButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.backgroundColor = UIColor(named: "mainLabelColor")
+        button.backgroundColor = self.favButtonColor
         button.layer.cornerRadius = 24
         return button
     }()
+
+    var favButtonColor: UIColor {
+        if presenter.isCurrentCharFavourited {
+            return UIColor(named: "mainLabelColor") ?? .label
+        } else {
+            return UIColor(named: "unselectedFavButton") ?? .secondaryLabel
+        }
+    }
 
     let favButtonIcon: UIImageView = {
         let imageView = UIImageView()
@@ -72,19 +80,10 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         self.view.backgroundColor = UIColor(named: "backgroundColor")
         self.navigationItem.largeTitleDisplayMode = .never
         self.navigationItem.title = "Characters"
+        presenter.presentCurrentCharacter()
         setupUI()
         setupTableView()
         favButton.addTarget(self, action: #selector(favButtonPressed), for: .touchUpInside)
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        mainScrollView.backgroundColor = .clear
-        containerView.backgroundColor = .clear
-        let calculatedSize = self.containerView.subviews.reduce(CGRect.zero, {
-                        return $0.union($1.frame)
-                    }).size
-//        self.mainScrollView.contentSize = CGSize(width: view.frame.width, height: calculatedSize.height)
     }
 
     // MARK: - Setup VC
@@ -142,10 +141,6 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         ])
     }
 
-    override func viewDidLayoutSubviews() {
-        print(containerView.frame.size)
-    }
-
     func setupTableView() {
         characterInfoTableView.delegate = self
         characterInfoTableView.dataSource = self
@@ -154,7 +149,9 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
     }
 
     @objc func favButtonPressed(sender: UIButton!) {
-        print("Button pressed")
+        print(presenter.isCurrentCharFavourited)
+        presenter.flipFavouriteStatus()
+        self.favButton.backgroundColor = self.favButtonColor
     }
 
     // MARK: - Presenter interaction

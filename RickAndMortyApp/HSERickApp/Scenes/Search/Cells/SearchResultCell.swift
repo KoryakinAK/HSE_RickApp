@@ -45,7 +45,7 @@ class SearchResultCell: UITableViewCell, SearchResultCellProtocol {
         separatorView.backgroundColor = UIColor(named: "mainLabelColor")
         return separatorView
     }()
-//
+
     let stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical

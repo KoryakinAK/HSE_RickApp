@@ -1,30 +1,40 @@
 import Foundation
 
 protocol SearchPresenterProtocol: AnyObject {
-    init(view: SearchViewControllerProtocol, storageManager: StorageProtocol)
+    init(view: SearchViewControllerProtocol, router: SearchRouter, storageManager: StorageProtocol)
+
+    func didSelectSearchResult(at row: Int)
+
     func performSearchWith(name: String)
     func getCharactersArray(with IDs: [UInt]) -> [CharacterModel]
     func getNumberOfRows(in category: CharacterCategory) -> Int
-    func getNumberOfSections() -> Int
+    func getNumberOfSuggestedSections() -> Int
     func getCharacterFor(row: Int, in category: CharacterCategory) -> CharacterModel?
+    func getSectionName(for section: Int) -> String
 
     var searchResultCharacters: [CharacterModel] { get }
 }
 
 final class SearchPresenter: SearchPresenterProtocol {
     private weak var view: SearchViewControllerProtocol?
+    private var router: SearchRouter
     private var storageManager: StorageProtocol
 
-    var dataSource = [[CharacterModel]]()
     var searchResultMetaInfo: SearchMetaInfo?
     var searchResultCharacters = [CharacterModel]()
 
-    init(view: SearchViewControllerProtocol, storageManager: StorageProtocol) {
+    init(view: SearchViewControllerProtocol, router: SearchRouter, storageManager: StorageProtocol) {
         self.view = view
+        self.router = router
         self.storageManager = storageManager
     }
 
-    // MARK: - Networking
+    // MARK: - Routing
+    func didSelectSearchResult(at row: Int) {
+        router.presentCharacterPage(for: searchResultCharacters[row])
+    }
+
+    // MARK: - Search handling
     func performSearchWith(name: String) {
         APIWorker.request(
             endpoint: RickAPIEndpoint.searchBy(name: name)
@@ -35,9 +45,16 @@ final class SearchPresenter: SearchPresenterProtocol {
                 self.searchResultMetaInfo = response.info
                 self.view?.suggestionsTableView.reloadData()
             case .failure(let error):
+                self.clearSearchResults()
                 print("Download failed: \(error.localizedDescription)")
             }
         }
+    }
+
+    func clearSearchResults() {
+        self.searchResultCharacters = [CharacterModel]()
+        self.searchResultMetaInfo = nil
+        view?.suggestionsTableView.reloadData()
     }
 
     func getCharactersArray(with IDs: [UInt]) -> [CharacterModel] {
@@ -65,8 +82,12 @@ final class SearchPresenter: SearchPresenterProtocol {
         return storageManager.getCharactersIn(category: category).count
     }
 
-    func getNumberOfSections() -> Int {
+    func getNumberOfSuggestedSections() -> Int {
         return CharacterCategory.allCases.count
+    }
+
+    func getSectionName(for section: Int) -> String {
+        return CharacterCategory.allCases[section].rawValue
     }
 
 }

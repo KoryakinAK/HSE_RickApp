@@ -45,8 +45,8 @@ class SuggestionContainerCell: UITableViewCell, SuggestionContainerCellProtocol 
         recentlySearchedCV.backgroundColor = .clear
         recentlySearchedCV.showsVerticalScrollIndicator = false
         recentlySearchedCV.showsHorizontalScrollIndicator = false
-        recentlySearchedCV.register(SuggestedSectionCell.self,
-                                    forCellWithReuseIdentifier: SuggestedSectionCell.defaultReuseIdentifier)
+        recentlySearchedCV.register(SmallCharacterCell.self,
+                                    forCellWithReuseIdentifier: SmallCharacterCell.defaultReuseIdentifier)
         recentlySearchedCV.delegate = self
         recentlySearchedCV.dataSource = self
     }
@@ -65,13 +65,11 @@ extension SuggestionContainerCell: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: SuggestedSectionCell.defaultReuseIdentifier,
+            withReuseIdentifier: SmallCharacterCell.defaultReuseIdentifier,
             for: indexPath)
-                as? SuggestedSectionCell else { fatalError() }
-//        cell.inject(with: )
-        cell.configure(with: presenter.getCharacterFor(row: indexPath.row, in: self.cellCategory) ??
-        CharacterModel(id: 9, name: "sdf", status: "Asd", species: "asd", gender: "dfg", origin:
-                        LocationModel(name: "sdf", url: "bfdbdf"), location: LocationModel(name: "asdbge", url: "bdgb"), image: "vfsvdf"))
+                as? SmallCharacterCell else { fatalError() }
+        guard let character = presenter.getCharacterFor(row: indexPath.row, in: self.cellCategory) else { return cell }
+        cell.configure(with: character)
         return cell
     }
 }
@@ -81,5 +79,9 @@ extension SuggestionContainerCell: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 120, height: 160)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 20
     }
 }

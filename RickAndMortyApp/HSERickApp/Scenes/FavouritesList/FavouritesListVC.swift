@@ -26,6 +26,10 @@ final class FavouritesListVC: UIViewController, FavouritesListVCProtocol {
         setupTableView()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        self.presenter.retrieveFavCharacters()
+    }
+
     // MARK: - VC setup
     func setupUI() {
         [chararactersTableView].forEach {
@@ -65,7 +69,7 @@ extension FavouritesListVC: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return FavouriteCharacterCell.cellHeight
+        return FavouriteCharacterCell.height
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

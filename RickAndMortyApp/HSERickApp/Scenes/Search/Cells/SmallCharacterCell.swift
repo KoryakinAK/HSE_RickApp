@@ -1,12 +1,17 @@
 import UIKit
 
-protocol SuggestedSectionCellProtocol {
+protocol SmallCharacterCellProtocol {
     var mainImage: UIImageView { get }
     func configure(with character: CharacterModel)
 }
 
-class SuggestedSectionCell: UICollectionViewCell, SuggestedSectionCellProtocol {
-    let mainImage = UIImageView()
+class SmallCharacterCell: UICollectionViewCell, SmallCharacterCellProtocol {
+    let mainImage: UIImageView = {
+        let image = UIImageView()
+        image.clipsToBounds = true
+        image.layer.cornerRadius = 10
+        return image
+    }()
 
     // MARK: - Initializers
     override init(frame: CGRect) {
