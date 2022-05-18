@@ -6,6 +6,8 @@
 	<array>
 		<string>sf-ui-display-black.ttf</string>
 		<string>sf-ui-text-semibold.ttf</string>
+		<string>SF-UI-Display-Bold.ttf</string>
+		<string>sf-ui-text-bold.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
