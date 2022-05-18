@@ -7,7 +7,7 @@ protocol Endpoint {
 //    var token: URLQueryItem { get }
 }
 
-enum RickAPIConfig: Endpoint {
+enum RickAPIEndpoint: Endpoint {
     case getCharacter(id: UInt)
     case getMultipleCharacters(ids: [UInt])
 

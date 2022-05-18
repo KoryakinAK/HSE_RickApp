@@ -23,7 +23,7 @@ final class SearchPresenter: SearchPresenterProtocol {
     func getCharactersArray(with IDs: [UInt]) -> [CharacterModel] {
         var resultingArray = [CharacterModel]()
         APIWorker.request(
-            endpoint: RickAPIConfig.getMultipleCharacters(ids: IDs)
+            endpoint: RickAPIEndpoint.getMultipleCharacters(ids: IDs)
         ) { (result: Result<[CharacterModel], Error>)  in
             switch result {
             case .success(let response):
