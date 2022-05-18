@@ -100,6 +100,8 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
         suggestionsTableView.backgroundColor = .clear
         suggestionsTableView.delegate = self
         suggestionsTableView.dataSource = self
+        suggestionsTableView.register(SuggestionContainerCell.self, forCellReuseIdentifier: SuggestionContainerCell.defaultReuseIdentifier)
+        suggestionsTableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.defaultReuseIdentifier)
 
     }
 

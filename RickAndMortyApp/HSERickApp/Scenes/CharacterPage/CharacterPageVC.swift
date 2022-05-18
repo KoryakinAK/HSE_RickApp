@@ -150,7 +150,7 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         characterInfoTableView.delegate = self
         characterInfoTableView.dataSource = self
         characterInfoTableView.isScrollEnabled = false
-        characterInfoTableView.register(CharacterDescriptionCell.self, forCellReuseIdentifier: "CharacterDescriptionCell")
+        characterInfoTableView.register(CharacterDescriptionCell.self, forCellReuseIdentifier: CharacterDescriptionCell.defaultReuseIdentifier)
     }
 
     @objc func favButtonPressed(sender: UIButton!) {

@@ -2,12 +2,10 @@ import UIKit
 
 protocol TileCellProtocol {
     var mainImage: UIImageView { get }
-    static var reuseIdentifier: String { get }
 }
 
 class TileCell: UICollectionViewCell, TileCellProtocol {
     let mainImage = UIImageView()
-    static let reuseIdentifier = "TileCell"
 
     // MARK: - Initializers
     override init(frame: CGRect) {

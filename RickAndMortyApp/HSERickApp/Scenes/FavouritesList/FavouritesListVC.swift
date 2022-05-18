@@ -44,7 +44,7 @@ final class FavouritesListVC: UIViewController, FavouritesListVCProtocol {
     func setupTableView() {
         chararactersTableView.delegate = self
         chararactersTableView.dataSource = self
-        chararactersTableView.register(FavouriteCharacterCell.self, forCellReuseIdentifier: "FavouriteCharacterCell")
+        chararactersTableView.register(FavouriteCharacterCell.self, forCellReuseIdentifier: FavouriteCharacterCell.defaultReuseIdentifier)
     }
 }
 

@@ -2,13 +2,10 @@ import UIKit
 
 protocol SuggestedSectionCellProtocol {
     var mainImage: UIImageView { get }
-    static var reuseIdentifier: String { get }
     func configure(with character: CharacterModel)
 }
 
 class SuggestedSectionCell: UICollectionViewCell, SuggestedSectionCellProtocol {
-    static let reuseIdentifier = "RecenlySearchedCVCell"
-
     let mainImage = UIImageView()
 
     // MARK: - Initializers

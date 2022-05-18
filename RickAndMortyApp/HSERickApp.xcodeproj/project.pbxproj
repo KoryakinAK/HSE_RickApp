@@ -161,6 +161,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		B5655C5B28355FB700B43BEB /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B5490625280F29D5009AF283 /* FavouriteCharacterCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		B5655C632835682800B43BEB /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
