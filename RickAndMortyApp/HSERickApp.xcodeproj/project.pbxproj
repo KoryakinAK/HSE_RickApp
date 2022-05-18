@@ -41,7 +41,7 @@
 		B5F2A0FD2819014A005B05D6 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F2A0FA2819014A005B05D6 /* TabBarViewController.swift */; };
 		B5F2A0FE2819014A005B05D6 /* TabBarBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F2A0FB2819014A005B05D6 /* TabBarBuilder.swift */; };
 		B5F2A10028190467005B05D6 /* TabBarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F2A0FF28190467005B05D6 /* TabBarRouter.swift */; };
-		B5F2A103281915D2005B05D6 /* RickAPIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F2A102281915D2005B05D6 /* RickAPIConfig.swift */; };
+		B5F2A103281915D2005B05D6 /* RickAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F2A102281915D2005B05D6 /* RickAPIEndpoint.swift */; };
 		B5F2A105281916AF005B05D6 /* APIWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F2A104281916AF005B05D6 /* APIWorker.swift */; };
 		B5F2A10828191714005B05D6 /* CharacterModel+LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F2A10728191714005B05D6 /* CharacterModel+LocationModel.swift */; };
 		B5F2A10C28191837005B05D6 /* UDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F2A10B28191837005B05D6 /* UDManager.swift */; };
@@ -102,7 +102,7 @@
 		B5F2A0FA2819014A005B05D6 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		B5F2A0FB2819014A005B05D6 /* TabBarBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarBuilder.swift; sourceTree = "<group>"; };
 		B5F2A0FF28190467005B05D6 /* TabBarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarRouter.swift; sourceTree = "<group>"; };
-		B5F2A102281915D2005B05D6 /* RickAPIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RickAPIConfig.swift; sourceTree = "<group>"; };
+		B5F2A102281915D2005B05D6 /* RickAPIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RickAPIEndpoint.swift; sourceTree = "<group>"; };
 		B5F2A104281916AF005B05D6 /* APIWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIWorker.swift; sourceTree = "<group>"; };
 		B5F2A10728191714005B05D6 /* CharacterModel+LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterModel+LocationModel.swift"; sourceTree = "<group>"; };
 		B5F2A10B28191837005B05D6 /* UDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDManager.swift; sourceTree = "<group>"; };
@@ -303,7 +303,7 @@
 		B5F2A109281917A9005B05D6 /* RickMortyAPI */ = {
 			isa = PBXGroup;
 			children = (
-				B5F2A102281915D2005B05D6 /* RickAPIConfig.swift */,
+				B5F2A102281915D2005B05D6 /* RickAPIEndpoint.swift */,
 				B5F2A104281916AF005B05D6 /* APIWorker.swift */,
 			);
 			path = RickMortyAPI;
@@ -481,7 +481,7 @@
 				B5B2A8A628130B58001A735B /* SearchPresenter.swift in Sources */,
 				B5B2A8B428130DA5001A735B /* HomeVC.swift in Sources */,
 				B5490626280F29D5009AF283 /* FavouriteCharacterCell.swift in Sources */,
-				B5F2A103281915D2005B05D6 /* RickAPIConfig.swift in Sources */,
+				B5F2A103281915D2005B05D6 /* RickAPIEndpoint.swift in Sources */,
 				B5B2A8AD28130C1B001A735B /* CharacterPagePresenter.swift in Sources */,
 				B5C75631281D44CD00A2DC24 /* CharacterCategory.swift in Sources */,
 				B5B2A8BB28130E51001A735B /* FavouritesListBuilder.swift in Sources */,
@@ -689,6 +689,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HSERickApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -717,6 +718,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HSERickApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
