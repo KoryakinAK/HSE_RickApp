@@ -2,7 +2,7 @@ import UIKit
 import SwiftUI
 
 protocol SearchViewControllerProtocol: AnyObject {
-
+    var suggestionsTableView: UITableView { get }
 }
 
 final class SearchViewController: UIViewController, SearchViewControllerProtocol {
@@ -10,6 +10,12 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
     public var presenter: SearchPresenterProtocol!
 
     // MARK: - Search UI elements
+    var isSearchInProgress = false {
+        didSet {
+            self.suggestionsTableView.reloadData()
+        }
+    }
+
     let searchTextField: UITextField = {
         // TODO: Сделать кастомный класс с тонким курсором
         let textField = UITextField()
@@ -17,6 +23,7 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
         textField.font = customFont
         textField.textColor = UIColor(named: "mainLabelColor")
         textField.tintColor = UIColor(named: "mainLabelColor")
+        textField.clearButtonMode = .whileEditing
         return textField
     }()
 
@@ -52,6 +59,7 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
         self.view.backgroundColor = UIColor(named: "backgroundColor")
         setupMainTableView()
         setupUI()
+        setupTextField()
     }
 
     // MARK: - Setup UI
@@ -82,8 +90,8 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
             searchTextField.bottomAnchor.constraint(equalTo: searchFieldOutline.bottomAnchor, constant: -13),
 
             suggestionsTableView.topAnchor.constraint(equalTo: searchFieldOutline.bottomAnchor, constant: 16),
-            suggestionsTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-            suggestionsTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+            suggestionsTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            suggestionsTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             suggestionsTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
             ])
     }
@@ -92,49 +100,122 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
         suggestionsTableView.backgroundColor = .clear
         suggestionsTableView.delegate = self
         suggestionsTableView.dataSource = self
-        suggestionsTableView.register(MainTableViewCell.self, forCellReuseIdentifier: MainTableViewCell.reuseIdentifier)
+
+    }
+
+    func setupTextField() {
+        searchTextField.delegate = self
+    }
+
+    func updateSearchResults() {
     }
 }
 
 // MARK: - UITableView Protocol conformance
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        switch isSearchInProgress {
+        case true:
+            return presenter.searchResultCharacters.count
+        case false:
+            return 1
+        }
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return presenter.getNumberOfSections()
+        switch isSearchInProgress {
+        case true:
+            return 1
+        case false:
+            return presenter.getNumberOfSections()
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = suggestionsTableView.dequeueReusableCell(withIdentifier: MainTableViewCell.reuseIdentifier, for: indexPath)
-                as? MainTableViewCell else {
-            fatalError()
+        switch isSearchInProgress {
+        case true:
+            guard let cell = suggestionsTableView.dequeueReusableCell(
+                withIdentifier: SearchResultCell.defaultReuseIdentifier,
+                for: indexPath)
+                    as? SearchResultCell else {
+                fatalError()
+            }
+            cell.configure(with: presenter.searchResultCharacters[indexPath.row])
+            return cell
+        case false:
+            guard let cell = suggestionsTableView.dequeueReusableCell(
+                withIdentifier: SuggestionContainerCell.defaultReuseIdentifier,
+                for: indexPath)
+                    as? SuggestionContainerCell else {
+                fatalError()
+            }
+            let category = CharacterCategory.allCases[indexPath.section]
+//            let charactersIDs = UserDefaultsManager.sharedInstance().getCharacterIDsIn(category: category)
+            cell.configure(with: presenter, for: category)
+    //        cell.configure(with: presenter.getCharactersArray(with: charactersIDs))
+            return cell
         }
-        let category = CharacterCategory.allCases[indexPath.section]
-        let charactersIDs = UserDefaultsManager.sharedInstance().getCharacterIDsIn(category: category)
-        cell.configure(with: presenter, for: category)
-//        cell.configure(with: presenter.getCharactersArray(with: charactersIDs))
-        return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return MainTableViewCell.height
+        switch isSearchInProgress {
+        case true:
+            return SearchResultCell.height
+        case false:
+            return SuggestionContainerCell.height
+        }
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
-        let label = UILabel()
-        label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
-        label.text = "Гамарджоба"
-        label.font = .boldSystemFont(ofSize: 22)
-        label.textColor = UIColor(named: "mainLabelColor")
-
-        headerView.addSubview(label)
-        return headerView
+        switch isSearchInProgress {
+        case true:
+            return nil
+        case false:
+            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
+            let label = UILabel()
+            label.frame = CGRect.init(x: 5, y: 5, width: headerView.frame.width - 10, height: headerView.frame.height - 10)
+            label.text = "Гамарджоба"
+            label.font = .boldSystemFont(ofSize: 22)
+            label.textColor = UIColor(named: "mainLabelColor")
+            headerView.addSubview(label)
+            return headerView
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        switch isSearchInProgress {
+        case true:
+            return 0
+        case false:
+            return 50
+        }
+    }
+}
+
+// MARK: - Search field handling
+extension SearchViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let searchString = searchTextField.text else { return true }
+        presenter.performSearchWith(name: searchString)
+        return true
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.isSearchInProgress = true
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // Здесь что-то должно быть
+    }
+
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        textField.text = ""
+        return false
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

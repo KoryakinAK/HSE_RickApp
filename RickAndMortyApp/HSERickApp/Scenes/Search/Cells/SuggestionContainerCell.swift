@@ -1,23 +1,18 @@
 import UIKit
 
-protocol MainTableViewCellProtocol {
-    static var reuseIdentifier: String { get }
+protocol SuggestionContainerCellProtocol {
     static var height: CGFloat { get }
-//    func configure(with characters: [CharacterModel])
     func configure(with: SearchPresenterProtocol, for: CharacterCategory)
 }
 
-class MainTableViewCell: UITableViewCell, MainTableViewCellProtocol {
+class SuggestionContainerCell: UITableViewCell, SuggestionContainerCellProtocol {
     let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
 
     var recentlySearchedCV: UICollectionView!
     var cellCategory: CharacterCategory!
     var presenter: SearchPresenterProtocol!
 
-
-
     static let height: CGFloat = 160
-    static let reuseIdentifier = "MainTableViewCell"
 
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -37,9 +32,9 @@ class MainTableViewCell: UITableViewCell, MainTableViewCellProtocol {
         self.contentView.addSubview(recentlySearchedCV)
         NSLayoutConstraint.activate([
             recentlySearchedCV.topAnchor.constraint(equalTo: contentView.topAnchor),
-            recentlySearchedCV.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            recentlySearchedCV.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             recentlySearchedCV.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            recentlySearchedCV.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            recentlySearchedCV.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
 
@@ -51,7 +46,7 @@ class MainTableViewCell: UITableViewCell, MainTableViewCellProtocol {
         recentlySearchedCV.showsVerticalScrollIndicator = false
         recentlySearchedCV.showsHorizontalScrollIndicator = false
         recentlySearchedCV.register(SuggestedSectionCell.self,
-                                    forCellWithReuseIdentifier: SuggestedSectionCell.reuseIdentifier)
+                                    forCellWithReuseIdentifier: SuggestedSectionCell.defaultReuseIdentifier)
         recentlySearchedCV.delegate = self
         recentlySearchedCV.dataSource = self
     }
@@ -60,13 +55,9 @@ class MainTableViewCell: UITableViewCell, MainTableViewCellProtocol {
         self.presenter = presenter
         self.cellCategory = category
     }
-
-//    func configure(with characters: [CharacterModel]) {
-//        self.characters = characters
-//    }
 }
 
-extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+extension SuggestionContainerCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.getNumberOfRows(in: self.cellCategory)
     }
@@ -74,7 +65,7 @@ extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: SuggestedSectionCell.reuseIdentifier,
+            withReuseIdentifier: SuggestedSectionCell.defaultReuseIdentifier,
             for: indexPath)
                 as? SuggestedSectionCell else { fatalError() }
 //        cell.inject(with: )
@@ -85,7 +76,7 @@ extension MainTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
     }
 }
 
-extension MainTableViewCell: UICollectionViewDelegateFlowLayout {
+extension SuggestionContainerCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {

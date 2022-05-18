@@ -3,13 +3,13 @@ import Foundation
 protocol Endpoint {
     var baseURL: String { get }
     var path: String { get }
-//    var parameters: [URLQueryItem] { get }
-//    var token: URLQueryItem { get }
+    var parameters: [URLQueryItem?] { get }
 }
 
 enum RickAPIEndpoint: Endpoint {
     case getCharacter(id: UInt)
     case getMultipleCharacters(ids: [UInt])
+    case searchBy(name: String)
 
     var baseURL: String {
         switch self {
@@ -25,17 +25,18 @@ enum RickAPIEndpoint: Endpoint {
         case .getMultipleCharacters(ids: let ids):
             let idsAsString = "\(ids)".filter { $0 != " "}
             return "/api/character/\(idsAsString)"
+        case .searchBy(_):
+            return "/api/character/"
         }
     }
 
-//    var parameters: [URLQueryItem] {
-//        switch self {
-//        case .getNews(let count):
-//            let rangeItem = URLQueryItem(name: "range", value: "last-year")
-//            let countItem = URLQueryItem(name: "limit", value: String(count))
-//            return [rangeItem, countItem, token]
-//        default:
-//            return [token]
-//        }
-//    }
+    var parameters: [URLQueryItem?] {
+        switch self {
+        case .searchBy(let name):
+            let nameParameter = URLQueryItem(name: "name", value: name)
+            return [nameParameter]
+        default:
+            return [nil]
+        }
+    }
 }

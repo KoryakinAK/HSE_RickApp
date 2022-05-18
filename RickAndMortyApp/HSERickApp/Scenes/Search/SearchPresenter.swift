@@ -2,10 +2,13 @@ import Foundation
 
 protocol SearchPresenterProtocol: AnyObject {
     init(view: SearchViewControllerProtocol, storageManager: StorageProtocol)
+    func performSearchWith(name: String)
     func getCharactersArray(with IDs: [UInt]) -> [CharacterModel]
     func getNumberOfRows(in category: CharacterCategory) -> Int
     func getNumberOfSections() -> Int
     func getCharacterFor(row: Int, in category: CharacterCategory) -> CharacterModel?
+
+    var searchResultCharacters: [CharacterModel] { get }
 }
 
 final class SearchPresenter: SearchPresenterProtocol {
@@ -13,6 +16,8 @@ final class SearchPresenter: SearchPresenterProtocol {
     private var storageManager: StorageProtocol
 
     var dataSource = [[CharacterModel]]()
+    var searchResultMetaInfo: SearchMetaInfo?
+    var searchResultCharacters = [CharacterModel]()
 
     init(view: SearchViewControllerProtocol, storageManager: StorageProtocol) {
         self.view = view
@@ -20,6 +25,21 @@ final class SearchPresenter: SearchPresenterProtocol {
     }
 
     // MARK: - Networking
+    func performSearchWith(name: String) {
+        APIWorker.request(
+            endpoint: RickAPIEndpoint.searchBy(name: name)
+        ) { (result: Result<SearchResultModel, Error>)  in
+            switch result {
+            case .success(let response):
+                self.searchResultCharacters = response.results
+                self.searchResultMetaInfo = response.info
+                self.view?.suggestionsTableView.reloadData()
+            case .failure(let error):
+                print("Download failed: \(error.localizedDescription)")
+            }
+        }
+    }
+
     func getCharactersArray(with IDs: [UInt]) -> [CharacterModel] {
         var resultingArray = [CharacterModel]()
         APIWorker.request(

@@ -11,6 +11,8 @@ class APIWorker: NetworkService {
         components.scheme = "https"
         components.host = endpoint.baseURL
         components.path = endpoint.path
+        let parameters = endpoint.parameters.compactMap { $0 }
+        components.queryItems = parameters
         return components
     }
 
