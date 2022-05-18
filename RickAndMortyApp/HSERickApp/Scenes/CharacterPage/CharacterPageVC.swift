@@ -38,12 +38,22 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         return label
     }()
 
+    var isCharacterInFavs = false
+
     let favButton: UIButton = {
-        let button = UIButton()
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .large)
-        let largeBoldDoc = UIImage(systemName: "heart.circle.fill", withConfiguration: largeConfig)
-        button.setImage(largeBoldDoc, for: .normal)
+        let button = UIButton(type: .custom)
+        button.backgroundColor = UIColor(named: "mainLabelColor")
+        button.layer.cornerRadius = 24
         return button
+    }()
+
+    let favButtonIcon: UIImageView = {
+        let imageView = UIImageView()
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold, scale: .large)
+        let largeBoldHeart = UIImage(systemName: "heart.fill", withConfiguration: largeConfig)
+        imageView.image = largeBoldHeart
+        imageView.isUserInteractionEnabled = false
+        return imageView
     }()
 
     let characterInfoTableView: UITableView = {
@@ -64,14 +74,17 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         self.navigationItem.title = "Characters"
         setupUI()
         setupTableView()
+        favButton.addTarget(self, action: #selector(favButtonPressed), for: .touchUpInside)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        mainScrollView.backgroundColor = .clear
+        containerView.backgroundColor = .clear
         let calculatedSize = self.containerView.subviews.reduce(CGRect.zero, {
                         return $0.union($1.frame)
                     }).size
-        self.mainScrollView.contentSize = CGSize(width: view.frame.width, height: calculatedSize.height)
+//        self.mainScrollView.contentSize = CGSize(width: view.frame.width, height: calculatedSize.height)
     }
 
     // MARK: - Setup VC
@@ -80,10 +93,11 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         containerView.translatesAutoresizingMaskIntoConstraints = false
         mainScrollView.addSubview(containerView)
 
-        [characterImage, characterName, favButton, characterInfoTableView].forEach {
+        [characterImage, characterName, favButton, favButtonIcon, characterInfoTableView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.containerView.addSubview($0)
         }
+
         self.view.addSubview(mainScrollView)
         NSLayoutConstraint.activate([
             mainScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -92,33 +106,44 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
             mainScrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
             containerView.topAnchor.constraint(equalTo: mainScrollView.contentLayoutGuide.topAnchor),
+            containerView.bottomAnchor.constraint(equalTo: mainScrollView.contentLayoutGuide.bottomAnchor),
             containerView.leadingAnchor.constraint(equalTo: mainScrollView.contentLayoutGuide.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: mainScrollView.contentLayoutGuide.trailingAnchor),
-            containerView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor),
+            containerView.widthAnchor.constraint(equalTo: view.widthAnchor),
 
-            characterImage.topAnchor.constraint(equalTo: mainScrollView.topAnchor, constant: 20),
-            characterImage.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 38),
-            characterImage.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor, constant: -38),
+            characterImage.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+            characterImage.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 38),
+            characterImage.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -38),
             characterImage.heightAnchor.constraint(equalTo: characterImage.widthAnchor),
 
             characterName.topAnchor.constraint(equalTo: characterImage.bottomAnchor, constant: 35),
-            characterName.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 16),
-            characterName.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor, multiplier: 0.75),
+            characterName.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            characterName.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.75),
 
             favButton.centerYAnchor.constraint(equalTo: characterName.centerYAnchor),
-            favButton.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor, constant: -50),
-//            favButton.widthAnchor.constraint(equalToConstant: 18),
+            favButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            favButton.widthAnchor.constraint(equalToConstant: 48),
+            favButton.heightAnchor.constraint(equalToConstant: 48),
+
+            favButtonIcon.centerXAnchor.constraint(equalTo: favButton.centerXAnchor),
+            favButtonIcon.centerYAnchor.constraint(equalTo: favButton.centerYAnchor),
 
             characterInfoTableView.topAnchor.constraint(equalTo: characterName.bottomAnchor, constant: 20),
-            characterInfoTableView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor, constant: 16),
-            characterInfoTableView.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor, constant: -16),
+            characterInfoTableView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            characterInfoTableView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            characterInfoTableView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             // Пока что единственный рабочий метод, который я нашел
-            // Без contentView не взлетает, с ним или без и привязкой к bottomAnchor - тоже не работает
+            // Если задать только bottomAnchor - таблица будет иметь 0 высоту
+            // Если задать только heightAnchor - будет некорректный размер контейнера,
+            // и кнопки внутри него не будут получать касаний
             characterInfoTableView.heightAnchor.constraint(
-                equalToConstant: CharacterDescriptionCell.cellHeight * CGFloat(presenter.currentCharacterInfo.count)
+                greaterThanOrEqualToConstant: CharacterDescriptionCell.cellHeight * CGFloat(presenter.currentCharacterInfo.count)
             )
-
         ])
+    }
+
+    override func viewDidLayoutSubviews() {
+        print(containerView.frame.size)
     }
 
     func setupTableView() {
@@ -126,6 +151,10 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         characterInfoTableView.dataSource = self
         characterInfoTableView.isScrollEnabled = false
         characterInfoTableView.register(CharacterDescriptionCell.self, forCellReuseIdentifier: "CharacterDescriptionCell")
+    }
+
+    @objc func favButtonPressed(sender: UIButton!) {
+        print("Button pressed")
     }
 
     // MARK: - Presenter interaction
