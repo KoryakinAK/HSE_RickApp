@@ -2,10 +2,14 @@ import UIKit
 
 protocol SmallCharacterCellProtocol {
     var mainImage: UIImageView { get }
+    var currentCharacter: CharacterModel? { get }
     func configure(with character: CharacterModel)
+
 }
 
 class SmallCharacterCell: UICollectionViewCell, SmallCharacterCellProtocol {
+    var currentCharacter: CharacterModel?
+
     let mainImage: UIImageView = {
         let image = UIImageView()
         image.clipsToBounds = true
@@ -39,6 +43,7 @@ class SmallCharacterCell: UICollectionViewCell, SmallCharacterCellProtocol {
 
     // MARK: - Cell self-configuration
     func configure(with character: CharacterModel) {
+        self.currentCharacter = character
         if let url = URL(string: character.image) {
             self.mainImage.kf.setImage(with: url)
         }

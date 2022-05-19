@@ -4,9 +4,11 @@ protocol SearchPresenterProtocol: AnyObject {
     init(view: SearchViewControllerProtocol, router: SearchRouter, storageManager: StorageProtocol)
 
     var searchResultCharacters: [CharacterModel] { get }
+    var isSearchInProgress: Bool { get set }
 
-    func didSelectSearchResult(at row: Int)
+    func didSelectSearchResultAt(row: Int, in category: CharacterCategory?)
     func performSearchWith(name: String)
+    
     func getNumberOfRows(in category: CharacterCategory) -> Int
     func getNumberOfSuggestedSections() -> Int
     func getCharacterFor(row: Int, in category: CharacterCategory) -> CharacterModel?
@@ -20,7 +22,11 @@ final class SearchPresenter: SearchPresenterProtocol {
 
     var searchResultMetaInfo: SearchMetaInfo?
     var searchResultCharacters = [CharacterModel]()
-
+    var isSearchInProgress = false {
+        didSet {
+            self.view?.suggestionsTableView.reloadData()
+        }
+    }
     init(view: SearchViewControllerProtocol, router: SearchRouter, storageManager: StorageProtocol) {
         self.view = view
         self.router = router
@@ -28,8 +34,14 @@ final class SearchPresenter: SearchPresenterProtocol {
     }
 
     // MARK: - Routing
-    func didSelectSearchResult(at row: Int) {
-        router.presentCharacterPage(for: searchResultCharacters[row])
+    func didSelectSearchResultAt(row: Int, in category: CharacterCategory?) {
+        if self.isSearchInProgress {
+            router.presentCharacterPage(for: searchResultCharacters[row])
+        } else {
+            guard let category = category else { return }
+            let charsInCategory = storageManager.getCharactersIn(category: category)
+            router.presentCharacterPage(for: charsInCategory[row])
+        }
     }
 
     // MARK: - Search handling

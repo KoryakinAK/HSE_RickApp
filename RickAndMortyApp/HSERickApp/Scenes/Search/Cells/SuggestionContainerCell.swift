@@ -32,9 +32,9 @@ class SuggestionContainerCell: UITableViewCell, SuggestionContainerCellProtocol 
         self.contentView.addSubview(recentlySearchedCV)
         NSLayoutConstraint.activate([
             recentlySearchedCV.topAnchor.constraint(equalTo: contentView.topAnchor),
-            recentlySearchedCV.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            recentlySearchedCV.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             recentlySearchedCV.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            recentlySearchedCV.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            recentlySearchedCV.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
     }
 
@@ -62,6 +62,11 @@ extension SuggestionContainerCell: UICollectionViewDelegate, UICollectionViewDat
         return presenter.getNumberOfRows(in: self.cellCategory)
     }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath)
+        presenter.didSelectSearchResultAt(row: indexPath.row, in: self.cellCategory)
+    }
+
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
@@ -83,5 +88,9 @@ extension SuggestionContainerCell: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     }
 }

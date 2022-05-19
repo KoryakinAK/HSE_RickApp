@@ -7,12 +7,6 @@ protocol SearchViewControllerProtocol: AnyObject {
 final class SearchViewController: UIViewController, SearchViewControllerProtocol {
     public var presenter: SearchPresenterProtocol!
 
-    var isSearchInProgress = false {
-        didSet {
-            self.suggestionsTableView.reloadData()
-        }
-    }
-
     // MARK: - Search UI elements
     private let searchTextField: UITextField = {
         // TODO: Сделать кастомный класс с тонким курсором
@@ -97,6 +91,9 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
         suggestionsTableView.backgroundColor = .clear
         suggestionsTableView.delegate = self
         suggestionsTableView.dataSource = self
+        suggestionsTableView.sectionHeaderTopPadding = 0 
+        self.navigationController?.navigationBar.isTranslucent = true
+        suggestionsTableView.automaticallyAdjustsScrollIndicatorInsets = false
         suggestionsTableView.separatorStyle = .none
         suggestionsTableView.register(SuggestionContainerCell.self, forCellReuseIdentifier: SuggestionContainerCell.defaultReuseIdentifier)
         suggestionsTableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.defaultReuseIdentifier)
@@ -110,7 +107,7 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
 // MARK: - UITableView Protocol conformance
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch isSearchInProgress {
+        switch self.presenter.isSearchInProgress {
         case true:
             return presenter.searchResultCharacters.count
         case false:
@@ -119,7 +116,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        switch isSearchInProgress {
+        switch self.presenter.isSearchInProgress {
         case true:
             return 1
         case false:
@@ -128,7 +125,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch isSearchInProgress {
+        switch self.presenter.isSearchInProgress {
         case true:
             guard let cell = suggestionsTableView.dequeueReusableCell(
                 withIdentifier: SearchResultCell.defaultReuseIdentifier,
@@ -153,7 +150,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch isSearchInProgress {
+        switch self.presenter.isSearchInProgress {
         case true:
             return SearchResultCell.height
         case false:
@@ -162,12 +159,12 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch isSearchInProgress {
+        switch self.presenter.isSearchInProgress {
         case true:
             return nil
         case false:
             // TODO: - Вынести отсюда создание хедера
-            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
+            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 46))
             let label = UILabel()
             let customFont = UIFont(name: CustomFonts.SFtextSemiBold.rawValue, size: 17)
             label.font = customFont
@@ -180,18 +177,18 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch isSearchInProgress {
+        switch self.presenter.isSearchInProgress {
         case true:
             return 0
         case false:
-            return 50
+            return 46
         }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch isSearchInProgress {
+        switch self.presenter.isSearchInProgress {
         case true:
-            presenter.didSelectSearchResult(at: indexPath.row)
+            presenter.didSelectSearchResultAt(row: indexPath.row, in: nil)
         case false:
             return
         }
@@ -207,7 +204,7 @@ extension SearchViewController: UITextFieldDelegate {
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.isSearchInProgress = true
+        self.presenter.isSearchInProgress = true
     }
 
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
