@@ -29,23 +29,24 @@ final class TabBarViewController: UITabBarController, TabBarViewControllerProtoc
         let selectedImageConfig = UIImage.SymbolConfiguration(pointSize: 23, weight: .medium)
         viewControllers = [
             self.presenter.createNavController(for: HomeBuilder.build(),
-                                          title: "",
-                                          image: UIImage(systemName: "house")!,
-                                          withVisibleTitle: false,
-                                          withSelectedImage: nil),
+                                               title: "",
+                                               image: UIImage(systemName: "house")!,
+                                               withVisibleTitle: false,
+                                               withSelectedImage: UIImage(systemName: "house.circle.fill",
+                                                                          withConfiguration: selectedImageConfig)),
 
             self.presenter.createNavController(for: FavouritesListBuilder.build(),
-                                          title: "Favourites",
-                                          image: UIImage(systemName: "heart")!,
-                                          withVisibleTitle: true,
-                                          withSelectedImage: UIImage(systemName: "heart.circle.fill",
-                                                                     withConfiguration: selectedImageConfig)),
+                                               title: "Favourites",
+                                               image: UIImage(systemName: "heart")!,
+                                               withVisibleTitle: true,
+                                               withSelectedImage: UIImage(systemName: "heart.circle.fill",
+                                                                          withConfiguration: selectedImageConfig)),
 
             self.presenter.createNavController(for: UIViewController(),
-                                          title: "",
-                                          image: UIImage(systemName: "magnifyingglass")!,
-                                          withVisibleTitle: false,
-                                          withSelectedImage: nil)
+                                               title: "",
+                                               image: UIImage(systemName: "magnifyingglass")!,
+                                               withVisibleTitle: false,
+                                               withSelectedImage: nil)
         ]
     }
 }
