@@ -7,7 +7,7 @@ protocol SearchResultCellProtocol {
 class SearchResultCell: UITableViewCell, SearchResultCellProtocol {
     static let height: CGFloat = 199
 
-    let characterName: UILabel = {
+    private let characterName: UILabel = {
         let label = UILabel()
         let customFont = UIFont(name: CustomFonts.SFdisplayBlack.rawValue, size: 22) ?? UIFont.boldSystemFont(ofSize: 22)
         label.font = customFont
@@ -19,7 +19,7 @@ class SearchResultCell: UITableViewCell, SearchResultCellProtocol {
         return label
     }()
 
-    let speciesLabel: UILabel = {
+    private let speciesLabel: UILabel = {
         let label = UILabel()
         let customFont = UIFont(name: CustomFonts.SFtextSemiBold.rawValue, size: 17) ?? UIFont.boldSystemFont(ofSize: 17)
         label.font = customFont
@@ -27,7 +27,7 @@ class SearchResultCell: UITableViewCell, SearchResultCellProtocol {
         return label
     }()
 
-    let characterIcon: UIImageView = {
+    private let characterIcon: UIImageView = {
         let image = UIImageView()
         image.backgroundColor = .systemRed
         image.layer.cornerRadius = 10
@@ -40,13 +40,13 @@ class SearchResultCell: UITableViewCell, SearchResultCellProtocol {
         return image
     }()
 
-    let separator: UIView = {
+    private let separator: UIView = {
         let separatorView = UIView()
         separatorView.backgroundColor = UIColor(named: "mainLabelColor")
         return separatorView
     }()
 
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.alignment = .leading
@@ -55,6 +55,7 @@ class SearchResultCell: UITableViewCell, SearchResultCellProtocol {
         return stack
     }()
 
+    // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .default
@@ -66,6 +67,7 @@ class SearchResultCell: UITableViewCell, SearchResultCellProtocol {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Setup
     func setupLayout() {
         stackView.addArrangedSubview(characterName)
         stackView.addArrangedSubview(speciesLabel)

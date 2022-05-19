@@ -224,11 +224,11 @@
 			isa = PBXGroup;
 			children = (
 				B5655C632835682800B43BEB /* Extensions */,
-				B5655C5228340BCA00B43BEB /* Fonts */,
 				B5B2A8842811F7F6001A735B /* Model */,
 				B5A3B6BD28088D540009D3BE /* Scenes */,
 				B5F2A10128190F0C005B05D6 /* Services */,
 				B5B2A89428121C53001A735B /* App */,
+				B5655C5228340BCA00B43BEB /* Fonts */,
 				B5A3B68E27FF3DDC0009D3BE /* Assets.xcassets */,
 				B5B2A89228121B09001A735B /* Colors.xcassets */,
 			);
