@@ -5,7 +5,7 @@ protocol StorageProtocol {
     func save(character: CharacterModel, to: CharacterCategory)
     func getCharactersIn(category: CharacterCategory) -> [CharacterModel]
     func attemptToRemove(character: CharacterModel, from category: CharacterCategory)
-
+    func checkIfCurrentlyFavourited(_ character: CharacterModel) -> Bool
 }
 
 class UserDefaultsManager: StorageProtocol {
@@ -41,5 +41,9 @@ class UserDefaultsManager: StorageProtocol {
         let filteredCharacters = getCharactersIn(category: category)
             .filter { $0.id != character.id }
         UserDefaults.standard.set(try? PropertyListEncoder().encode(filteredCharacters), forKey: category.rawValue)
+    }
+
+    func checkIfCurrentlyFavourited(_ character: CharacterModel) -> Bool {
+        self.getCharactersIn(category: .favourites).contains(character)
     }
 }
