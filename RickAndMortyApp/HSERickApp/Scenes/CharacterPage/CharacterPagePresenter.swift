@@ -19,7 +19,7 @@ final class CharacterPagePresenter: CharacterPagePresenterProtocol {
     var selectedCharacter: CharacterModel
 
     var isCurrentCharFavourited: Bool {
-        self.storageManager.getCharactersIn(category: .favourites).contains(self.selectedCharacter)
+        self.storageManager.checkIfCurrentlyFavourited(self.selectedCharacter)
     }
 
     // MARK: - Initialization
