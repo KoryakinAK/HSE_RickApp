@@ -1,7 +1,7 @@
 import Foundation
 
 protocol SearchPresenterProtocol: AnyObject {
-    init(view: SearchViewControllerProtocol, router: SearchRouter, storageManager: StorageProtocol)
+    init(view: SearchVСProtocol, router: SearchRouter, storageManager: StorageProtocol)
 
     var searchResultCharacters: [CharacterModel] { get }
     var isSearchInProgress: Bool { get set }
@@ -17,7 +17,7 @@ protocol SearchPresenterProtocol: AnyObject {
 }
 
 final class SearchPresenter: SearchPresenterProtocol {
-    private weak var view: SearchViewControllerProtocol?
+    private weak var view: SearchVСProtocol?
     private var router: SearchRouter
     private var storageManager: StorageProtocol
 
@@ -28,7 +28,7 @@ final class SearchPresenter: SearchPresenterProtocol {
             self.view?.suggestionsTableView.reloadData()
         }
     }
-    init(view: SearchViewControllerProtocol, router: SearchRouter, storageManager: StorageProtocol) {
+    init(view: SearchVСProtocol, router: SearchRouter, storageManager: StorageProtocol) {
         self.view = view
         self.router = router
         self.storageManager = storageManager

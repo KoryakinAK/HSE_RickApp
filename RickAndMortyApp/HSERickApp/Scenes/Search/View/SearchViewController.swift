@@ -1,10 +1,10 @@
 import UIKit
 
-protocol SearchViewControllerProtocol: AnyObject {
+protocol SearchVСProtocol: AnyObject {
     var suggestionsTableView: UITableView { get }
 }
 
-final class SearchViewController: UIViewController, SearchViewControllerProtocol {
+final class SearchVС: UIViewController, SearchVСProtocol {
     public var presenter: SearchPresenterProtocol!
 
     // MARK: - Search UI elements
@@ -105,7 +105,7 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
 }
 
 // MARK: - UITableView Protocol conformance
-extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
+extension SearchVС: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch self.presenter.isSearchInProgress {
         case true:
@@ -196,7 +196,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 // MARK: - Search field handling
-extension SearchViewController: UITextFieldDelegate {
+extension SearchVС: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let searchString = searchTextField.text else { return true }
         presenter.performSearchWith(name: searchString)

@@ -1,14 +1,14 @@
 import Foundation
 
 protocol SearchRouterProtocol {
-    init(view: SearchViewController)
+    init(view: SearchVС)
 }
 
 final class SearchRouter: SearchRouterProtocol {
 
-    private weak var view: SearchViewController?
+    private weak var view: SearchVС?
 
-    init(view: SearchViewController) {
+    init(view: SearchVС) {
         self.view = view
     }
 
