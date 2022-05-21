@@ -32,7 +32,7 @@ final class CharactersTilesVC: UIViewController, CharactersTilesViewControllerPr
         return button
     }()
 
-    private let buttomIcon: UIImageView = {
+    private let buttonIcon: UIImageView = {
         let imageView = UIImageView()
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: .bold, scale: .large)
         let largeBoldHeart = UIImage(systemName: "multiply", withConfiguration: largeConfig)
@@ -42,6 +42,7 @@ final class CharactersTilesVC: UIViewController, CharactersTilesViewControllerPr
         return imageView
     }()
 
+    // MARK: - VC Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .clear
@@ -55,13 +56,15 @@ final class CharactersTilesVC: UIViewController, CharactersTilesViewControllerPr
         mainScrollView.setContentOffset(CGPoint(x: 1000, y: 1000), animated: false)
     }
 
-    func setupTargetsAndDelegates() {
+    // MARK: - VC Setup
+    private func setupTargetsAndDelegates() {
         closeButton.addTarget(self, action: #selector(closeButtonPressed), for: .touchUpInside)
         mainScrollView.delegate = self
     }
 
+    // MARK: - UI setup
     private func setupUI() {
-        let allObjects: [UIView] = [mainScrollView, closeButton, buttomIcon]
+        let allObjects: [UIView] = [mainScrollView, closeButton, buttonIcon]
         allObjects.forEach { [weak self] in
             $0.translatesAutoresizingMaskIntoConstraints = false
             self?.view.addSubview($0)
@@ -80,8 +83,8 @@ final class CharactersTilesVC: UIViewController, CharactersTilesViewControllerPr
             closeButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 33),
             closeButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
 
-            buttomIcon.centerXAnchor.constraint(equalTo: closeButton.centerXAnchor),
-            buttomIcon.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor)
+            buttonIcon.centerXAnchor.constraint(equalTo: closeButton.centerXAnchor),
+            buttonIcon.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor)
         ])
     }
 
