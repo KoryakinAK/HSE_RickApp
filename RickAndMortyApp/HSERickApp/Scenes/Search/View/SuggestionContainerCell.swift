@@ -93,4 +93,15 @@ extension SuggestionContainerCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     }
+
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) {_ in
+            let action = UIAction(title: "Add to favourites", image: UIImage(systemName: "heart.fill")) {_ in
+//                self.presenter.flipFavouriteStatus()
+            }
+            let menu = UIMenu(title: "Rick Sanchez", image: nil, identifier: nil, options: [], children: [action])
+            return menu
+        }
+        return config
+    }
 }

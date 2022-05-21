@@ -8,11 +8,12 @@ protocol SearchPresenterProtocol: AnyObject {
 
     func didSelectSearchResultAt(row: Int, in category: CharacterCategory?)
     func performSearchWith(name: String)
-    
+
     func getNumberOfRows(in category: CharacterCategory) -> Int
     func getNumberOfSuggestedSections() -> Int
     func getCharacterFor(row: Int, in category: CharacterCategory) -> CharacterModel?
     func getSectionName(for section: Int) -> String
+    func flipFavouriteStatus()
 }
 
 final class SearchPresenter: SearchPresenterProtocol {
@@ -66,6 +67,14 @@ final class SearchPresenter: SearchPresenterProtocol {
         self.searchResultCharacters = [CharacterModel]()
         self.searchResultMetaInfo = nil
         view?.suggestionsTableView.reloadData()
+    }
+
+    func flipFavouriteStatus() {
+//        if self.isCurrentCharFavourited {
+//            self.storageManager.attemptToRemove(character: self.selectedCharacter, from: .favourites)
+//        } else {
+//            self.storageManager.save(character: self.selectedCharacter, to: .favourites)
+//        }
     }
 
     // MARK: - UITableView helpers

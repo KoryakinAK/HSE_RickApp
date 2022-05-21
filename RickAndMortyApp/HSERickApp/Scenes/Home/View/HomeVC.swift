@@ -76,6 +76,8 @@ final class HomeVC: UIViewController, HomeVCProtocol {
         setupEffectsLayer()
         setupUI()
         setupScrollView()
+        panGest = UIPanGestureRecognizer(target: self, action: #selector(handleCardPan(recognizer:)))
+        mainScrollView.addGestureRecognizer(panGest!)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -90,6 +92,8 @@ final class HomeVC: UIViewController, HomeVCProtocol {
             self.mainScrollView.contentOffset = CGPoint(x: 2520/2, y: 1394)
             self.mainScrollView.setZoomScale(0.55, animated: false)
         })
+        print(mainScrollView.frame)
+
     }
 
     // MARK: - UI setup
@@ -121,10 +125,9 @@ final class HomeVC: UIViewController, HomeVCProtocol {
             topAnchorCollapsed,
             mainScrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             mainScrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            mainScrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            mainScrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
-
-        self.view.insertSubview(visualEffectView, belowSubview: mainScrollView)
+//        self.view.insertSubview(visualEffectView, belowSubview: mainScrollView)
     }
 
     func setupScrollView() {
@@ -133,95 +136,51 @@ final class HomeVC: UIViewController, HomeVCProtocol {
         mainScrollView.delegate = self
         mainScrollView.showsHorizontalScrollIndicator = false
         mainScrollView.showsVerticalScrollIndicator = false
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self,
-                                                          action: #selector(self.handleCardPan(recognizer:)))
-        mainScrollView.addGestureRecognizer(panGestureRecognizer)
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(recognizer:)))
+
+//        let panGestureRecognizer = UIPanGestureRecognizer(target: self,
+//                                                          action: #selector(self.handleCardPan(recognizer:)))
+        mainScrollView.addGestureRecognizer(tapGestureRecognizer)
     }
 
     // MARK: - Animation handling
+    @objc func handleTap(recognizer: UIPanGestureRecognizer) {
+        let destination = CharactersTilesBuilder.build()
+        destination.transitioningDelegate = self
+        destination.modalPresentationStyle = .custom
+
+//        self.show(destination, sender: self)
+//        self.present(destination, animated: true)
+        self.navigationController?.present(destination, animated: true)
+    }
     @objc func handleCardPan (recognizer: UIPanGestureRecognizer) {
+        let percent = -recognizer.translation(in: recognizer.view).y / recognizer.view!.bounds.size.height
         switch recognizer.state {
         case .began:
-            startInteractiveTransition(state: nextState, duration: 0.9)
+            interactionController = UIPercentDrivenInteractiveTransition()
+//            let destination = CharactersTilesBuilder.build()
+//            self.navigationController?.popViewController(animated: true)
+//            destination.modalPresentationStyle = .custom
+//            self.present(destination, animated: true)
+//            self.navigationController?.present(destination, animated: true)
+
+//            startInteractiveTransition(state: nextState, duration: 0.9)
         case .changed:
-            let translation = recognizer.translation(in: self.mainScrollView)
-            var fractionComplete = translation.y /  mainScrollView.frame.height
-            fractionComplete = tilesExpanded ? fractionComplete : -fractionComplete
-            for animator in runningAnimations {
-                animator.fractionComplete = fractionComplete + animationProgressWhenInterrupted
-            }
+            interactionController?.update(percent)
         case .ended:
-            continueInteractiveTransition()
+            if percent > 0.5 && recognizer.state != .cancelled {
+                interactionController?.finish()
+            } else {
+                interactionController?.cancel()
+            }
+            interactionController = nil
         default:
             break
         }
     }
 
-    func animateTransitionIfNeeded (state: TilesImageState, duration: TimeInterval) {
-        if runningAnimations.isEmpty {
-            let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
-                switch state {
-                case .expanded:
-                    self.mainScrollView.setZoomScale(0.35, animated: false)
-                    self.topAnchorCollapsed.isActive = false
-                    self.topAnchorExpanded.isActive = true
-                    self.view.layoutIfNeeded()
-                case .collapsed:
-                    self.mainScrollView.setZoomScale(0.55, animated: false)
-                    self.topAnchorExpanded.isActive = false
-                    self.topAnchorCollapsed.isActive = true
-                    self.view.layoutIfNeeded()
-                }
-            }
-
-            frameAnimator.addCompletion { _ in
-                self.tilesExpanded = !self.tilesExpanded
-                self.runningAnimations.removeAll()
-            }
-
-            frameAnimator.startAnimation()
-            runningAnimations.append(frameAnimator)
-
-            let cornerRadiusAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
-                switch state {
-                case .expanded:
-                    self.mainScrollView.layer.cornerRadius = 25
-                case .collapsed:
-                    self.mainScrollView.layer.cornerRadius = 0
-                }
-            }
-
-            cornerRadiusAnimator.startAnimation()
-            runningAnimations.append(cornerRadiusAnimator)
-
-            let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
-                switch state {
-                case .expanded:
-                    self.visualEffectView.effect = UIBlurEffect(style: .dark)
-                case .collapsed:
-                    self.visualEffectView.effect = nil
-                }
-            }
-            blurAnimator.startAnimation()
-            runningAnimations.append(blurAnimator)
-        }
-    }
-
-    func startInteractiveTransition(state: TilesImageState, duration: TimeInterval) {
-        if runningAnimations.isEmpty {
-            animateTransitionIfNeeded(state: state, duration: duration)
-        }
-        for animator in runningAnimations {
-            animator.pauseAnimation()
-            animationProgressWhenInterrupted = animator.fractionComplete
-        }
-    }
-
-    func continueInteractiveTransition () {
-        for animator in runningAnimations {
-            animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
-        }
-    }
+    private var interactionController: UIPercentDrivenInteractiveTransition?
+    private var panGest: UIPanGestureRecognizer?
 
 }
 
@@ -230,4 +189,17 @@ extension HomeVC: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return characterTiles
     }
+}
+
+extension HomeVC: UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return CharactersTilesAnimatationController(originFrame: self.mainScrollView.frame)
+    }
+
+//    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+//        return interactionController
+//    }
+//    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+//        return interactionController
+//    }
 }

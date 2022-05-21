@@ -91,7 +91,7 @@ final class SearchViewController: UIViewController, SearchViewControllerProtocol
         suggestionsTableView.backgroundColor = .clear
         suggestionsTableView.delegate = self
         suggestionsTableView.dataSource = self
-        suggestionsTableView.sectionHeaderTopPadding = 0 
+        suggestionsTableView.sectionHeaderTopPadding = 0
         self.navigationController?.navigationBar.isTranslucent = true
         suggestionsTableView.automaticallyAdjustsScrollIndicatorInsets = false
         suggestionsTableView.separatorStyle = .none
