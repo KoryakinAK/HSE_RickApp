@@ -29,6 +29,10 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
         image.backgroundColor = .cyan
         image.layer.cornerRadius = 10
         image.clipsToBounds = true
+        if UITraitCollection.current.userInterfaceStyle == .light {
+            image.layer.borderWidth = 1
+            image.layer.borderColor = UIColor(named: "mainLabelColor")?.cgColor
+        }
         return image
     }()
 

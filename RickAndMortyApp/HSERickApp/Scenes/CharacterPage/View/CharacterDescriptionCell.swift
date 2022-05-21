@@ -14,8 +14,6 @@ class CharacterDescriptionCell: UITableViewCell, SelfConfigurableDescriptionCell
         label.textColor = UIColor(named: "secondaryLabelColor")
         label.numberOfLines = 1
         label.font = .boldSystemFont(ofSize: 23)
-//        label.adjustsFontSizeToFitWidth = true
-//        label.minimumScaleFactor = 0.85
         return label
     }()
 

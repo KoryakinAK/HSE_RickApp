@@ -14,6 +14,13 @@ class SmallCharacterCell: UICollectionViewCell, SmallCharacterCellProtocol {
         let image = UIImageView()
         image.clipsToBounds = true
         image.layer.cornerRadius = 10
+
+        // TODO: - Вынести в отдельный подкласс UIImageView с автообводкой в светлой теме
+        if UITraitCollection.current.userInterfaceStyle == .light {
+            image.layer.borderWidth = 1
+            image.layer.borderColor = UIColor(named: "mainLabelColor")?.cgColor
+        }
+
         return image
     }()
 
