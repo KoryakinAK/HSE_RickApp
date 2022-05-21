@@ -1,11 +1,11 @@
 import UIKit
 
 protocol CharactersTilesViewControllerProtocol: AnyObject {
-
+    func prepareCloseButtonForAnimation()
+    func finishCloseButtonAnimation()
 }
 
 final class CharactersTilesVC: UIViewController, CharactersTilesViewControllerProtocol {
-
     public var presenter: CharactersTilesPresenterProtocol!
 
     private let characterTiles: UIImageView = {
@@ -90,6 +90,17 @@ final class CharactersTilesVC: UIViewController, CharactersTilesViewControllerPr
 
     @objc private func closeButtonPressed() {
         self.dismiss(animated: true)
+    }
+
+    // MARK: - Animation handling
+    func prepareCloseButtonForAnimation() {
+        self.closeButton.alpha = 0
+        self.buttonIcon.alpha = 0
+    }
+
+    func finishCloseButtonAnimation() {
+        self.closeButton.alpha = 0.8
+        self.buttonIcon.alpha = 1
     }
 }
 

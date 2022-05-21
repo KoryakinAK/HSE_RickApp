@@ -29,6 +29,7 @@ class CharactersTilesAnimatationController: NSObject, UIViewControllerAnimatedTr
         // Обойтись снепшотом toVC не получилось:
         // Снепшот захватывает UIScrollView до изменения setZoom
         let destinationCopyVC = CharactersTilesBuilder.build()
+        destinationCopyVC.prepareCloseButtonForAnimation()
         destinationCopyVC.view.clipsToBounds = true
         destinationCopyVC.view.frame = originFrame
         containerView.addSubview(destinationCopyVC.view)
@@ -39,6 +40,7 @@ class CharactersTilesAnimatationController: NSObject, UIViewControllerAnimatedTr
             options: [],
             animations: {
                 destinationCopyVC.view.frame = finalFrame
+                destinationCopyVC.finishCloseButtonAnimation()
             },
             completion: { _ in
                 toVC.view.isHidden = false
