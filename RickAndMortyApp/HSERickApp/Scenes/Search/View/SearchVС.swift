@@ -199,7 +199,7 @@ extension SearchVС: UITableViewDataSource, UITableViewDelegate {
 extension SearchVС: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let searchString = searchTextField.text else { return true }
-        presenter.performSearchWith(name: searchString)
+        presenter.askToSearchWith(name: searchString)
         return true
     }
 

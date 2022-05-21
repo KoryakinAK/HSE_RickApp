@@ -7,7 +7,7 @@ protocol SearchPresenterProtocol: AnyObject {
     var isSearchInProgress: Bool { get set }
 
     func didSelectSearchResultAt(row: Int, in category: CharacterCategory?)
-    func performSearchWith(name: String)
+    func askToSearchWith(name: String)
 
     func getNumberOfRows(in category: CharacterCategory) -> Int
     func getNumberOfSuggestedSections() -> Int
@@ -20,6 +20,8 @@ final class SearchPresenter: SearchPresenterProtocol {
     private weak var view: SearchVСProtocol?
     private var router: SearchRouter
     private var storageManager: StorageProtocol
+    private var timer: Timer?
+    private var nameToSearch: String?
 
     var searchResultMetaInfo: SearchMetaInfo?
     var searchResultCharacters = [CharacterModel]()
@@ -46,7 +48,21 @@ final class SearchPresenter: SearchPresenterProtocol {
     }
 
     // MARK: - Search handling
-    func performSearchWith(name: String) {
+    func askToSearchWith(name: String) {
+        // Возможно, стоит переписать на workItem
+        timer?.invalidate()
+        self.nameToSearch = name
+    
+        timer = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(performSearch), userInfo: nil, repeats: false)
+
+    }
+
+    @objc private func performSearch() {
+        guard
+            let name = nameToSearch,
+            name.count > 0
+        else { return }
+
         APIWorker.request(
             endpoint: RickAPIEndpoint.searchBy(name: name)
         ) { (result: Result<SearchResultModel, Error>)  in
