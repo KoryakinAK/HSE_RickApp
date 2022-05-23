@@ -99,7 +99,6 @@ final class HomeVC: UIViewController, HomeVCProtocol {
             mainScrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    private var panGest: UIPanGestureRecognizer?
 
     func setupScrollView() {
         mainScrollView.minimumZoomScale = 0.35
