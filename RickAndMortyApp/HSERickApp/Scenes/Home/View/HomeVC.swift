@@ -42,7 +42,6 @@ final class HomeVC: UIViewController, HomeVCProtocol {
     private let mainScrollView: UIScrollView = {
         let scroll = UIScrollView()
         scroll.backgroundColor = .clear
-        scroll.setZoomScale(0.35, animated: false)
         return scroll
     }()
 
@@ -69,7 +68,7 @@ final class HomeVC: UIViewController, HomeVCProtocol {
                        options: .curveEaseInOut,
                        animations: {
             self.mainScrollView.contentOffset = CGPoint(x: 2520/2, y: 1394)
-            self.mainScrollView.setZoomScale(0.55, animated: false)
+            self.mainScrollView.setZoomScale(0.45, animated: false)
         })
     }
 
@@ -102,7 +101,7 @@ final class HomeVC: UIViewController, HomeVCProtocol {
 
     func setupScrollView() {
         mainScrollView.minimumZoomScale = 0.35
-        mainScrollView.maximumZoomScale = 0.8
+        mainScrollView.maximumZoomScale = 0.65
         mainScrollView.delegate = self
         mainScrollView.showsHorizontalScrollIndicator = false
         mainScrollView.showsVerticalScrollIndicator = false
@@ -132,6 +131,6 @@ extension HomeVC: UIScrollViewDelegate {
 
 extension HomeVC: UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return CharactersTilesAnimatationController(originFrame: self.mainScrollView.frame)
+        return CharactersTilesAnimatationController(originFrame: self.mainScrollView.frame, position: self.mainScrollView.contentOffset)
     }
 }

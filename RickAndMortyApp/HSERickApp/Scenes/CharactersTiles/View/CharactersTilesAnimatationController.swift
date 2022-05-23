@@ -2,9 +2,18 @@ import UIKit
 
 class CharactersTilesAnimatationController: NSObject, UIViewControllerAnimatedTransitioning {
     private let originFrame: CGRect
+    private var position: CGPoint
+    private let statusBarHeight: CGFloat = {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        return window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+    }()
 
-    init(originFrame: CGRect) {
+    init(originFrame: CGRect, position: CGPoint) {
         self.originFrame = originFrame
+        self.position = position
+        print(position)
     }
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 3
@@ -12,7 +21,6 @@ class CharactersTilesAnimatationController: NSObject, UIViewControllerAnimatedTr
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard
-            let fromVC = transitionContext.viewController(forKey: .from),
             let toVC = transitionContext.viewController(forKey: .to)
         else {
             return
@@ -32,7 +40,9 @@ class CharactersTilesAnimatationController: NSObject, UIViewControllerAnimatedTr
         destinationCopyVC.prepareCloseButtonForAnimation()
         destinationCopyVC.view.clipsToBounds = true
         destinationCopyVC.view.frame = originFrame
+        position.y += statusBarHeight
         containerView.addSubview(destinationCopyVC.view)
+        destinationCopyVC.configureScroll(with: position)
 
         UIView.animate(
             withDuration: duration,
@@ -42,7 +52,11 @@ class CharactersTilesAnimatationController: NSObject, UIViewControllerAnimatedTr
                 destinationCopyVC.view.frame = finalFrame
                 destinationCopyVC.finishCloseButtonAnimation()
             },
-            completion: { _ in
+            completion: { [self] _ in
+                if let toVC = toVC as? CharactersTilesVC {
+                    self.position.y -= statusBarHeight
+                    toVC.configureScroll(with: self.position)
+                }
                 toVC.view.isHidden = false
                 destinationCopyVC.view.removeFromSuperview()
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)

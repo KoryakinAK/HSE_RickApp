@@ -3,9 +3,16 @@ import UIKit
 protocol CharactersTilesViewControllerProtocol: AnyObject {
     func prepareCloseButtonForAnimation()
     func finishCloseButtonAnimation()
+    func configureScroll(with coordinates: CGPoint)
 }
 
 final class CharactersTilesVC: UIViewController, CharactersTilesViewControllerProtocol {
+    func configureScroll(with coordinates: CGPoint) {
+        mainScrollView.delegate = self
+        self.mainScrollView.setZoomScale(0.45, animated: false)
+        self.mainScrollView.setContentOffset(coordinates, animated: false)
+    }
+
     public var presenter: CharactersTilesPresenterProtocol!
 
     private let characterTiles: UIImageView = {
@@ -47,13 +54,14 @@ final class CharactersTilesVC: UIViewController, CharactersTilesViewControllerPr
         super.viewDidLoad()
         self.view.backgroundColor = .clear
         self.mainScrollView.contentSize = self.characterTiles.frame.size
+        mainScrollView.setZoomScale(0.45, animated: false)
+        mainScrollView.setContentOffset(CGPoint(x: 1000, y: 1000), animated: false)
         setupTargetsAndDelegates()
         setupUI()
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        mainScrollView.setZoomScale(0.4, animated: false)
-        mainScrollView.setContentOffset(CGPoint(x: 1000, y: 1000), animated: false)
+        
     }
 
     // MARK: - VC Setup
