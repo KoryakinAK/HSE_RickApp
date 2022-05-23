@@ -42,6 +42,7 @@ final class HomeVC: UIViewController, HomeVCProtocol {
     private let mainScrollView: UIScrollView = {
         let scroll = UIScrollView()
         scroll.backgroundColor = .clear
+        scroll.contentInset = UIEdgeInsets(top: -350, left: -150, bottom: -350, right: -150)
         return scroll
     }()
 
