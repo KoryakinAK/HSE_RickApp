@@ -161,7 +161,6 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
 
     // MARK: - Button actions
     @objc func favButtonPressed(sender: UIButton!) {
-        print(presenter.isCurrentCharFavourited)
         presenter.flipFavouriteStatus()
         self.favButton.backgroundColor = self.favButtonColor
     }

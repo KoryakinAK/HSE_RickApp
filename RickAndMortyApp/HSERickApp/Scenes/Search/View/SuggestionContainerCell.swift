@@ -63,7 +63,6 @@ extension SuggestionContainerCell: UICollectionViewDelegate, UICollectionViewDat
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
         presenter.didSelectSearchResultAt(row: indexPath.row, in: self.cellCategory)
     }
 

@@ -13,7 +13,6 @@ class CharactersTilesAnimatationController: NSObject, UIViewControllerAnimatedTr
     init(originFrame: CGRect, position: CGPoint) {
         self.originFrame = originFrame
         self.position = position
-        print(position)
     }
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 3

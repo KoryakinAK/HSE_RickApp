@@ -73,7 +73,6 @@ final class SearchPresenter: SearchPresenterProtocol {
                 self.view?.suggestionsTableView.reloadData()
             case .failure(let error):
                 self.clearSearchResults()
-                print("Download failed: \(error.localizedDescription)")
             }
         }
     }
