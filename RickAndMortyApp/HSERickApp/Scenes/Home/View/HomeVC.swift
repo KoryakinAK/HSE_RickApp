@@ -64,9 +64,9 @@ final class HomeVC: UIViewController, HomeVCProtocol {
         self.mainScrollView.contentOffset = CGPoint(x: 800, y: 550)
         UIView.animate(withDuration: 0.7,
                        delay: 0.0,
-                       usingSpringWithDamping: 0.7,
+                       usingSpringWithDamping: 0.9,
                        initialSpringVelocity: 3.0,
-                       options: .curveEaseIn,
+                       options: .curveEaseInOut,
                        animations: {
             self.mainScrollView.contentOffset = CGPoint(x: 2520/2, y: 1394)
             self.mainScrollView.setZoomScale(0.55, animated: false)
