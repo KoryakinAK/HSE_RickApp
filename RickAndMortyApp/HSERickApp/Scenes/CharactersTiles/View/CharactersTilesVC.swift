@@ -29,7 +29,6 @@ final class CharactersTilesVC: UIViewController, CharactersTilesViewControllerPr
         scroll.showsHorizontalScrollIndicator = false
         scroll.showsVerticalScrollIndicator = false
         scroll.contentInset = UIEdgeInsets(top: -350, left: -150, bottom: -350, right: -150)
-//        scroll.bounces = false
         return scroll
     }()
 
@@ -60,10 +59,6 @@ final class CharactersTilesVC: UIViewController, CharactersTilesViewControllerPr
         mainScrollView.setContentOffset(CGPoint(x: 1000, y: 1000), animated: false)
         setupTargetsAndDelegates()
         setupUI()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        
     }
 
     // MARK: - VC Setup

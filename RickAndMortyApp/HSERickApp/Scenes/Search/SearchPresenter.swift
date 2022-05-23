@@ -52,7 +52,6 @@ final class SearchPresenter: SearchPresenterProtocol {
         // Возможно, стоит переписать на workItem
         timer?.invalidate()
         self.nameToSearch = name
-    
         timer = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(performSearch), userInfo: nil, repeats: false)
 
     }
