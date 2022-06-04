@@ -18,6 +18,22 @@ struct CharacterModel: Codable, Equatable {
     static func == (lhs: CharacterModel, rhs: CharacterModel) -> Bool {
         lhs.id == rhs.id
     }
+
+    static let exampleCharacter = CharacterModel(id: 22,
+                                             name: "Aqua Rick",
+                                             status: "unknown",
+                                             species: "Humanoid",
+                                             gender: "Male",
+                                             origin:
+                                                LocationModel(
+                                                    name: "unknown",
+                                                    url: ""),
+                                             location:
+                                                LocationModel(
+                                                    name: "Citadel of Ricks",
+                                                    url: "https://rickandmortyapi.com/api/location/3"),
+                                             image: "https://rickandmortyapi.com/api/character/avatar/22.jpeg")
+
 }
 
 struct LocationModel: Codable, Equatable {
