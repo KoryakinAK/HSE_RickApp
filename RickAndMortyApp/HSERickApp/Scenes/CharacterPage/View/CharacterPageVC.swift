@@ -38,7 +38,7 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
 
     private let characterName: UILabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 36)
+        label.font = UIFont(name: CustomFonts.SFdisplayBold.rawValue, size: 34)
         label.textAlignment = .left
         return label
     }()

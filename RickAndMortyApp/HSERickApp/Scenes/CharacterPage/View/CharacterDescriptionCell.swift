@@ -13,7 +13,7 @@ class CharacterDescriptionCell: UITableViewCell, SelfConfigurableDescriptionCell
         label.textAlignment = .left
         label.textColor = UIColor(named: "secondaryLabelColor")
         label.numberOfLines = 1
-        label.font = .boldSystemFont(ofSize: 23)
+        label.font = UIFont(name: CustomFonts.SFtextBold.rawValue, size: 22)
         return label
     }()
 
@@ -21,7 +21,7 @@ class CharacterDescriptionCell: UITableViewCell, SelfConfigurableDescriptionCell
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = UIColor(named: "mainLabelColor")
-        label.font = .boldSystemFont(ofSize: 23)
+        label.font = UIFont(name: CustomFonts.SFtextBold.rawValue, size: 22)
         return label
     }()
 
