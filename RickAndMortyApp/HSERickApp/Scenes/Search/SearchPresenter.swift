@@ -25,7 +25,7 @@ final class SearchPresenter: SearchPresenterProtocol {
 
     var searchResultMetaInfo: SearchMetaInfo?
     var searchResultCharacters = [CharacterModel]()
-    var isSearchInProgress = false {
+    var isSearchInProgress = false { 
         didSet {
             self.view?.suggestionsTableView.reloadData()
         }
@@ -59,19 +59,18 @@ final class SearchPresenter: SearchPresenterProtocol {
     @objc private func performSearch() {
         guard
             let name = nameToSearch,
+            let url = APIWorker.createURLComponents(endpoint: RickAPIEndpoint.searchBy(name: name)).url,
             name.count > 0
         else { return }
 
-        APIWorker.request(
-            endpoint: RickAPIEndpoint.searchBy(name: name)
-        ) { (result: Result<SearchResultModel, Error>)  in
-            switch result {
-            case .success(let response):
+        Task {
+            do {
+                let response: SearchResultModel = try await APIWorker.request(from: url)
                 self.searchResultCharacters = response.results
                 self.searchResultMetaInfo = response.info
-                self.view?.suggestionsTableView.reloadData()
-            case .failure(let error):
-                self.clearSearchResults()
+                await MainActor.run { view?.suggestionsTableView.reloadData() }
+            } catch {
+                print(error)
             }
         }
     }
