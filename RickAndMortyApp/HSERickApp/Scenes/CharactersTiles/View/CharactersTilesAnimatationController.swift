@@ -33,8 +33,8 @@ class CharactersTilesAnimatationController: NSObject, UIViewControllerAnimatedTr
 
         let duration = transitionDuration(using: transitionContext)
 
-        // Обойтись снепшотом toVC не получилось:
-        // Снепшот захватывает UIScrollView до изменения setZoom
+        /// Обойтись снепшотом toVC не получилось:
+        /// Снепшот захватывает UIScrollView до изменения setZoom
         let destinationCopyVC = CharactersTilesBuilder.build()
         destinationCopyVC.prepareCloseButtonForAnimation()
         destinationCopyVC.view.clipsToBounds = true
