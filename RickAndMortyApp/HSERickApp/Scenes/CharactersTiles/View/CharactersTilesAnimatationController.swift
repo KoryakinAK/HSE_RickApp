@@ -15,7 +15,7 @@ class CharactersTilesAnimatationController: NSObject, UIViewControllerAnimatedTr
         self.position = position
     }
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 3
+        return 1.1
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
