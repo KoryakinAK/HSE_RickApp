@@ -28,6 +28,7 @@
 		B576982728380EA100A75BD3 /* CharactersTilesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576982328380EA100A75BD3 /* CharactersTilesVC.swift */; };
 		B576982828380EA100A75BD3 /* CharactersTilesBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B576982428380EA100A75BD3 /* CharactersTilesBuilder.swift */; };
 		B576982A2838EB5100A75BD3 /* CharactersTilesAnimatationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57698292838EB5100A75BD3 /* CharactersTilesAnimatationController.swift */; };
+		B57A31B1284BB19E00488283 /* Color+assetColorAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57A31B0284BB19E00488283 /* Color+assetColorAccess.swift */; };
 		B5A3B68627FF3DDA0009D3BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B68527FF3DDA0009D3BE /* AppDelegate.swift */; };
 		B5A3B68827FF3DDA0009D3BE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B68727FF3DDA0009D3BE /* SceneDelegate.swift */; };
 		B5A3B68F27FF3DDC0009D3BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5A3B68E27FF3DDC0009D3BE /* Assets.xcassets */; };
@@ -99,6 +100,7 @@
 		B576982328380EA100A75BD3 /* CharactersTilesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersTilesVC.swift; sourceTree = "<group>"; };
 		B576982428380EA100A75BD3 /* CharactersTilesBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersTilesBuilder.swift; sourceTree = "<group>"; };
 		B57698292838EB5100A75BD3 /* CharactersTilesAnimatationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersTilesAnimatationController.swift; sourceTree = "<group>"; };
+		B57A31B0284BB19E00488283 /* Color+assetColorAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+assetColorAccess.swift"; sourceTree = "<group>"; };
 		B5A3B68227FF3DDA0009D3BE /* HSERickApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HSERickApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5A3B68527FF3DDA0009D3BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5A3B68727FF3DDA0009D3BE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 			children = (
 				B5655C642835686400B43BEB /* UITableViewCell+defaultReuseIdentifier.swift */,
 				B5655C662835694B00B43BEB /* UICollectionViewCell+defaultReuseIdentifier.swift */,
+				B57A31B0284BB19E00488283 /* Color+assetColorAccess.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -600,6 +603,7 @@
 				B5A3B68627FF3DDA0009D3BE /* AppDelegate.swift in Sources */,
 				B576982728380EA100A75BD3 /* CharactersTilesVC.swift in Sources */,
 				B5B2A8C52813189B001A735B /* FavouritesListRouter.swift in Sources */,
+				B57A31B1284BB19E00488283 /* Color+assetColorAccess.swift in Sources */,
 				B576982828380EA100A75BD3 /* CharactersTilesBuilder.swift in Sources */,
 				B5F2A0FD2819014A005B05D6 /* TabBarViewController.swift in Sources */,
 				B5B2A8AE28130C1B001A735B /* CharacterPageVC.swift in Sources */,
