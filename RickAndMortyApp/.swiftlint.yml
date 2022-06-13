@@ -6,6 +6,7 @@ identifier_name:
   excluded:
     - id
     - vc
+    - to
 
 line_length:
   warning: 140
