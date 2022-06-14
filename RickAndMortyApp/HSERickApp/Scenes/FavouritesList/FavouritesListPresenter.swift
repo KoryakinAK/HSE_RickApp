@@ -19,11 +19,13 @@ final class FavouritesListPresenter: FavouritesListPresenterProtocol {
         self.view = view
         self.router = router
         self.storageManager = storageManager
+        setupObservers()
         updateFavCharacters()
     }
 
-    func updateFavCharacters() {
-        let currentFavs = storageManager.getCharactersIn(category: .favourites)
+    func setupObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateFavCharacters), name: Notification.Name(UserDefaultsManager.notificationIdentifier), object: nil)
+    }
 
     @objc func updateFavCharacters() {
         let currentFavs = storageManager.getAllElementsIn(category: .favourites)

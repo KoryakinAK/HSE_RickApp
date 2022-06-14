@@ -10,8 +10,14 @@ protocol StorageProtocol {
 
 class UserDefaultsManager: StorageProtocol {
     private static let instance = UserDefaultsManager()
+    public static let notificationIdentifier = "StorageUpdateIdentifier"
+
     class func sharedInstance() -> UserDefaultsManager {
         return instance
+    }
+
+    private func postUpdateNotification() {
+        NotificationCenter.default.post(name: Notification.Name(UserDefaultsManager.notificationIdentifier), object: nil)
     }
 
     func save(character: CharacterModel, to category: CharacterCategory) {
@@ -25,6 +31,7 @@ class UserDefaultsManager: StorageProtocol {
         }
 
         UserDefaults.standard.set(try? PropertyListEncoder().encode(currentCharacters), forKey: category.rawValue)
+        self.postUpdateNotification()
     }
 
     func getAllElementsIn(category: CharacterCategory) -> [CharacterModel] {
@@ -41,6 +48,7 @@ class UserDefaultsManager: StorageProtocol {
         let filteredCharacters = getAllElementsIn(category: category)
             .filter { $0.id != character.id }
         UserDefaults.standard.set(try? PropertyListEncoder().encode(filteredCharacters), forKey: category.rawValue)
+        self.postUpdateNotification()
     }
 
     func checkIfCurrentlyFavourited(_ character: CharacterModel) -> Bool {

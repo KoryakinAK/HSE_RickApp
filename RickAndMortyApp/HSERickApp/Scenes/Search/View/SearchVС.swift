@@ -52,6 +52,16 @@ final class SearchVС: UIViewController, SearchVСProtocol {
         setupMainTableView()
         setupUI()
         setupTextField()
+        setupObservers()
+    }
+
+    // TODO: - Это здесь не должно быть
+    func setupObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.performDataReload), name: Notification.Name(UserDefaultsManager.notificationIdentifier), object: nil)
+    }
+
+    @objc func performDataReload() {
+        self.suggestionsTableView.reloadData()
     }
 
     // MARK: - Setup UI
