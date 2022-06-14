@@ -37,6 +37,7 @@
 		B5A3B69D27FF3DDC0009D3BE /* HSERickAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B69C27FF3DDC0009D3BE /* HSERickAppTests.swift */; };
 		B5A3B6A727FF3DDC0009D3BE /* HSERickAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B6A627FF3DDC0009D3BE /* HSERickAppUITests.swift */; };
 		B5A3B6A927FF3DDC0009D3BE /* HSERickAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B6A827FF3DDC0009D3BE /* HSERickAppUITestsLaunchTests.swift */; };
+		B5A7A46A284FC12A0024E188 /* EmptySuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A7A469284FC12A0024E188 /* EmptySuggestionCell.swift */; };
 		B5B2A88B2811FAC5001A735B /* CharacterDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2A88A2811FAC5001A735B /* CharacterDescriptionCell.swift */; };
 		B5B2A89328121B09001A735B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5B2A89228121B09001A735B /* Colors.xcassets */; };
 		B5B2A8A628130B58001A735B /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2A8A328130B58001A735B /* SearchPresenter.swift */; };
@@ -116,6 +117,7 @@
 		B5A3B6A227FF3DDC0009D3BE /* HSERickAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HSERickAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5A3B6A627FF3DDC0009D3BE /* HSERickAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSERickAppUITests.swift; sourceTree = "<group>"; };
 		B5A3B6A827FF3DDC0009D3BE /* HSERickAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSERickAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B5A7A469284FC12A0024E188 /* EmptySuggestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySuggestionCell.swift; sourceTree = "<group>"; };
 		B5B2A88A2811FAC5001A735B /* CharacterDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDescriptionCell.swift; sourceTree = "<group>"; };
 		B5B2A89228121B09001A735B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		B5B2A8A328130B58001A735B /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 			children = (
 				B5B2A8A428130B58001A735B /* SearchVС.swift */,
 				B50E63C328185DD20069719B /* SuggestionContainerCell.swift */,
+				B5A7A469284FC12A0024E188 /* EmptySuggestionCell.swift */,
 				B50E63C128185BFC0069719B /* SmallCharacterCell.swift */,
 				B5655C5928355F9B00B43BEB /* SearchResultCell.swift */,
 			);

@@ -31,6 +31,7 @@ final class SearchVС: UIViewController, SearchVСProtocol {
         let searchIcomConfig = UIImage.SymbolConfiguration(pointSize: 23, weight: .medium)
         imageView.image = UIImage(systemName: "magnifyingglass",
                                   withConfiguration: searchIcomConfig)
+        imageView.tintColor = UIColor(named: "mainLabelColor")
         return imageView
     }()
 
@@ -96,6 +97,7 @@ final class SearchVС: UIViewController, SearchVСProtocol {
         suggestionsTableView.automaticallyAdjustsScrollIndicatorInsets = false
         suggestionsTableView.separatorStyle = .none
         suggestionsTableView.register(SuggestionContainerCell.self, forCellReuseIdentifier: SuggestionContainerCell.defaultReuseIdentifier)
+        suggestionsTableView.register(EmptySuggestionCell.self, forCellReuseIdentifier: EmptySuggestionCell.defaultReuseIdentifier)
         suggestionsTableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.defaultReuseIdentifier)
     }
 
@@ -109,7 +111,7 @@ extension SearchVС: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch self.presenter.isSearchInProgress {
         case true:
-            return presenter.searchResultCharacters.count
+            return min(presenter.searchResultCharacters.count, 1)
         case false:
             return 1
         }
@@ -137,15 +139,25 @@ extension SearchVС: UITableViewDataSource, UITableViewDelegate {
             return cell
 
         case false:
-            guard let cell = suggestionsTableView.dequeueReusableCell(
-                withIdentifier: SuggestionContainerCell.defaultReuseIdentifier,
-                for: indexPath)
-                    as? SuggestionContainerCell else {
-                fatalError()
-            }
             let category = CharacterCategory.allCases[indexPath.section]
-            cell.configure(with: presenter, for: category)
-            return cell
+            if presenter.getNumberOfRows(in: category) != 0 {
+                guard let cell = suggestionsTableView.dequeueReusableCell(
+                    withIdentifier: SuggestionContainerCell.defaultReuseIdentifier,
+                    for: indexPath)
+                        as? SuggestionContainerCell else {
+                    fatalError()
+                }
+                cell.configure(with: presenter, for: category)
+                return cell
+            } else {
+                guard let cell = suggestionsTableView.dequeueReusableCell(
+                    withIdentifier: EmptySuggestionCell.defaultReuseIdentifier,
+                    for: indexPath)
+                        as? EmptySuggestionCell else {
+                    fatalError()
+                }
+                return cell
+            }
         }
     }
 

@@ -25,7 +25,7 @@ final class SearchPresenter: SearchPresenterProtocol {
 
     var searchResultMetaInfo: SearchMetaInfo?
     var searchResultCharacters = [CharacterModel]()
-    var isSearchInProgress = false { 
+    var isSearchInProgress = false {
         didSet {
             self.view?.suggestionsTableView.reloadData()
         }
@@ -39,6 +39,7 @@ final class SearchPresenter: SearchPresenterProtocol {
     // MARK: - Routing
     func didSelectSearchResultAt(row: Int, in category: CharacterCategory?) {
         if self.isSearchInProgress {
+            self.storageManager.save(character: searchResultCharacters[row], to: .recent)
             router.presentCharacterPage(for: searchResultCharacters[row])
         } else {
             guard let category = category else { return }
@@ -76,7 +77,6 @@ final class SearchPresenter: SearchPresenterProtocol {
     }
 
     private func clearSearchResults() {
-        // TODO: - Лейбл "Нет результатов"
         self.searchResultCharacters = [CharacterModel]()
         self.searchResultMetaInfo = nil
         view?.suggestionsTableView.reloadData()
@@ -105,7 +105,7 @@ final class SearchPresenter: SearchPresenterProtocol {
     }
 
     func getSectionName(for section: Int) -> String {
-        return CharacterCategory.allCases[section].rawValue
+        return CharacterCategory.allCases[section].rawValue.localized()
     }
 
 }
