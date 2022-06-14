@@ -27,7 +27,6 @@ final class CharacterPagePresenter: CharacterPagePresenterProtocol {
         self.view = view
         self.storageManager = storageManager
         self.selectedCharacter = selectedCharacter
-        self.storageManager.save(character: self.selectedCharacter, to: .recent)
         performInitialSetup()
     }
 
