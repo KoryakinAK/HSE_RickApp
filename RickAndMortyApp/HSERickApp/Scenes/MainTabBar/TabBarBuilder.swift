@@ -45,7 +45,7 @@ final class TabBarBuilder {
 
             if titleVisible {
                 navController.navigationBar.prefersLargeTitles = true
-                rootViewController.navigationItem.title = title
+                rootViewController.navigationItem.title = title.localized()
             }
             return navController
         }

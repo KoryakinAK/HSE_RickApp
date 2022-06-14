@@ -89,7 +89,7 @@ final class CharacterPageViewController: UIViewController, CharacterPageViewCont
     // MARK: - Setup VC
     func setupUI() {
         self.navigationItem.largeTitleDisplayMode = .never
-        self.navigationItem.title = "Characters"
+        self.navigationItem.title = "Characters".localized()
         self.view.backgroundColor = UIColor(named: "backgroundColor")
 
         mainScrollView.translatesAutoresizingMaskIntoConstraints = false
