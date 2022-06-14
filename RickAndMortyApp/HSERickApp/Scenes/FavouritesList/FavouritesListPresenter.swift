@@ -19,12 +19,17 @@ final class FavouritesListPresenter: FavouritesListPresenterProtocol {
         self.view = view
         self.router = router
         self.storageManager = storageManager
+        updateFavCharacters()
     }
 
     func updateFavCharacters() {
         let currentFavs = storageManager.getCharactersIn(category: .favourites)
+
+    @objc func updateFavCharacters() {
+        let currentFavs = storageManager.getAllElementsIn(category: .favourites)
         self.favCharactersList = currentFavs
         self.view?.chararactersTableView.reloadData()
+        view?.emptyLabel.isHidden = !currentFavs.isEmpty
     }
 
     // MARK: - UITableView actions

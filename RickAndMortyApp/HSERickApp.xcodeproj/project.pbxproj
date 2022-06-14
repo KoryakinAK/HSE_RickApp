@@ -293,9 +293,9 @@
 		B5655C632835682800B43BEB /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				B5E5BE9628590E7400B0F778 /* assetColorAccess */,
 				B5655C642835686400B43BEB /* UITableViewCell+defaultReuseIdentifier.swift */,
 				B5655C662835694B00B43BEB /* UICollectionViewCell+defaultReuseIdentifier.swift */,
-				B5E5BE9628590E7400B0F778 /* assetColorAccess */,
 				B5E5BDA02858985500B0F778 /* String+localized.swift */,
 			);
 			path = Extensions;

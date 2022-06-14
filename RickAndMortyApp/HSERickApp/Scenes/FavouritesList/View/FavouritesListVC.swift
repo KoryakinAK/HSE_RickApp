@@ -2,6 +2,7 @@ import UIKit
 
 protocol FavouritesListVCProtocol: AnyObject {
     var chararactersTableView: UITableView { get }
+    var emptyLabel: UILabel { get }
 }
 
 final class FavouritesListVC: UIViewController, FavouritesListVCProtocol {
@@ -14,6 +15,18 @@ final class FavouritesListVC: UIViewController, FavouritesListVCProtocol {
         tableView.backgroundColor = .clear
         tableView.separatorColor = .clear
         return tableView
+    }()
+
+    let emptyLabel: UILabel = {
+        let label = UILabel()
+        let customFont = UIFont(name: CustomFonts.SFtextSemiBold.rawValue, size: 20) ?? UIFont.boldSystemFont(ofSize: 20)
+        label.adjustsFontForContentSizeCategory = true
+        label.textAlignment = .center
+        label.numberOfLines = 1
+        label.font = customFont
+        label.textColor = UIColor(named: "secondaryLabelColor")
+        label.text = "Nothing to see here...yet".localized()
+        return label
     }()
 
     // MARK: - VC Lifecycle
@@ -32,7 +45,8 @@ final class FavouritesListVC: UIViewController, FavouritesListVCProtocol {
 
     // MARK: - VC setup
     func setupUI() {
-        [chararactersTableView].forEach {
+        emptyLabel.isHidden = true
+        [chararactersTableView, emptyLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview($0)
         }
@@ -41,7 +55,10 @@ final class FavouritesListVC: UIViewController, FavouritesListVCProtocol {
             chararactersTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             chararactersTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             chararactersTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            chararactersTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            chararactersTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+
+            emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 
