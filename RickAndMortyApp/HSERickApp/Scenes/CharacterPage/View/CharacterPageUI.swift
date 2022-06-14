@@ -44,7 +44,7 @@ struct CharacterPageUI: View {
                             )
                     }
                 }
-                .padding([.top], 20)
+                .padding(.top, 20)
                 .padding(.bottom, 35)
                 .padding([.leading, .trailing], 37)
                 HStack {
@@ -77,11 +77,11 @@ struct CharacterPageUI: View {
                                 .frame(alignment: .leading)
                             Rectangle()
                                 .fill(Color.mainTheme.mainLabelColor)
-                                .frame(height: 1 / UIScreen.main.nativeScale)
+                                .frame(height: 1 / UIScreen.main.scale)
                                 .edgesIgnoringSafeArea(.horizontal)
                                 .padding(.top, 8)
                         }
-                        .padding([.leading, .trailing], 16)
+                        .padding(.horizontal, 16)
                         .padding(.bottom, 16)
                         Spacer()
                     }

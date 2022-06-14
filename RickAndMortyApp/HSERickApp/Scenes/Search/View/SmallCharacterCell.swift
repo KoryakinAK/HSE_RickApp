@@ -10,13 +10,13 @@ protocol SmallCharacterCellProtocol {
 class SmallCharacterCell: UICollectionViewCell, SmallCharacterCellProtocol {
     var currentCharacter: CharacterModel?
 
-    let mainImage: UIImageView = {
+    lazy var mainImage: UIImageView = {
         let image = UIImageView()
         image.clipsToBounds = true
         image.layer.cornerRadius = 10
 
         // TODO: - Вынести в отдельный подкласс UIImageView с автообводкой в светлой теме
-        if UITraitCollection.current.userInterfaceStyle == .light {
+        if traitCollection.userInterfaceStyle == .light {
             image.layer.borderWidth = 1
             image.layer.borderColor = UIColor(named: "mainLabelColor")?.cgColor
         }

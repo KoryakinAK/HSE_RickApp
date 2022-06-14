@@ -83,7 +83,7 @@ final class HomeVC: UIViewController, HomeVCProtocol {
         mainScrollView.addSubview(characterTiles)
         characterTiles.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            rickAndMortyLabel.topAnchor.constraint(equalTo: super.view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            rickAndMortyLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
             rickAndMortyLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             rickAndMortyLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
             rickAndMortyLabel.heightAnchor.constraint(equalToConstant: 260),

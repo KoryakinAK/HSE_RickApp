@@ -92,12 +92,12 @@ final class SearchPresenter: SearchPresenterProtocol {
 
     // MARK: - UITableView helpers
     func getCharacterFor(row: Int, in category: CharacterCategory) -> CharacterModel? {
-        let characters = storageManager.getCharactersIn(category: category)
+        let characters = storageManager.getAllElementsIn(category: category)
         return characters[row]
     }
 
     func getNumberOfRows(in category: CharacterCategory) -> Int {
-        return storageManager.getCharactersIn(category: category).count
+        return storageManager.getAllElementsIn(category: category).count
     }
 
     func getNumberOfSuggestedSections() -> Int {

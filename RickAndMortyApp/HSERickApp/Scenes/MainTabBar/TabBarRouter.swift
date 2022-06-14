@@ -13,6 +13,6 @@ final class TabBarRouter: TabBarRouterProtocol {
     }
 
     func presentSearchScreen() {
-        self.view?.navigationController?.pushViewController(SearchBuilder.build(), animated: true)
+//        self.view?.navigationController?.pushViewController(SearchBuilder.build(), animated: true)
     }
 }

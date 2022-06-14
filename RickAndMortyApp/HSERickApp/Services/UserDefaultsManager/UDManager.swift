@@ -3,7 +3,7 @@ import Collections
 
 protocol StorageProtocol {
     func save(character: CharacterModel, to: CharacterCategory)
-    func getCharactersIn(category: CharacterCategory) -> [CharacterModel]
+    func getAllElementsIn(category: CharacterCategory) -> [CharacterModel]
     func attemptToRemove(character: CharacterModel, from category: CharacterCategory)
     func checkIfCurrentlyFavourited(_ character: CharacterModel) -> Bool
 }
@@ -15,7 +15,7 @@ class UserDefaultsManager: StorageProtocol {
     }
 
     func save(character: CharacterModel, to category: CharacterCategory) {
-        var currentCharacters = getCharactersIn(category: category)
+        var currentCharacters = getAllElementsIn(category: category)
         if (currentCharacters.filter { $0.id == character.id }).isEmpty {
             currentCharacters.append(character)
         }
@@ -27,7 +27,7 @@ class UserDefaultsManager: StorageProtocol {
         UserDefaults.standard.set(try? PropertyListEncoder().encode(currentCharacters), forKey: category.rawValue)
     }
 
-    func getCharactersIn(category: CharacterCategory) -> [CharacterModel] {
+    func getAllElementsIn(category: CharacterCategory) -> [CharacterModel] {
         guard
             let data = UserDefaults.standard.value(forKey: category.rawValue) as? Data,
             let charactersArray = try? PropertyListDecoder().decode(Array<CharacterModel>.self, from: data)
@@ -38,12 +38,12 @@ class UserDefaultsManager: StorageProtocol {
     }
 
     func attemptToRemove(character: CharacterModel, from category: CharacterCategory) {
-        let filteredCharacters = getCharactersIn(category: category)
+        let filteredCharacters = getAllElementsIn(category: category)
             .filter { $0.id != character.id }
         UserDefaults.standard.set(try? PropertyListEncoder().encode(filteredCharacters), forKey: category.rawValue)
     }
 
     func checkIfCurrentlyFavourited(_ character: CharacterModel) -> Bool {
-        self.getCharactersIn(category: .favourites).contains(character)
+        self.getAllElementsIn(category: .favourites).contains(character)
     }
 }
