@@ -58,6 +58,10 @@
 		B5C75631281D44CD00A2DC24 /* CharacterCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C75630281D44CD00A2DC24 /* CharacterCategory.swift */; };
 		B5E5BDA12858985500B0F778 /* String+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E5BDA02858985500B0F778 /* String+localized.swift */; };
 		B5E5BDA52858990E00B0F778 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B5E5BDA72858990E00B0F778 /* Localizable.strings */; };
+		B5E5BDAB2858B9C000B0F778 /* Loger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E5BDAA2858B9C000B0F778 /* Loger.swift */; };
+		B5E5BDAE2858BA0A00B0F778 /* LogWriterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E5BDAD2858BA0A00B0F778 /* LogWriterProtocol.swift */; };
+		B5E5BDB02858BA6400B0F778 /* ConsoleWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E5BDAF2858BA6400B0F778 /* ConsoleWriter.swift */; };
+		B5E5BDB22858BA7E00B0F778 /* FileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E5BDB12858BA7E00B0F778 /* FileWriter.swift */; };
 		B5F2A0FC2819014A005B05D6 /* TabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F2A0F92819014A005B05D6 /* TabBarPresenter.swift */; };
 		B5F2A0FD2819014A005B05D6 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F2A0FA2819014A005B05D6 /* TabBarViewController.swift */; };
 		B5F2A0FE2819014A005B05D6 /* TabBarBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F2A0FB2819014A005B05D6 /* TabBarBuilder.swift */; };
@@ -139,6 +143,10 @@
 		B5E5BDA02858985500B0F778 /* String+localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+localized.swift"; sourceTree = "<group>"; };
 		B5E5BDA62858990E00B0F778 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B5E5BDA82858996900B0F778 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B5E5BDAA2858B9C000B0F778 /* Loger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loger.swift; sourceTree = "<group>"; };
+		B5E5BDAD2858BA0A00B0F778 /* LogWriterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWriterProtocol.swift; sourceTree = "<group>"; };
+		B5E5BDAF2858BA6400B0F778 /* ConsoleWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleWriter.swift; sourceTree = "<group>"; };
+		B5E5BDB12858BA7E00B0F778 /* FileWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileWriter.swift; sourceTree = "<group>"; };
 		B5F2A0F92819014A005B05D6 /* TabBarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarPresenter.swift; sourceTree = "<group>"; };
 		B5F2A0FA2819014A005B05D6 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		B5F2A0FB2819014A005B05D6 /* TabBarBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarBuilder.swift; sourceTree = "<group>"; };
@@ -409,9 +417,29 @@
 			path = Localization;
 			sourceTree = "<group>";
 		};
+		B5E5BDA92858B98800B0F778 /* LoggingService */ = {
+			isa = PBXGroup;
+			children = (
+				B5E5BDAA2858B9C000B0F778 /* Loger.swift */,
+				B5E5BDAD2858BA0A00B0F778 /* LogWriterProtocol.swift */,
+				B5E5BDAC2858B9F300B0F778 /* LoggingWriters */,
+			);
+			path = LoggingService;
+			sourceTree = "<group>";
+		};
+		B5E5BDAC2858B9F300B0F778 /* LoggingWriters */ = {
+			isa = PBXGroup;
+			children = (
+				B5E5BDAF2858BA6400B0F778 /* ConsoleWriter.swift */,
+				B5E5BDB12858BA7E00B0F778 /* FileWriter.swift */,
+			);
+			path = LoggingWriters;
+			sourceTree = "<group>";
+		};
 		B5F2A10128190F0C005B05D6 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B5E5BDA92858B98800B0F778 /* LoggingService */,
 				B5F2A10A281917C0005B05D6 /* UserDefaultsManager */,
 				B5F2A109281917A9005B05D6 /* RickMortyAPI */,
 			);
@@ -603,6 +631,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5F2A10028190467005B05D6 /* TabBarRouter.swift in Sources */,
+				B5E5BDAB2858B9C000B0F778 /* Loger.swift in Sources */,
 				B5B2A8A828130B58001A735B /* SearchBuilder.swift in Sources */,
 				B5B2A8A628130B58001A735B /* SearchPresenter.swift in Sources */,
 				B5B2A8B428130DA5001A735B /* HomeVC.swift in Sources */,
@@ -615,6 +644,7 @@
 				B5C75631281D44CD00A2DC24 /* CharacterCategory.swift in Sources */,
 				B5B2A8BB28130E51001A735B /* FavouritesListBuilder.swift in Sources */,
 				B5C7562D281B3AEE00A2DC24 /* CharacterDescriptionModel.swift in Sources */,
+				B5E5BDB02858BA6400B0F778 /* ConsoleWriter.swift in Sources */,
 				B5B2A8B528130DA5001A735B /* HomeBuilder.swift in Sources */,
 				B5655C69283583E500B43BEB /* SearchRouter.swift in Sources */,
 				B5F2A0FE2819014A005B05D6 /* TabBarBuilder.swift in Sources */,
@@ -623,6 +653,7 @@
 				B5B2A8B928130E51001A735B /* FavouritesListPresenter.swift in Sources */,
 				B5B2A8C72813F569001A735B /* TileCell.swift in Sources */,
 				B5B2A8AF28130C1B001A735B /* CharacterPageBuilder.swift in Sources */,
+				B5E5BDAE2858BA0A00B0F778 /* LogWriterProtocol.swift in Sources */,
 				B576982628380EA100A75BD3 /* CharactersTilesRouter.swift in Sources */,
 				B5655C652835686400B43BEB /* UITableViewCell+defaultReuseIdentifier.swift in Sources */,
 				B5769831283D305000A75BD3 /* CharacterPageUI.swift in Sources */,
@@ -646,6 +677,7 @@
 				B5F2A105281916AF005B05D6 /* APIWorker.swift in Sources */,
 				B5655C62283562ED00B43BEB /* CustomFonts.swift in Sources */,
 				B5B2A8B328130DA5001A735B /* HomePresenter.swift in Sources */,
+				B5E5BDB22858BA7E00B0F778 /* FileWriter.swift in Sources */,
 				B5F2A10828191714005B05D6 /* CharacterModel+LocationModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
