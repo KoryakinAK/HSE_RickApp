@@ -1,7 +1,7 @@
 import Foundation
 
 protocol SearchPresenterProtocol: AnyObject {
-    init(view: SearchVСProtocol, router: SearchRouter, storageManager: StorageProtocol)
+    init(view: SearchVСProtocol, router: SearchRouter, storageManager: StorageProtocol, loger: LoggerProtocol)
 
     var searchResultCharacters: [CharacterModel] { get }
     var isSearchInProgress: Bool { get set }
@@ -18,6 +18,7 @@ protocol SearchPresenterProtocol: AnyObject {
 
 final class SearchPresenter: SearchPresenterProtocol {
     private weak var view: SearchVСProtocol?
+    private var loger: LoggerProtocol?
     private var router: SearchRouter
     private var storageManager: StorageProtocol
     private var timer: Timer?
@@ -30,20 +31,23 @@ final class SearchPresenter: SearchPresenterProtocol {
             self.view?.suggestionsTableView.reloadData()
         }
     }
-    init(view: SearchVСProtocol, router: SearchRouter, storageManager: StorageProtocol) {
+    init(view: SearchVСProtocol, router: SearchRouter, storageManager: StorageProtocol, loger: LoggerProtocol) {
         self.view = view
         self.router = router
         self.storageManager = storageManager
+        self.loger = loger
     }
 
     // MARK: - Routing
     func didSelectSearchResultAt(row: Int, in category: CharacterCategory?) {
         if self.isSearchInProgress {
+            loger?.log(level: .notice, messages: "User did select \(searchResultCharacters[row].name) from search results")
             self.storageManager.save(character: searchResultCharacters[row], to: .recent)
             router.presentCharacterPage(for: searchResultCharacters[row])
         } else {
             guard let category = category else { return }
-            let charsInCategory = storageManager.getCharactersIn(category: category)
+            let charsInCategory = storageManager.getAllElementsIn(category: category)
+            loger?.log(level: .notice, messages: "User did select \(charsInCategory[row].name)} from \(category)")
             router.presentCharacterPage(for: charsInCategory[row])
         }
     }

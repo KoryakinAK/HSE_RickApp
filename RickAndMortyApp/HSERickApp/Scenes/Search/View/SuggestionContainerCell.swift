@@ -19,6 +19,7 @@ class SuggestionContainerCell: UITableViewCell, SuggestionContainerCellProtocol 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupCollectionView()
         setupUI()
+//        setupObservers()
     }
 
     required init?(coder: NSCoder) {

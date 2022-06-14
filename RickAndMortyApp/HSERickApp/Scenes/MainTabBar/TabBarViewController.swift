@@ -6,6 +6,7 @@ protocol TabBarViewControllerProtocol: AnyObject {
 
 final class TabBarViewController: UITabBarController, TabBarViewControllerProtocol {
     public var presenter: TabBarPresenterProtocol!
+    private var loger = Loger(writers: [ConsoleWriter()], minLevel: .trace)
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,7 @@ extension TabBarViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if tabBarController.selectedIndex == 2 {
             tabBarController.selectedIndex = presenter.lastSelectedTab
-            self.present(SearchBuilder.build(), animated: true)
+            self.present(SearchBuilder.build(with: loger), animated: true)
         } else {
             presenter.lastSelectedTab = tabBarController.selectedIndex
         }
